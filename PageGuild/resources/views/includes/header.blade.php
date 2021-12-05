@@ -12,7 +12,7 @@
             </ul>
             <!-- logo -->
             <a class="navbar-brand" href="{{ url('/index') }}">
-                <img src="./images/logo.png" alt="" height="60">
+                <img src="../../images/logo.png" alt="" height="60">
             </a>
             <!-- direita -->
             <ul class="navbar-nav">

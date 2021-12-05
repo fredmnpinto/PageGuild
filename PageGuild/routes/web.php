@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +13,10 @@ use App\Http\Controllers\IndexController;
 |
 */
 
-Route::get('/index', [IndexController::Class, 'index']);
+Route::get('/', function () {
+    return view('index');
+});
+
+Route::get('/index', function () {
+    return view('index');
+});

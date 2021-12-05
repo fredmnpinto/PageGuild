@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Laravel Programming Lab. | Index Page
+LabWeb | Index
 @endsection
 
 @section('content')
