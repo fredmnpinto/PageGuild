@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePageGuildsTable extends Migration
+class EstadoPagamento extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,7 @@ class CreatePageGuildsTable extends Migration
      */
     public function up()
     {
-        Schema::create('page_guilds', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        //
     }
 
     /**
@@ -26,6 +23,6 @@ class CreatePageGuildsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('page_guilds');
+        //
     }
 }
