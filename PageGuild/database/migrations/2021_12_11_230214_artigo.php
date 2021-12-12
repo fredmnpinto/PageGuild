@@ -17,8 +17,8 @@ class Artigo extends Migration
             $table->id();
             $table->string('nome');
             $table->decimal('preco', $precision = 5, $scale = 2);
-            $table->date('data_registo');
-            $table->date('data_update');
+            $table->timestamp('data_registo');
+            $table->timestamp('data_update');
             $table->integer('Tipo_Artigo_id');
 
             $table->foreign('Tipo_Artigo_id')->references('id')->on('Tipo_Artigo');

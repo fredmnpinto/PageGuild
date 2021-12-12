@@ -15,7 +15,7 @@ class Editor extends Migration
     {
         Schema::create('Editor', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->string('nome', 50);
         });
     }
 

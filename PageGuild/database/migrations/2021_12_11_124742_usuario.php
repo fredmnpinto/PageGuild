@@ -15,12 +15,12 @@ class Usuario extends Migration
     {
         Schema::create('Usuario', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('email');
-            $table->string('password');
+            $table->string('nome', 50);
+            $table->string('email', 70);
+            $table->string('password', 50);
             $table->boolean('sexo');
+            $table->timestamp('data_registo');
             $table->integer('nif')->nullable();
-            $table->date('data_registo');
 
             $table->unique('email');
         });

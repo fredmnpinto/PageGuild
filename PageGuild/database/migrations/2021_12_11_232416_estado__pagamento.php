@@ -15,7 +15,7 @@ class EstadoPagamento extends Migration
     {
         Schema::create('Estado_Pagamento', function (Blueprint $table) {
             $table->id();
-            $table->string('estado');
+            $table->string('estado', 50);
 
             $table->unique('estado');
         });

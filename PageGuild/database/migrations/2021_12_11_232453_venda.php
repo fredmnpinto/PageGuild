@@ -15,7 +15,7 @@ class Venda extends Migration
     {
         Schema::create('Venda', function (Blueprint $table) {
             $table->id();
-            $table->date('data_registo');
+            $table->timestamp('data_registo');
             $table->integer('Estado_Venda_id');
             $table->integer('Cupom_id')->nullable();
 

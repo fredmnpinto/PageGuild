@@ -15,7 +15,7 @@ class Autor extends Migration
     {
         Schema::create('Autor', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->string('nome', 50);
         });
     }
 

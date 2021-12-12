@@ -15,7 +15,7 @@ class Genero extends Migration
     {
         Schema::create('Genero', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
+            $table->string('nome', 50);
         });
     }
 

@@ -16,7 +16,7 @@ class Envio extends Migration
         Schema::create('Envio', function (Blueprint $table) {
             $table->id();
             $table->integer('Endereco_id');
-            $table->date('data_prevista')->nullable();
+            $table->timestamp('data_prevista')->nullable();
             $table->integer('Estado_Encomenda_id');
             $table->integer('Venda_id');
 

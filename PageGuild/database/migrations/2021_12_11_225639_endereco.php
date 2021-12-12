@@ -15,11 +15,11 @@ class Endereco extends Migration
     {
         Schema::create('Endereco', function (Blueprint $table) {
             $table->id();
-            $table->integer('Cidade_id');
-            $table->string('morada');
+            $table->string('morada', 255);
             $table->integer('Usuario_id');
             $table->boolean('flg_ativo');
             $table->boolean('flg_delete');
+            $table->integer('Cidade_id');
 
             $table->foreign('Cidade_id')->references('id')->on('Cidade');
             $table->foreign('Usuario_id')->references('id')->on('Usuario');

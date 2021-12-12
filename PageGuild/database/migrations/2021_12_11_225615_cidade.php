@@ -15,7 +15,7 @@ class Cidade extends Migration
     {
         Schema::create('Cidade', function (Blueprint $table) {
             $table->id();
-            $table->string('cidade');
+            $table->string('cidade', 50);
             $table->integer('Pais_id');
             
             $table->foreign('Pais_id')->references('id')->on('Pais');

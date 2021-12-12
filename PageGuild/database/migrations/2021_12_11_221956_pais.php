@@ -15,7 +15,7 @@ class Pais extends Migration
     {
         Schema::create('Pais', function (Blueprint $table) {
             $table->id();
-            $table->string('pais');
+            $table->string('pais', 50);
 
             $table->unique('pais');
         });

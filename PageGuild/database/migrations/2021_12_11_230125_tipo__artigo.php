@@ -15,7 +15,7 @@ class TipoArtigo extends Migration
     {
         Schema::create('Tipo_Artigo', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo');
+            $table->string('tipo', 50);
 
             $table->unique('tipo');
         });

@@ -16,9 +16,9 @@ class Promocao extends Migration
         Schema::create('Promocao', function (Blueprint $table) {
             $table->id();
             $table->integer('desconto'); //desconto em %
-            $table->date('data_inicio');
-            $table->date('data_fim');
-            $table->date('data_delete')->nullable();
+            $table->timestamp('data_inicio');
+            $table->timestamp('data_fim');
+            $table->timestamp('data_delete')->nullable();
             $table->boolean('flg_delete');
         });
     }

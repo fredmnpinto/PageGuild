@@ -15,7 +15,7 @@ class EstadoEncomenda extends Migration
     {
         Schema::create('Estado_Encomenda', function (Blueprint $table) {
             $table->id();
-            $table->string('estado');
+            $table->string('estado', 50);
 
             $table->unique('estado');
         });

@@ -15,12 +15,12 @@ class Cupom extends Migration
     {
         Schema::create('Cupom', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo');
-            $table->date('data_inicio');
-            $table->date('data_fim');
+            $table->string('codigo', 50);
+            $table->timestamp('data_inicio');
+            $table->timestamp('data_fim');
             $table->integer('desconto'); //desconto em %
             $table->boolean('flg_ativo');
-            $table->string('descricao')->nullable();
+            $table->string('descricao',255)->nullable();
 
             $table->unique('codigo');
         });
