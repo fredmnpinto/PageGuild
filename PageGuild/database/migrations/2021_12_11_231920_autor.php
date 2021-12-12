@@ -13,7 +13,10 @@ class Autor extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('Autor', function (Blueprint $table) {
+            $table->id();
+            $table->string('nome');
+        });
     }
 
     /**
@@ -23,6 +26,6 @@ class Autor extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('Autor');
     }
 }

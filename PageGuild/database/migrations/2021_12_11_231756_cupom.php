@@ -13,7 +13,17 @@ class Cupom extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('Cupom', function (Blueprint $table) {
+            $table->id();
+            $table->string('codigo');
+            $table->date('data_inicio');
+            $table->date('data_fim');
+            $table->integer('desconto'); //desconto em %
+            $table->boolean('flg_ativo');
+            $table->string('descricao')->nullable();
+
+            $table->unique('codigo');
+        });
     }
 
     /**
@@ -23,6 +33,6 @@ class Cupom extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('Cupom');
     }
 }

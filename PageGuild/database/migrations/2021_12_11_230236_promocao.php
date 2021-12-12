@@ -13,7 +13,14 @@ class Promocao extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('Promocao', function (Blueprint $table) {
+            $table->id();
+            $table->integer('desconto'); //desconto em %
+            $table->date('data_inicio');
+            $table->date('data_fim');
+            $table->date('data_delete')->nullable();
+            $table->boolean('flg_delete');
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class Promocao extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('Promocao');
     }
 }

@@ -13,7 +13,15 @@ class PromocaoArtigo extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('Promocao_Artigo', function (Blueprint $table) {
+            $table->integer('Promocao_id');
+            $table->integer('Artigo_id');
+
+            $table->foreign('Promocao_id')->references('id')->on('Promocao');
+            $table->foreign('Artigo_id')->references('id')->on('Artigo');
+
+            $table->primary(['Promocao_id', 'Artigo_id']);
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ class PromocaoArtigo extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('Promocao_Artigo');
     }
 }

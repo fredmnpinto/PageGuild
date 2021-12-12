@@ -13,7 +13,12 @@ class EstadoVenda extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('Estado_Venda', function (Blueprint $table) {
+            $table->id();
+            $table->string('estado');
+
+            $table->unique('estado');
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class EstadoVenda extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('Estado_Venda');
     }
 }

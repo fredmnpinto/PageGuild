@@ -13,7 +13,23 @@ class Livro extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('Livro', function (Blueprint $table) {
+            $table->integer('Artigo_id');
+            $table->string('titulo');
+            $table->string('subtitulo')->nullable();
+            $table->string('sinopse')->nullable();
+            $table->integer('ano_publicacao');
+            $table->integer('isbn');
+            $table->integer('num_paginas')->nullable();
+            $table->decimal('largura', $precision = 3, $scale = 1)->nullable();
+            $table->decimal('comprimento', $precision = 3, $scale = 1)->nullable();
+            $table->decimal('altura', $precision = 3, $scale = 1)->nullable();
+
+            $table->unique('isbn');
+
+            $table->foreign('Artigo_id')->references('id')->on('Artigo');
+            $table->primary('Artigo_id');
+        });
     }
 
     /**
@@ -23,6 +39,6 @@ class Livro extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('Livro');
     }
 }
