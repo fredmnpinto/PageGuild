@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::Class, 'index']);
 
 Route::get('/index', [IndexController::Class, 'index']);
+
+Route::get('/book', function () {
+    return view('book_details');
+});
