@@ -1,1 +1,1 @@
-ssh -i 'pageguild_key.pem' ec2-user@ec2-34-245-39-151.eu-west-1.compute.amazonaws.com
+ssh -i "pageguild_key.pem" ubuntu@ec2-52-208-244-193.eu-west-1.compute.amazonaws.com
