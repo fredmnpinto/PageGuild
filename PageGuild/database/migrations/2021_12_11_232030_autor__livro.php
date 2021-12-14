@@ -13,14 +13,14 @@ class AutorLivro extends Migration
      */
     public function up()
     {
-        Schema::create('Autor_Livro', function (Blueprint $table) {
-            $table->integer('Autor_id');
-            $table->integer('Livro_Artigo_id');
+        Schema::create('autor_livro', function (Blueprint $table) {
+            $table->integer('autor_id');
+            $table->integer('livro_artigo_id');
 
-            $table->foreign('Autor_id')->references('id')->on('Autor');
-            $table->foreign('Livro_Artigo_id')->references('Artigo_id')->on('Livro');
+            $table->foreign('autor_id')->references('id')->on('autor');
+            $table->foreign('livro_artigo_id')->references('artigo_id')->on('livro');
 
-            $table->primary(['Autor_id','Livro_Artigo_id']);
+            $table->primary(['autor_id','livro_artigo_id']);
         });
     }
 
@@ -31,6 +31,6 @@ class AutorLivro extends Migration
      */
     public function down()
     {
-        Schema::drop('Autor_Livro');
+        Schema::drop('autor_livro');
     }
 }

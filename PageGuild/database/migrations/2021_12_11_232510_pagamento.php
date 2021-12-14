@@ -13,16 +13,16 @@ class Pagamento extends Migration
      */
     public function up()
     {
-        Schema::create('Pagamento', function (Blueprint $table) {
+        Schema::create('pagamento', function (Blueprint $table) {
             $table->id();
             $table->timestamp('data_registo');
             $table->timestamp('data_finalizado')->nullable();
             $table->timestamp('data_limite')->nullable();
-            $table->integer('Estado_Pagamento_id');
-            $table->integer('Venda_id');
+            $table->integer('estado_pagamento_id');
+            $table->integer('venda_id');
 
-            $table->foreign('Estado_Pagamento_id')->references('id')->on('Estado_Pagamento');
-            $table->foreign('Venda_id')->references('id')->on('Venda');
+            $table->foreign('estado_pagamento_id')->references('id')->on('estado_pagamento');
+            $table->foreign('venda_id')->references('id')->on('venda');
         });
     }
 
@@ -33,6 +33,6 @@ class Pagamento extends Migration
      */
     public function down()
     {
-        Schema::drop('Pagamento');
+        Schema::drop('pagamento');
     }
 }

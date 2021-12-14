@@ -13,15 +13,15 @@ class VendaArtigo extends Migration
      */
     public function up()
     {
-        Schema::create('Venda_Artigo', function (Blueprint $table) {
-            $table->integer('Venda_id');
-            $table->integer('Artigo_id');
+        Schema::create('venda_artigo', function (Blueprint $table) {
+            $table->integer('venda_id');
+            $table->integer('artigo_id');
             $table->integer('quantidade');
 
-            $table->foreign('Venda_id')->references('id')->on('Venda');
-            $table->foreign('Artigo_id')->references('id')->on('Artigo');
+            $table->foreign('venda_id')->references('id')->on('venda');
+            $table->foreign('artigo_id')->references('id')->on('artigo');
             
-            $table->primary(['Venda_id', 'Artigo_id']);
+            $table->primary(['venda_id', 'artigo_id']);
         });
     }
 
@@ -32,6 +32,6 @@ class VendaArtigo extends Migration
      */
     public function down()
     {
-        Schema::drop('Venda_Artigo');
+        Schema::drop('venda_artigo');
     }
 }

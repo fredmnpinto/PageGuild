@@ -13,7 +13,7 @@ class Promocao extends Migration
      */
     public function up()
     {
-        Schema::create('Promocao', function (Blueprint $table) {
+        Schema::create('promocao', function (Blueprint $table) {
             $table->id();
             $table->integer('desconto'); //desconto em %
             $table->timestamp('data_inicio');
@@ -30,6 +30,6 @@ class Promocao extends Migration
      */
     public function down()
     {
-        Schema::drop('Promocao');
+        Schema::drop('promocao');
     }
 }

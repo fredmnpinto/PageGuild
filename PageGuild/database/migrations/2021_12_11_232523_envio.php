@@ -13,16 +13,16 @@ class Envio extends Migration
      */
     public function up()
     {
-        Schema::create('Envio', function (Blueprint $table) {
+        Schema::create('envio', function (Blueprint $table) {
             $table->id();
-            $table->integer('Endereco_id');
+            $table->integer('endereco_id');
             $table->timestamp('data_prevista')->nullable();
-            $table->integer('Estado_Encomenda_id');
-            $table->integer('Venda_id');
+            $table->integer('estado_encomenda_id');
+            $table->integer('venda_id');
 
-            $table->foreign('Endereco_id')->references('id')->on('Endereco');
-            $table->foreign('Estado_Encomenda_id')->references('id')->on('Estado_Encomenda');
-            $table->foreign('Venda_id')->references('id')->on('Venda');
+            $table->foreign('endereco_id')->references('id')->on('endereco');
+            $table->foreign('estado_encomenda_id')->references('id')->on('estado_encomenda');
+            $table->foreign('venda_id')->references('id')->on('venda');
         });
     }
 
@@ -33,6 +33,6 @@ class Envio extends Migration
      */
     public function down()
     {
-        Schema::drop('Envio');
+        Schema::drop('envio');
     }
 }

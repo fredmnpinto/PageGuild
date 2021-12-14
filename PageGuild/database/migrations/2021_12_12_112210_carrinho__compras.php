@@ -13,15 +13,15 @@ class CarrinhoCompras extends Migration
      */
     public function up()
     {
-        Schema::create('Carrinho_Compras', function (Blueprint $table) {
+        Schema::create('carrinho_compras', function (Blueprint $table) {
             $table->id();
-            $table->integer('Usuario_id');
-            $table->integer('Artigo_id');
+            $table->integer('usuario_id');
+            $table->integer('artigo_id');
             $table->boolean('flg_delete');
             $table->timestamp('data_registo');
 
-            $table->foreign('Usuario_id')->references('id')->on('Usuario');
-            $table->foreign('Artigo_id')->references('id')->on('Artigo');
+            $table->foreign('usuario_id')->references('id')->on('usuario');
+            $table->foreign('artigo_id')->references('id')->on('artigo');
         });
     }
 
@@ -32,6 +32,6 @@ class CarrinhoCompras extends Migration
      */
     public function down()
     {
-        Schema::drop('Carrinho_Compras');
+        Schema::drop('carrinho_compras');
     }
 }

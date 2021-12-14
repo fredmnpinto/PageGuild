@@ -13,7 +13,7 @@ class EstadoEncomenda extends Migration
      */
     public function up()
     {
-        Schema::create('Estado_Encomenda', function (Blueprint $table) {
+        Schema::create('estado_encomenda', function (Blueprint $table) {
             $table->id();
             $table->string('estado', 50);
 
@@ -28,6 +28,6 @@ class EstadoEncomenda extends Migration
      */
     public function down()
     {
-        Schema::drop('Estado_Encomenda');
+        Schema::drop('estado_encomenda');
     }
 }

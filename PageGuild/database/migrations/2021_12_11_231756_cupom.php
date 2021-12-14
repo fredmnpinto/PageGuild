@@ -13,7 +13,7 @@ class Cupom extends Migration
      */
     public function up()
     {
-        Schema::create('Cupom', function (Blueprint $table) {
+        Schema::create('cupom', function (Blueprint $table) {
             $table->id();
             $table->string('codigo', 50);
             $table->timestamp('data_inicio');
@@ -33,6 +33,6 @@ class Cupom extends Migration
      */
     public function down()
     {
-        Schema::drop('Cupom');
+        Schema::drop('cupom');
     }
 }

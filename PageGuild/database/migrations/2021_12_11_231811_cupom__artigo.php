@@ -13,14 +13,14 @@ class CupomArtigo extends Migration
      */
     public function up()
     {
-        Schema::create('Cupom_Artigo', function (Blueprint $table) {
-            $table->integer('Cupom_id');
-            $table->integer('Artigo_id');
+        Schema::create('cupom_artigo', function (Blueprint $table) {
+            $table->integer('cupom_id');
+            $table->integer('artigo_id');
 
-            $table->foreign('Cupom_id')->references('id')->on('Cupom');
-            $table->foreign('Artigo_id')->references('id')->on('Artigo');
+            $table->foreign('cupom_id')->references('id')->on('cupom');
+            $table->foreign('artigo_id')->references('id')->on('artigo');
 
-            $table->primary(['Cupom_id', 'Artigo_id']);
+            $table->primary(['cupom_id', 'artigo_id']);
         });
     }
 
@@ -31,6 +31,6 @@ class CupomArtigo extends Migration
      */
     public function down()
     {
-        Schema::drop('Cupom_Artigo');
+        Schema::drop('cupom_artigo');
     }
 }

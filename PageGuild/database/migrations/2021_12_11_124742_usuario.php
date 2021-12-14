@@ -13,7 +13,7 @@ class Usuario extends Migration
      */
     public function up()
     {
-        Schema::create('Usuario', function (Blueprint $table) {
+        Schema::create('usuario', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 50);
             $table->string('email', 70);
@@ -33,6 +33,6 @@ class Usuario extends Migration
      */
     public function down()
     {
-        Schema::drop('Usuario');
+        Schema::drop('usuario');
     }
 }

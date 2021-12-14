@@ -13,14 +13,14 @@ class Venda extends Migration
      */
     public function up()
     {
-        Schema::create('Venda', function (Blueprint $table) {
+        Schema::create('venda', function (Blueprint $table) {
             $table->id();
             $table->timestamp('data_registo');
-            $table->integer('Estado_Venda_id');
-            $table->integer('Cupom_id')->nullable();
+            $table->integer('estado_venda_id');
+            $table->integer('cupom_id')->nullable();
 
-            $table->foreign('Estado_Venda_id')->references('id')->on('Estado_Venda');
-            $table->foreign('Cupom_id')->references('id')->on('Cupom');
+            $table->foreign('estado_venda_id')->references('id')->on('estado_venda');
+            $table->foreign('cupom_id')->references('id')->on('cupom');
         });
     }
 
@@ -31,6 +31,6 @@ class Venda extends Migration
      */
     public function down()
     {
-        Schema::drop('Venda');
+        Schema::drop('venda');
     }
 }

@@ -13,7 +13,7 @@ class Editor extends Migration
      */
     public function up()
     {
-        Schema::create('Editor', function (Blueprint $table) {
+        Schema::create('editor', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 50);
         });
@@ -26,6 +26,6 @@ class Editor extends Migration
      */
     public function down()
     {
-        Schema::drop('Editor');
+        Schema::drop('editor');
     }
 }

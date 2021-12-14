@@ -13,16 +13,16 @@ class Endereco extends Migration
      */
     public function up()
     {
-        Schema::create('Endereco', function (Blueprint $table) {
+        Schema::create('endereco', function (Blueprint $table) {
             $table->id();
             $table->string('morada', 255);
-            $table->integer('Usuario_id');
+            $table->integer('usuario_id');
             $table->boolean('flg_ativo');
             $table->boolean('flg_delete');
-            $table->integer('Cidade_id');
+            $table->integer('cidade_id');
 
-            $table->foreign('Cidade_id')->references('id')->on('Cidade');
-            $table->foreign('Usuario_id')->references('id')->on('Usuario');
+            $table->foreign('cidade_id')->references('id')->on('cidade');
+            $table->foreign('usuario_id')->references('id')->on('usuario');
         });
     }
 
@@ -33,6 +33,6 @@ class Endereco extends Migration
      */
     public function down()
     {
-        Schema::drop('Endereco');
+        Schema::drop('endereco');
     }
 }

@@ -13,12 +13,12 @@ class Cidade extends Migration
      */
     public function up()
     {
-        Schema::create('Cidade', function (Blueprint $table) {
+        Schema::create('cidade', function (Blueprint $table) {
             $table->id();
             $table->string('cidade', 50);
-            $table->integer('Pais_id');
+            $table->integer('pais_id');
             
-            $table->foreign('Pais_id')->references('id')->on('Pais');
+            $table->foreign('pais_id')->references('id')->on('pais');
         });
     }
 
@@ -29,6 +29,6 @@ class Cidade extends Migration
      */
     public function down()
     {
-        Schema::drop('Cidade');
+        Schema::drop('cidade');
     }
 }

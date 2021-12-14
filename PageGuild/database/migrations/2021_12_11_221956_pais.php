@@ -13,7 +13,7 @@ class Pais extends Migration
      */
     public function up()
     {
-        Schema::create('Pais', function (Blueprint $table) {
+        Schema::create('pais', function (Blueprint $table) {
             $table->id();
             $table->string('pais', 50);
 
@@ -28,6 +28,6 @@ class Pais extends Migration
      */
     public function down()
     {
-        Schema::drop('Pais');
+        Schema::drop('pais');
     }
 }

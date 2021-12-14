@@ -13,15 +13,15 @@ class Artigo extends Migration
      */
     public function up()
     {
-        Schema::create('Artigo', function (Blueprint $table) {
+        Schema::create('artigo', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->decimal('preco', $precision = 5, $scale = 2);
             $table->timestamp('data_registo');
             $table->timestamp('data_update');
-            $table->integer('Tipo_Artigo_id');
+            $table->integer('tipo_artigo_id');
 
-            $table->foreign('Tipo_Artigo_id')->references('id')->on('Tipo_Artigo');
+            $table->foreign('tipo_artigo_id')->references('id')->on('tipo_artigo');
         });
     }
 
@@ -32,6 +32,6 @@ class Artigo extends Migration
      */
     public function down()
     {
-        Schema::drop('Artigo');
+        Schema::drop('artigo');
     }
 }

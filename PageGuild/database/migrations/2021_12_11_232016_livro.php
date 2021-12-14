@@ -13,8 +13,8 @@ class Livro extends Migration
      */
     public function up()
     {
-        Schema::create('Livro', function (Blueprint $table) {
-            $table->integer('Artigo_id');
+        Schema::create('livro', function (Blueprint $table) {
+            $table->integer('artigo_id');
             $table->string('titulo', 25);
             $table->string('subtitulo', 50)->nullable();
             $table->text('sinopse')->nullable();
@@ -24,14 +24,14 @@ class Livro extends Migration
             $table->decimal('largura', $precision = 3, $scale = 1)->nullable();
             $table->decimal('comprimento', $precision = 3, $scale = 1)->nullable();
             $table->decimal('altura', $precision = 3, $scale = 1)->nullable();
-            $table->integer('Editor_id')->nullable();
+            $table->integer('editor_id')->nullable();
 
             $table->unique('isbn');
 
-            $table->foreign('Artigo_id')->references('id')->on('Artigo');
-            $table->foreign('Editor_id')->references('id')->on('Editor');
+            $table->foreign('artigo_id')->references('id')->on('artigo');
+            $table->foreign('editor_id')->references('id')->on('editor');
 
-            $table->primary('Artigo_id');
+            $table->primary('artigo_id');
         });
     }
 
@@ -42,6 +42,6 @@ class Livro extends Migration
      */
     public function down()
     {
-        Schema::drop('Livro');
+        Schema::drop('livro');
     }
 }

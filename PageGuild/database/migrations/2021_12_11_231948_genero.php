@@ -13,7 +13,7 @@ class Genero extends Migration
      */
     public function up()
     {
-        Schema::create('Genero', function (Blueprint $table) {
+        Schema::create('genero', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 50);
         });
@@ -26,6 +26,6 @@ class Genero extends Migration
      */
     public function down()
     {
-        Schema::drop('Genero');
+        Schema::drop('genero');
     }
 }

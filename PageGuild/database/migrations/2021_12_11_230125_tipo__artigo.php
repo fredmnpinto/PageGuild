@@ -13,7 +13,7 @@ class TipoArtigo extends Migration
      */
     public function up()
     {
-        Schema::create('Tipo_Artigo', function (Blueprint $table) {
+        Schema::create('tipo_artigo', function (Blueprint $table) {
             $table->id();
             $table->string('tipo', 50);
 
@@ -28,6 +28,6 @@ class TipoArtigo extends Migration
      */
     public function down()
     {
-        Schema::drop('Tipo_Artigo');
+        Schema::drop('tipo_artigo');
     }
 }

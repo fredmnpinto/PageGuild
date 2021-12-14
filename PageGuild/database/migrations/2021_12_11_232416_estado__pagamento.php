@@ -13,7 +13,7 @@ class EstadoPagamento extends Migration
      */
     public function up()
     {
-        Schema::create('Estado_Pagamento', function (Blueprint $table) {
+        Schema::create('estado_pagamento', function (Blueprint $table) {
             $table->id();
             $table->string('estado', 50);
 
@@ -28,6 +28,6 @@ class EstadoPagamento extends Migration
      */
     public function down()
     {
-        Schema::drop('Estado_Pagamento');
+        Schema::drop('estado_pagamento');
     }
 }

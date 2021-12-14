@@ -13,7 +13,7 @@ class Autor extends Migration
      */
     public function up()
     {
-        Schema::create('Autor', function (Blueprint $table) {
+        Schema::create('autor', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 50);
         });
@@ -26,6 +26,6 @@ class Autor extends Migration
      */
     public function down()
     {
-        Schema::drop('Autor');
+        Schema::drop('autor');
     }
 }
