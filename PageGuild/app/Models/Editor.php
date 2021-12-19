@@ -30,6 +30,10 @@ class Editor extends Model
      * @var array
      */
     protected $fillable = [
-        "nome",
+        "name",
     ];
+
+    public function book() {
+        return $this->hasManyThrough(Book::class, BookEditor::class);
+    }
 }

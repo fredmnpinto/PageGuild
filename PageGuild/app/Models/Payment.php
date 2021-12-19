@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Livro extends Model
+class Payment extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,26 @@ class Livro extends Model
      *
      * @var string
      */
-    protected $table = "livro";
+    protected $table = "payment";
 
     /**
      * Primary key dessa tabela
      *
      * @var string
      */
-    protected $primaryKey = "artigo_id";
+    protected $primaryKey = "id";
+
+    /**
+     * O formato de data usado na tabela
+     *
+     * @var string
+     */
+    protected $dateFormat = "U";
+
+    /**
+     * Tabelas em que as timestamps sao guardadas
+     */
+    const CREATED_AT = "register_date";
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -30,9 +42,11 @@ class Livro extends Model
      * @var array
      */
     protected $fillable = [
-        "titulo", "subtitulo", "sinopse",
-        "ano_publicacao", "isbn", "ano_edicao",
-        "idioma_id", "num_paginas", "dimensoes",
-        "encadernacao"
+        "payment_state_id"
+        //...
     ];
+
+    public function order() {
+        return $this->hasOne(Order::class);
+    }
 }

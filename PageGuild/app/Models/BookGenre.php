@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LivroEditor extends Model
+class BookGenre extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,14 @@ class LivroEditor extends Model
      *
      * @var string
      */
-    protected $table = "livro_editor";
+    protected $table = "book_genre";
 
     /**
      * Primary key dessa tabela
      *
      * @var array
      */
-    protected $primaryKey = ["livro_id", "editor_id"];
+    protected $primaryKey = ["book_id", "genre_id"];
 
     /**
      * Define que as primary keys não serão autoincrementadas
@@ -37,6 +37,6 @@ class LivroEditor extends Model
      * @var array
      */
     protected $fillable = [
-        "editor_id", "autor_id"
+        "genre_id", "book_id"
     ];
 }

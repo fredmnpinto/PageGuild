@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Autor extends Model
+class OrderItem extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,21 @@ class Autor extends Model
      *
      * @var string
      */
-    protected $table = "autor";
+    protected $table = "order_item";
 
     /**
      * Primary key dessa tabela
      *
-     * @var string
+     * @var array
      */
-    protected $primaryKey = "id";
+    protected $primaryKey = ["order_id", "item_id"];
+
+    /**
+     * Define que as primary keys não serão autoincrementadas
+     *
+     * @var bool
+     */
+    public $incrementing = false;
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -30,6 +37,6 @@ class Autor extends Model
      * @var array
      */
     protected $fillable = [
-        "nome",
+        "quantity", "item_id", "order_id"
     ];
 }

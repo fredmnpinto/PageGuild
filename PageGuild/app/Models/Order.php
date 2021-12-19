@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VendaArtigo extends Model
+class Order extends Model
 {
     use HasFactory;
 
@@ -14,21 +14,26 @@ class VendaArtigo extends Model
      *
      * @var string
      */
-    protected $table = "venda_artigo";
+    protected $table = "order";
 
     /**
      * Primary key dessa tabela
      *
-     * @var array
+     * @var string
      */
-    protected $primaryKey = ["venda_id", "artigo_id"];
+    protected $primaryKey = "id";
 
     /**
-     * Define que as primary keys não serão autoincrementadas
+     * O formato de data usado na tabela
      *
-     * @var bool
+     * @var string
      */
-    public $incrementing = false;
+    protected $dateFormat = "U";
+
+    /**
+     * Tabelas em que as timestamps sao guardadas
+     */
+    const CREATED_AT = "register_date";
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -37,6 +42,10 @@ class VendaArtigo extends Model
      * @var array
      */
     protected $fillable = [
-        "quantidade", "artigo_id", "venda_id"
+        "order_state_id"
     ];
+
+    public function item() {
+        return $this->hasManyThrough(Item::class, OrderItem::class);
+    }
 }

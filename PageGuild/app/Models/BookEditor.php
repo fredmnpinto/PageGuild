@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Endereco extends Model
+class BookEditor extends Model
 {
     use HasFactory;
 
@@ -14,27 +14,21 @@ class Endereco extends Model
      *
      * @var string
      */
-    protected $table = "endereco";
+    protected $table = "book_editor";
 
     /**
      * Primary key dessa tabela
      *
-     * @var string
+     * @var array
      */
-    protected $primaryKey = "id";
+    protected $primaryKey = ["book_id", "editor_id"];
 
     /**
-     * O formato de data usado na tabela
+     * Define que as primary keys não serão autoincrementadas
      *
-     * @var string
+     * @var bool
      */
-    protected $dateFormat = "U";
-
-    /**
-     * Tabelas em que as timestamps sao guardadas
-     */
-    const CREATED_AT = "data_registo";
-    const UPDATED_AT = "data_update";
+    public $incrementing = false;
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -43,7 +37,6 @@ class Endereco extends Model
      * @var array
      */
     protected $fillable = [
-        "cidade", "morada", "flg_ativo",
-        "flg_delete"
+        "editor_id", "book_id"
     ];
 }

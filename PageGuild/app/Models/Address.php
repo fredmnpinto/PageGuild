@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ItemListaReserva extends Model
+class Address extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class ItemListaReserva extends Model
      *
      * @var string
      */
-    protected $table = "item_lista_reserva";
+    protected $table = "address";
 
     /**
      * Primary key dessa tabela
@@ -33,7 +33,8 @@ class ItemListaReserva extends Model
     /**
      * Tabelas em que as timestamps sao guardadas
      */
-    const CREATED_AT = "data_registo";
+    const CREATED_AT = "register_date";
+    const UPDATED_AT = "update_date";
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -42,6 +43,11 @@ class ItemListaReserva extends Model
      * @var array
      */
     protected $fillable = [
-        "data_registo", "flg_delete"
+        "city_id", "address", "flg_active",
+        "flg_delete"
     ];
+
+    public function user() {
+        return $this->hasOne(User::class);
+    }
 }

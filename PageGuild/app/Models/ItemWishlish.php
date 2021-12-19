@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Usuario extends Model
+class ItemWishlish extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Usuario extends Model
      *
      * @var string
      */
-    protected $table = "usuario";
+    protected $table = "item_wishlist";
 
     /**
      * Primary key dessa tabela
@@ -33,17 +33,7 @@ class Usuario extends Model
     /**
      * Tabelas em que as timestamps sao guardadas
      */
-    const CREATED_AT = "data_registo";
-    const UPDATED_AT = "data_update";
-
-    /**
-     * Os atributos que devem permanecer escondidos
-     *
-     * @var array
-     */
-    protected $hidden = [
-      "password"
-    ];
+    const CREATED_AT = "register_date";
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -52,7 +42,14 @@ class Usuario extends Model
      * @var array
      */
     protected $fillable = [
-        "nome", "email", "password",
-        "sexo", "nif"
+        "register_date", "flg_delete"
     ];
+
+    public function user() {
+        return $this->hasOne(User::class);
+    }
+
+    public function item() {
+        return $this->hasOne(Item::class);
+    }
 }

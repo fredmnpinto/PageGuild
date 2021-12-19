@@ -14,10 +14,10 @@ class ArtigoFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => $this->faker->words(random_int(1, 3), true),
-            'preco' => $this->faker->randomFloat(2, 4.99, 49.99),
-            'data_registo' => $this->faker->date(),
-            'data_update' => null,
+            'name' => $this->faker->words(random_int(1, 3), true),
+            'price' => $this->faker->randomFloat(2, 4.99, 49.99),
+            'register_date' => $this->faker->date(),
+            'update_date' => null,
             'flg_delete' => $this->faker->boolean(80)
         ];
     }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ItemCarrinhoCompras extends Model
+class User extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class ItemCarrinhoCompras extends Model
      *
      * @var string
      */
-    protected $table = "item_carrinho_compras";
+    protected $table = "user";
 
     /**
      * Primary key dessa tabela
@@ -33,7 +33,17 @@ class ItemCarrinhoCompras extends Model
     /**
      * Tabelas em que as timestamps sao guardadas
      */
-    const CREATED_AT = "data_registo";
+    const CREATED_AT = "register_date";
+    const UPDATED_AT = "update_date";
+
+    /**
+     * Os atributos que devem permanecer escondidos
+     *
+     * @var array
+     */
+    protected $hidden = [
+      "password"
+    ];
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -42,6 +52,20 @@ class ItemCarrinhoCompras extends Model
      * @var array
      */
     protected $fillable = [
-        "data_registo", "flg_delete", "quantidade"
+        "name", "email", "password",
+        "sex", "nif"
     ];
+
+    public function address() {
+        return $this->hasMany(Address::class);
+    }
+
+    public function shoppingCartItem() {
+        return $this->hasManyThrough(Item::class, ItemShoppingCart::class);
+    }
+
+    public function reservationListItem() {
+        return $this->hasManyThrough(Item::class, ItemReservationList::class);
+    }
+
 }

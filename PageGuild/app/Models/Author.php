@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Artigo extends Model
+class Author extends Model
 {
     use HasFactory;
 
@@ -13,29 +13,15 @@ class Artigo extends Model
      * Nome da tabela associada a essa modal
      *
      * @var string
-    */
-    protected $table = "artigo";
+     */
+    protected $table = "author";
 
     /**
      * Primary key dessa tabela
      *
      * @var string
-    */
+     */
     protected $primaryKey = "id";
-
-    /**
-     * O formato de data usado na tabela
-     *
-     * @var string
-     */
-    protected $dateFormat = "U";
-
-    /**
-     * Tabelas em que as timestamps sao guardadas
-     */
-    const CREATED_AT = "data_registo";
-    const UPDATED_AT = "data_update";
-
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -44,6 +30,10 @@ class Artigo extends Model
      * @var array
      */
     protected $fillable = [
-        "nome", "preco"
+        "name",
     ];
+
+    public function book() {
+        return $this->hasManyThrough(Book::class, BookAuthor::class);
+    }
 }

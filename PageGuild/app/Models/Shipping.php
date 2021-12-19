@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ItemListaDesejo extends Model
+class Shipping extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class ItemListaDesejo extends Model
      *
      * @var string
      */
-    protected $table = "item_lista_desejo";
+    protected $table = "shipping";
 
     /**
      * Primary key dessa tabela
@@ -33,7 +33,7 @@ class ItemListaDesejo extends Model
     /**
      * Tabelas em que as timestamps sao guardadas
      */
-    const CREATED_AT = "data_registo";
+    const CREATED_AT = "register_date";
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -42,6 +42,10 @@ class ItemListaDesejo extends Model
      * @var array
      */
     protected $fillable = [
-        "data_registo", "flg_delete"
+        "estimated_date", "shipping_state_id"
     ];
+
+    public function order() {
+        return $this->hasOne(Order::class);
+    }
 }

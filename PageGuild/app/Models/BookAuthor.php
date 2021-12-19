@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pagamento extends Model
+class BookAuthor extends Model
 {
     use HasFactory;
 
@@ -14,26 +14,21 @@ class Pagamento extends Model
      *
      * @var string
      */
-    protected $table = "pagamento";
+    protected $table = "book_author";
 
     /**
      * Primary key dessa tabela
      *
-     * @var string
+     * @var array
      */
-    protected $primaryKey = "id";
+    protected $primaryKey = ["book_id", "author_id"];
 
     /**
-     * O formato de data usado na tabela
+     * Define que as primary keys não serão autoincrementadas
      *
-     * @var string
+     * @var bool
      */
-    protected $dateFormat = "U";
-
-    /**
-     * Tabelas em que as timestamps sao guardadas
-     */
-    const CREATED_AT = "data_registo";
+    public $incrementing = false;
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -42,7 +37,6 @@ class Pagamento extends Model
      * @var array
      */
     protected $fillable = [
-        "estado_pagamento"
-        //...
+        "book_id", "author_id"
     ];
 }
