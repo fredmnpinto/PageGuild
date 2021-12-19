@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Endereco extends Migration
+class Address extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class Endereco extends Migration
      */
     public function up()
     {
-        Schema::create('endereco', function (Blueprint $table) {
+        Schema::create('address', function (Blueprint $table) {
             $table->id();
-            $table->string('morada', 255);
-            $table->integer('usuario_id');
-            $table->boolean('flg_ativo');
+            $table->string('residence', 255);
+            $table->integer('user_id');
+            $table->boolean('flg_active');
             $table->boolean('flg_delete');
-            $table->integer('cidade_id');
+            $table->integer('city_id');
 
-            $table->foreign('cidade_id')->references('id')->on('cidade');
-            $table->foreign('usuario_id')->references('id')->on('usuario');
+            $table->foreign('city_id')->references('id')->on('city');
+            $table->foreign('user_id')->references('id')->on('user');
         });
     }
 
@@ -33,6 +33,6 @@ class Endereco extends Migration
      */
     public function down()
     {
-        Schema::drop('endereco');
+        Schema::drop('address');
     }
 }

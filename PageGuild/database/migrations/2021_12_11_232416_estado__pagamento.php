@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EstadoPagamento extends Migration
+class Payment_status extends Migration
 {
     /**
      * Run the migrations.

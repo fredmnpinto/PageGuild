@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AutorLivro extends Migration
+class AuthorBook extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class AutorLivro extends Migration
      */
     public function up()
     {
-        Schema::create('autor_livro', function (Blueprint $table) {
-            $table->integer('autor_id');
-            $table->integer('livro_artigo_id');
+        Schema::create('author_book', function (Blueprint $table) {
+            $table->integer('author_id');
+            $table->integer('book_item_id');
 
-            $table->foreign('autor_id')->references('id')->on('autor');
-            $table->foreign('livro_artigo_id')->references('artigo_id')->on('livro');
+            $table->foreign('author_id')->references('id')->on('author');
+            $table->foreign('book_item_id')->references('item_id')->on('book');
 
-            $table->primary(['autor_id','livro_artigo_id']);
+            $table->primary(['author_id','book_item_id']);
         });
     }
 
@@ -31,6 +31,6 @@ class AutorLivro extends Migration
      */
     public function down()
     {
-        Schema::drop('autor_livro');
+        Schema::drop('author_book');
     }
 }

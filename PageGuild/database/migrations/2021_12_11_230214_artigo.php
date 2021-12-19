@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Artigo extends Migration
+class Item extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class Artigo extends Migration
      */
     public function up()
     {
-        Schema::create('artigo', function (Blueprint $table) {
+        Schema::create('item', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->decimal('preco', $precision = 5, $scale = 2);
-            $table->timestamp('data_registo');
-            $table->timestamp('data_update');
-            $table->integer('tipo_artigo_id');
+            $table->string('name');
+            $table->decimal('price', $precision = 5, $scale = 2);
+            $table->timestamp('register_date');
+            $table->timestamp('update_date');
+            $table->integer('item_type_id');
 
-            $table->foreign('tipo_artigo_id')->references('id')->on('tipo_artigo');
+            $table->foreign('item_type_id')->references('id')->on('item_type');
         });
     }
 
@@ -32,6 +32,6 @@ class Artigo extends Migration
      */
     public function down()
     {
-        Schema::drop('artigo');
+        Schema::drop('item');
     }
 }

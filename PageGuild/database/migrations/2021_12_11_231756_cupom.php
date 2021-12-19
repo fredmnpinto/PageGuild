@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Cupom extends Migration
+class Coupon extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class Cupom extends Migration
      */
     public function up()
     {
-        Schema::create('cupom', function (Blueprint $table) {
+        Schema::create('coupon', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo', 50);
-            $table->timestamp('data_inicio');
-            $table->timestamp('data_fim');
-            $table->integer('desconto'); //desconto em %
-            $table->boolean('flg_ativo');
-            $table->string('descricao',255)->nullable();
+            $table->string('code', 50);
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
+            $table->integer('dicount'); //desconto em %
+            $table->boolean('flg_active');
+            $table->string('description',255)->nullable();
 
-            $table->unique('codigo');
+            $table->unique('code');
         });
     }
 
@@ -33,6 +33,6 @@ class Cupom extends Migration
      */
     public function down()
     {
-        Schema::drop('cupom');
+        Schema::drop('coupon');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Livro extends Migration
+class Book extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,25 @@ class Livro extends Migration
      */
     public function up()
     {
-        Schema::create('livro', function (Blueprint $table) {
-            $table->integer('artigo_id');
-            $table->string('titulo', 25);
-            $table->string('subtitulo', 50)->nullable();
-            $table->text('sinopse')->nullable();
-            $table->integer('ano_publicacao');
+        Schema::create('book', function (Blueprint $table) {
+            $table->integer('item_id');
+            $table->string('title', 25);
+            $table->string('subtitle', 50)->nullable();
+            $table->text('synopsis')->nullable();
+            $table->integer('publication_year');
             $table->integer('isbn');
-            $table->integer('num_paginas')->nullable();
-            $table->decimal('largura', $precision = 3, $scale = 1)->nullable();
-            $table->decimal('comprimento', $precision = 3, $scale = 1)->nullable();
-            $table->decimal('altura', $precision = 3, $scale = 1)->nullable();
-            $table->integer('editor_id')->nullable();
+            $table->integer('num_pages')->nullable();
+            $table->decimal('width', $precision = 3, $scale = 1)->nullable();
+            $table->decimal('length', $precision = 3, $scale = 1)->nullable();
+            $table->decimal('height', $precision = 3, $scale = 1)->nullable();
+            $table->integer('publisher_id')->nullable();
 
             $table->unique('isbn');
 
-            $table->foreign('artigo_id')->references('id')->on('artigo');
-            $table->foreign('editor_id')->references('id')->on('editor');
+            $table->foreign('item_id')->references('id')->on('item');
+            $table->foreign('publisher_id')->references('id')->on('publisher');
 
-            $table->primary('artigo_id');
+            $table->primary('item_id');
         });
     }
 
@@ -42,6 +42,6 @@ class Livro extends Migration
      */
     public function down()
     {
-        Schema::drop('livro');
+        Schema::drop('book');
     }
 }

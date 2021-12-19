@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class GeneroLivro extends Migration
+class GenreBook extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class GeneroLivro extends Migration
      */
     public function up()
     {
-        Schema::create('genero_livro', function (Blueprint $table) {
-            $table->integer('genero_id');
-            $table->integer('livro_artigo_id');
+        Schema::create('genre_book', function (Blueprint $table) {
+            $table->integer('genre_id');
+            $table->integer('book_item_id');
 
-            $table->foreign('genero_id')->references('id')->on('genero');
-            $table->foreign('livro_artigo_id')->references('artigo_id')->on('livro');
+            $table->foreign('genre_id')->references('id')->on('genre');
+            $table->foreign('book_item_id')->references('item_id')->on('book');
 
-            $table->primary(['genero_id','livro_artigo_id']);
+            $table->primary(['genre_id','book_item_id']);
         });
     }
 
@@ -31,6 +31,6 @@ class GeneroLivro extends Migration
      */
     public function down()
     {
-        Schema::drop('genero_livro');
+        Schema::drop('genre_book');
     }
 }
