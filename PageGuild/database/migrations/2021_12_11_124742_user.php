@@ -19,7 +19,7 @@ class User extends Migration
             $table->string('email', 70);
             $table->string('password', 50);
             $table->boolean('gender');
-            $table->timestamp('register_date');
+            $table->timestamp('registration_date');
             $table->integer('nif')->nullable();
 
             $table->unique('email');

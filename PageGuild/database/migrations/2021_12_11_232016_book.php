@@ -24,6 +24,7 @@ class Book extends Migration
             $table->decimal('width', $precision = 3, $scale = 1)->nullable();
             $table->decimal('length', $precision = 3, $scale = 1)->nullable();
             $table->decimal('height', $precision = 3, $scale = 1)->nullable();
+            $table->string('bookbinding')->nullable();
             $table->integer('publisher_id')->nullable();
 
             $table->unique('isbn');

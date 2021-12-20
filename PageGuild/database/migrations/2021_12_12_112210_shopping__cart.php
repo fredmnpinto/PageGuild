@@ -18,7 +18,7 @@ class ShoppingCart extends Migration
             $table->integer('user_id');
             $table->integer('item_id');
             $table->boolean('flg_delete');
-            $table->timestamp('register_date');
+            $table->timestamp('registration_date');
 
             $table->foreign('user_id')->references('id')->on('user');
             $table->foreign('item_id')->references('id')->on('item');

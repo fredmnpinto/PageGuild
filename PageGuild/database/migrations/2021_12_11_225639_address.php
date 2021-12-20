@@ -15,7 +15,7 @@ class Address extends Migration
     {
         Schema::create('address', function (Blueprint $table) {
             $table->id();
-            $table->string('residence', 255);
+            $table->string('address', 255);
             $table->integer('user_id');
             $table->boolean('flg_active');
             $table->boolean('flg_delete');

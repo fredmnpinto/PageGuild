@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SendingState extends Migration
+class ShippingState extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class SendingState extends Migration
      */
     public function up()
     {
-        Schema::create('sending_state', function (Blueprint $table) {
+        Schema::create('shipping_state', function (Blueprint $table) {
             $table->id();
             $table->string('state', 50);
 
@@ -28,6 +28,6 @@ class SendingState extends Migration
      */
     public function down()
     {
-        Schema::drop('sending_state');
+        Schema::drop('shipping_state');
     }
 }

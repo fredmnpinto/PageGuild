@@ -17,11 +17,11 @@ class Shipping extends Migration
             $table->id();
             $table->integer('address_id');
             $table->timestamp('expected_date')->nullable();
-            $table->integer('sending_state_id');
+            $table->integer('shipping_state_id');
             $table->integer('order_id');
 
             $table->foreign('address_id')->references('id')->on('address');
-            $table->foreign('sending_state_id')->references('id')->on('sending_state');
+            $table->foreign('shipping_state_id')->references('id')->on('shipping_state');
             $table->foreign('order_id')->references('id')->on('order');
         });
     }

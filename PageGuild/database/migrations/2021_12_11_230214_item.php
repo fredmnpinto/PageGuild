@@ -17,7 +17,7 @@ class Item extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('price', $precision = 5, $scale = 2);
-            $table->timestamp('register_date');
+            $table->timestamp('registration_date');
             $table->timestamp('update_date');
             $table->integer('item_type_id');
 
