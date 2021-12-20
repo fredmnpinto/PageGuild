@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Payment_status extends Migration
+class PaymentStatus extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class Payment_status extends Migration
      */
     public function up()
     {
-        Schema::create('estado_pagamento', function (Blueprint $table) {
+        Schema::create('payment_status', function (Blueprint $table) {
             $table->id();
-            $table->string('estado', 50);
+            $table->string('status', 50);
 
-            $table->unique('estado');
+            $table->unique('status');
         });
     }
 
@@ -28,6 +28,6 @@ class Payment_status extends Migration
      */
     public function down()
     {
-        Schema::drop('estado_pagamento');
+        Schema::drop('payment_status');
     }
 }

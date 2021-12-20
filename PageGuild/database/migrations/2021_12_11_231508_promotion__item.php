@@ -20,7 +20,7 @@ class PromotionItem extends Migration
             $table->foreign('promotion_id')->references('id')->on('promotion');
             $table->foreign('item_id')->references('id')->on('item');
 
-            $table->primary(['promocao_id', 'artigo_id']);
+            $table->primary(['promotion_id', 'item_id']);
         });
     }
 

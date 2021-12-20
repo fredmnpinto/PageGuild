@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CarrinhoCompras extends Migration
+class ShoppingCart extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CarrinhoCompras extends Migration
      */
     public function up()
     {
-        Schema::create('carrinho_compras', function (Blueprint $table) {
+        Schema::create('shopping_cart', function (Blueprint $table) {
             $table->id();
-            $table->integer('usuario_id');
-            $table->integer('artigo_id');
+            $table->integer('user_id');
+            $table->integer('item_id');
             $table->boolean('flg_delete');
-            $table->timestamp('data_registo');
+            $table->timestamp('register_date');
 
-            $table->foreign('usuario_id')->references('id')->on('usuario');
-            $table->foreign('artigo_id')->references('id')->on('artigo');
+            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('item_id')->references('id')->on('item');
         });
     }
 
@@ -32,6 +32,6 @@ class CarrinhoCompras extends Migration
      */
     public function down()
     {
-        Schema::drop('carrinho_compras');
+        Schema::drop('shopping_cart');
     }
 }

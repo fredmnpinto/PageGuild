@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CouponItem extends Migration
+class ItemReserveList extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CouponItem extends Migration
      */
     public function up()
     {
-        Schema::create('coupon_item', function (Blueprint $table) {
-            $table->integer('coupon_id');
+        Schema::create('item_reserve_list', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
             $table->integer('item_id');
+            $table->boolean('flg_delete');
+            $table->timestamp('registration_date');
 
-            $table->foreign('coupon_id')->references('id')->on('coupon');
+            $table->foreign('user_id')->references('id')->on('user');
             $table->foreign('item_id')->references('id')->on('item');
-
-            $table->primary(['cupom_id', 'artigo_id']);
         });
     }
 
@@ -31,6 +32,6 @@ class CouponItem extends Migration
      */
     public function down()
     {
-        Schema::drop('coupon_item');
+        Schema::drop('item_reserve_list');
     }
 }
