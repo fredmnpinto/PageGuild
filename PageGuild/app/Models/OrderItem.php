@@ -37,6 +37,6 @@ class OrderItem extends Model
      * @var array
      */
     protected $fillable = [
-        "quantity", "item_id", "order_id"
+        "amount", "item_id", "order_id"
     ];
 }
