@@ -33,7 +33,7 @@ class Address extends Model
     /**
      * Tabelas em que as timestamps sao guardadas
      */
-    const CREATED_AT = "register_date";
+    const CREATED_AT = "registration_date";
     const UPDATED_AT = "update_date";
 
     /**
@@ -43,7 +43,7 @@ class Address extends Model
      * @var array
      */
     protected $fillable = [
-        "city_id", "address", "flg_active",
+        "city_id", "address", "flg_active", "residence",
         "flg_delete"
     ];
 

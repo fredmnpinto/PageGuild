@@ -33,7 +33,7 @@ class User extends Model
     /**
      * Tabelas em que as timestamps sao guardadas
      */
-    const CREATED_AT = "register_date";
+    const CREATED_AT = "registration_date";
     const UPDATED_AT = "update_date";
 
     /**
@@ -67,5 +67,4 @@ class User extends Model
     public function reservationListItem() {
         return $this->hasManyThrough(Item::class, ItemReservationList::class);
     }
-
 }

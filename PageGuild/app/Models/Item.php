@@ -33,8 +33,8 @@ class Item extends Model
     /**
      * Tabelas em que as timestamps sao guardadas
      */
-    const CREATED_AT = "register_date";
-    const UPDATED_AT = "register_date";
+    const CREATED_AT = "registration_date";
+    const UPDATED_AT = "update_date";
 
 
     /**
@@ -51,5 +51,16 @@ class Item extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function userShoppingCart() {
+        return $this->hasManyThrough(User::class, ItemShoppingCart::class);
+    }
+
+    public function userWishlist() {
+        return $this->hasManyThrough(User::class, ItemWishlish::class);
+    }
+
+    public function userReservationList() {
+        return $this->hasManyThrough(User::class, ItemReservationList::class);
+    }
 
 }

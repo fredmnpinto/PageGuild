@@ -33,7 +33,7 @@ class Payment extends Model
     /**
      * Tabelas em que as timestamps sao guardadas
      */
-    const CREATED_AT = "register_date";
+    const CREATED_AT = "registration_date";
 
     /**
      * Os atributos que poderão ser inseridos pela

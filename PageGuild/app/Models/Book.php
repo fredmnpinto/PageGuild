@@ -33,7 +33,7 @@ class Book extends Model
         "title", "subtitle", "sinopsys",
         "publishing_year", "isbn", "edition_year",
         "language_id", "num_pages", "width", "length", "height",
-        "encadernation"
+        "bookbinding"
     ];
 
     public function item() {
@@ -44,8 +44,8 @@ class Book extends Model
         return $this->hasManyThrough(Author::class, BookAuthor::class);
     }
 
-    public function editor() {
-        return $this->hasOneThrough(Editor::class, BookEditor::class);
+    public function publisher() {
+        return $this->hasOneThrough(Publisher::class, BookPublisher::class);
     }
 
     public function genre() {

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BookEditor extends Model
+class Publisher extends Model
 {
     use HasFactory;
 
@@ -14,21 +14,14 @@ class BookEditor extends Model
      *
      * @var string
      */
-    protected $table = "book_editor";
+    protected $table = "publisher";
 
     /**
      * Primary key dessa tabela
      *
-     * @var array
+     * @var string
      */
-    protected $primaryKey = ["book_id", "editor_id"];
-
-    /**
-     * Define que as primary keys não serão autoincrementadas
-     *
-     * @var bool
-     */
-    public $incrementing = false;
+    protected $primaryKey = "id";
 
     /**
      * Os atributos que poderão ser inseridos pela
@@ -37,6 +30,10 @@ class BookEditor extends Model
      * @var array
      */
     protected $fillable = [
-        "editor_id", "book_id"
+        "name",
     ];
+
+    public function book() {
+        return $this->hasManyThrough(Book::class, BookPublisher::class);
+    }
 }
