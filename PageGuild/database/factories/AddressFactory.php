@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ItemListaReservaFactory extends Factory
+class AddressFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,9 @@ class ItemListaReservaFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "address" => $this->faker->streetAddress(),
+            "flg_active" => $this->faker->boolean(90),
+            "flg_delete" => false
         ];
     }
 }

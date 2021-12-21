@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class EditorFactory extends Factory
+class AuthorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class EditorFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "name" => $this->faker->name(),
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class GeneroFactory extends Factory
+class GenreFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class GeneroFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "name" => $this->faker->word()
         ];
     }
 }

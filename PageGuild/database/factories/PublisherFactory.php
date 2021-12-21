@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ItemListaDesejoFactory extends Factory
+class PublisherFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class ItemListaDesejoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "name" => $this->faker->name()
         ];
     }
 }
