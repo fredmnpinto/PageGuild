@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ItemListaDesejos extends Migration
+class Address extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class ItemListaDesejos extends Migration
      */
     public function up()
     {
-        Schema::create('item_lista_desejos', function (Blueprint $table) {
+        Schema::create('address', function (Blueprint $table) {
             $table->id();
-            $table->integer('usuario_id');
-            $table->integer('artigo_id');
+            $table->string('address', 255);
+            $table->integer('user_id');
+            $table->boolean('flg_active');
             $table->boolean('flg_delete');
-            $table->timestamp('data_registo');
+            $table->integer('city_id');
 
-            $table->foreign('usuario_id')->references('id')->on('usuario');
-            $table->foreign('artigo_id')->references('id')->on('artigo');
+            $table->foreign('city_id')->references('id')->on('city');
+            $table->foreign('user_id')->references('id')->on('user');
         });
     }
 
@@ -32,6 +33,6 @@ class ItemListaDesejos extends Migration
      */
     public function down()
     {
-        Schema::drop('item_lista_desejos');
+        Schema::drop('address');
     }
 }

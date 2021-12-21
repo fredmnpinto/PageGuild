@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Genero extends Migration
+class PaymentStatus extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class Genero extends Migration
      */
     public function up()
     {
-        Schema::create('genero', function (Blueprint $table) {
+        Schema::create('payment_status', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 50);
+            $table->string('status', 50);
+
+            $table->unique('status');
         });
     }
 
@@ -26,6 +28,6 @@ class Genero extends Migration
      */
     public function down()
     {
-        Schema::drop('genero');
+        Schema::drop('payment_status');
     }
 }

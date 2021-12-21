@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Autor extends Migration
+class OrderStatus extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class Autor extends Migration
      */
     public function up()
     {
-        Schema::create('autor', function (Blueprint $table) {
+        Schema::create('order_status', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 50);
+            $table->string('status', 50);
+
+            $table->unique('status');
         });
     }
 
@@ -26,6 +28,6 @@ class Autor extends Migration
      */
     public function down()
     {
-        Schema::drop('autor');
+        Schema::drop('order_status');
     }
 }

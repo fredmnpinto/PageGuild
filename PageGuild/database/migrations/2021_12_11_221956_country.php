@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TipoArtigo extends Migration
+class Country extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class TipoArtigo extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_artigo', function (Blueprint $table) {
+        Schema::create('country', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo', 50);
+            $table->string('country', 50);
 
-            $table->unique('tipo');
+            $table->unique('country');
         });
     }
 
@@ -28,6 +28,6 @@ class TipoArtigo extends Migration
      */
     public function down()
     {
-        Schema::drop('tipo_artigo');
+        Schema::drop('country');
     }
 }

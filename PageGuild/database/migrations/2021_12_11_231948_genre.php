@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Pais extends Migration
+class Genre extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class Pais extends Migration
      */
     public function up()
     {
-        Schema::create('pais', function (Blueprint $table) {
+        Schema::create('genre', function (Blueprint $table) {
             $table->id();
-            $table->string('pais', 50);
-
-            $table->unique('pais');
+            $table->string('name', 50);
         });
     }
 
@@ -28,6 +26,6 @@ class Pais extends Migration
      */
     public function down()
     {
-        Schema::drop('pais');
+        Schema::drop('genre');
     }
 }

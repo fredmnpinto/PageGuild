@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Editor extends Migration
+class Author extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class Editor extends Migration
      */
     public function up()
     {
-        Schema::create('editor', function (Blueprint $table) {
+        Schema::create('author', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 50);
+            $table->string('name', 50);
         });
     }
 
@@ -26,6 +26,6 @@ class Editor extends Migration
      */
     public function down()
     {
-        Schema::drop('editor');
+        Schema::drop('author');
     }
 }

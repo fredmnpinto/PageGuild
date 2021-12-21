@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EstadoPagamento extends Migration
+class ShippingState extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class EstadoPagamento extends Migration
      */
     public function up()
     {
-        Schema::create('estado_pagamento', function (Blueprint $table) {
+        Schema::create('shipping_state', function (Blueprint $table) {
             $table->id();
-            $table->string('estado', 50);
+            $table->string('state', 50);
 
-            $table->unique('estado');
+            $table->unique('state');
         });
     }
 
@@ -28,6 +28,6 @@ class EstadoPagamento extends Migration
      */
     public function down()
     {
-        Schema::drop('estado_pagamento');
+        Schema::drop('shipping_state');
     }
 }

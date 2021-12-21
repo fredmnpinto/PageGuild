@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Usuario extends Migration
+class User extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class Usuario extends Migration
      */
     public function up()
     {
-        Schema::create('usuario', function (Blueprint $table) {
+        Schema::create('user', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 50);
+            $table->string('name', 50);
             $table->string('email', 70);
             $table->string('password', 50);
-            $table->boolean('sexo');
-            $table->timestamp('data_registo');
+            $table->boolean('sex');
+            $table->timestamp('registration_date');
             $table->integer('nif')->nullable();
 
             $table->unique('email');
@@ -33,6 +33,6 @@ class Usuario extends Migration
      */
     public function down()
     {
-        Schema::drop('usuario');
+        Schema::drop('user');
     }
 }

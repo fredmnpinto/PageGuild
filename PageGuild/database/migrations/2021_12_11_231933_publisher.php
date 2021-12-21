@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EstadoEncomenda extends Migration
+class Publisher extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class EstadoEncomenda extends Migration
      */
     public function up()
     {
-        Schema::create('estado_encomenda', function (Blueprint $table) {
+        Schema::create('publisher', function (Blueprint $table) {
             $table->id();
-            $table->string('estado', 50);
-
-            $table->unique('estado');
+            $table->string('name', 50);
         });
     }
 
@@ -28,6 +26,6 @@ class EstadoEncomenda extends Migration
      */
     public function down()
     {
-        Schema::drop('estado_encomenda');
+        Schema::drop('publisher');
     }
 }
