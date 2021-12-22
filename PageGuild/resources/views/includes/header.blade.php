@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+<nav class="navbar navbar-expand-md navbar-light primary-color navbar-laravel">
     <div class="container">
         <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
             <!-- esquerda -->
