@@ -15,7 +15,7 @@ class ItemType extends Migration
     {
         Schema::create('item_type', function (Blueprint $table) {
             $table->id();
-            $table->string('type', 50);
+            $table->text('type');
 
             $table->unique('type');
         });

@@ -15,6 +15,8 @@ class Rating extends Model
         "comment", "item_id", "user_id"
     ];
 
+    public $timestamps = false;
+
     public function book() {
         return $this->hasOne(Item::class);
     }

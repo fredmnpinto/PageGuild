@@ -33,6 +33,9 @@ class Author extends Model
         "name",
     ];
 
+    const CREATED_AT = "registration_date";
+    const UPDATED_AT = "update_date";
+
     public function book() {
         return $this->hasManyThrough(Book::class, BookAuthor::class);
     }

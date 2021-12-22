@@ -14,11 +14,11 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->words(random_int(1, 3), true),
+            'name' => $this->faker->unique()->words(random_int(1, 3), true),
             'price' => $this->faker->randomFloat(2, 4.99, 49.99),
-            'registration_date' => $this->faker->date(),
-            'update_date' => null,
-            'flg_delete' => $this->faker->boolean(80)
+            'registration_date' => $this->faker->dateTime('-1 month'),
+            'update_date' => $this->faker->dateTimeThisMonth(),
+            'flag_delete' => $this->faker->boolean(80)
         ];
     }
 }

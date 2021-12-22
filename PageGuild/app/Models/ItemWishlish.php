@@ -34,6 +34,7 @@ class ItemWishlish extends Model
      * Tabelas em que as timestamps sao guardadas
      */
     const CREATED_AT = "registration_date";
+    const UPDATED_AT = false;
 
     /**
      * Os atributos que poderão ser inseridos pela

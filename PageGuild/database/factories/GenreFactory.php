@@ -14,7 +14,9 @@ class GenreFactory extends Factory
     public function definition()
     {
         return [
-            "name" => $this->faker->word()
+            "name" => $this->faker->unique()->name,
+            'registration_date' => $this->faker->dateTime(),
+            'update_date' => $this->faker->dateTimeThisMonth(),
         ];
     }
 }

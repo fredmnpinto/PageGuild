@@ -15,7 +15,9 @@ class Genre extends Migration
     {
         Schema::create('genre', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
+            $table->text('name');
+            $table->dateTime('registration_date');
+            $table->dateTime('update_date');
         });
     }
 
