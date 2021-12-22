@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,4 @@ Route::get('/', [IndexController::Class, 'index']);
 
 Route::get('/index', [IndexController::Class, 'index']);
 
-Route::get('/book', function () {
-    return view('book_details');
-});
+Route::resource('/ratings', RatingController::Class);

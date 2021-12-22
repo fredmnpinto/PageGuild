@@ -3,40 +3,85 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+use App\Models\Rating;
 
 class RatingController extends Controller
 {
     /**
-     * Creates a rating on Database
+     * Display a listing of the resource.
+     *
+     * @return Response
      */
-    public function create() {
-
+    public function index()
+    {
+              
     }
 
     /**
-     * Reads a rating from database
-     * 
-     * @param int $id
+     * Show the form for creating a new resource.
+     *
+     * @return Response
      */
-    public function read($id) {
-
+    public function create()
+    {
+        //
     }
 
     /**
-     * Updates a rating in the database
-     * 
-     * @param int $id
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     * @return Response
      */
-    public function update($id) {
-
+    public function store(Request $request)
+    {
+        //
     }
 
     /**
-     * Deletes a rating in the database
-     * 
-     * @param int $id
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
      */
-    public function delete($id) {
+    public function show($id)
+    {
+        return Rating::find($id); 
+    }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }
