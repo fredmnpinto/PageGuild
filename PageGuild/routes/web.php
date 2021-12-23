@@ -17,14 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [IndexController::Class, 'index']);
-
-Route::get('/index', [IndexController::Class, 'index']);
-
-Route::resource('/ratings', RatingController::Class);
-
-Route::resource('/users', UserController::Class);
-
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
