@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Item;
 use App\Models\Language;
 use App\Models\Publisher;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -17,23 +18,34 @@ class BookFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
+        $item = Item::factory()->create();
+
         return [
-            "title" => $this->faker->unique()->name(),
+            "item_id" => $item['id'],
+            "title" => $item['name'],
             "isbn" => $this->faker->unique()->isbn10(),
-            "subtitle" => $this->faker->words(rand(1, 3)),
+            "subtitle" => $this->faker->realText(20),
             "synopsis" => $this->faker->realText(),
             "publication_year" => $this->faker->year(),
-            "edition_year" => 2021,
+
             "num_pages" => $this->faker->numberBetween(100, 300),
             "width" => round($this->faker->randomFloat(2, 0.20, 0.40), 2),
             "length" => round($this->faker->randomFloat(2, 0.20, 0.40), 2),
             "height" => round($this->faker->randomFloat(2, 0.20, 0.40), 2),
             "bookbinding" => "hard cover",
-
-            "publisher_id" => $this->faker->numberBetween(1, Publisher::all()->count()),
             "language_id" => $this->faker->numberBetween(1, Language::all()->count())
         ];
+    }
+
+    public function hasPublisher(): BookFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                "publisher_id" => $this->faker->numberBetween(1, Publisher::all()->count()),
+                "edition_year" => $this->faker->year(),
+            ];
+        });
     }
 }

@@ -17,7 +17,7 @@ class Book extends Migration
             $table->integer('item_id');
             $table->text('title')->unique();
             $table->text('subtitle')->nullable();
-            $table->text('synopsis')->nullable();
+            $table->text('synopsis');
             $table->integer('publication_year');
             $table->text('isbn')->unique();
             $table->integer('num_pages');
@@ -27,7 +27,7 @@ class Book extends Migration
             $table->text('bookbinding')->nullable();
             $table->integer('publisher_id')->nullable();
             $table->integer('language_id');
-            $table->integer('edition_year');
+            $table->integer('edition_year')->nullable();
 
             $table->foreign('language_id')->references('id')->on('language');
             $table->foreign('item_id')->references('id')->on('item');
