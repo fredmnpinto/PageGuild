@@ -28,9 +28,9 @@ jobs:
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env: |
         DB_CONNECTION=pgsql
-        DB_HOST=127.0.0.1
+        DB_HOST=54.171.101.244
         DB_PORT=5432
-        DB_DATABASE=postgres
-        DB_USERNAME=postgres
-        DB_PASSWORD=secret
+        DB_DATABASE=pageguild
+        DB_USERNAME=pageguild_adm
+        DB_PASSWORD=p4g3gu1ld
       run: vendor/bin/phpunit
