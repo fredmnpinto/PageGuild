@@ -53,7 +53,7 @@ class User extends Model
      */
     protected $fillable = [
         "name", "email", "password",
-        "sex", "nif"
+        "sex", "nif", "user_type"
     ];
 
     public function address() {

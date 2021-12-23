@@ -6,4 +6,7 @@ LabWeb | Index
 
 @section('content')
 
+    @foreach ($ratings as $rating) 
+        <p> {{ $rating->id }} </p>
+    @endforeach
 @endsection

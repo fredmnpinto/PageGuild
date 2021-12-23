@@ -21,6 +21,9 @@ class User extends Migration
             $table->boolean('sex');
             $table->timestamp('registration_date');
             $table->integer('nif')->nullable();
+            $table->integer('user_type_id');
+
+            $table->foreign('user_type_id')->references('id')->on('user_type');
 
             $table->unique('email');
         });
