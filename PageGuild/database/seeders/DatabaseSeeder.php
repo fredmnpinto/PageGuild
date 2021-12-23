@@ -13,6 +13,7 @@ use App\Models\Language;
 use App\Models\OrderStatus;
 use App\Models\Publisher;
 use App\Models\User;
+use App\Models\UserType;
 use Database\Factories\BookFactory;
 use Database\Factories\OrderFactory;
 use Illuminate\Database\Seeder;
@@ -30,7 +31,12 @@ class DatabaseSeeder extends Seeder
         Language::factory()->create();
         OrderStatus::factory()->count(5)->create();
 
-        User::factory()->count(10)->create();
+        UserType::factory()->create();
+        UserType::factory()->admin()->create();
+
+        User::factory()->count(7)->create();
+        User::factory()->count(3)->admin()->create();
+
         Address::factory()->count(User::all()->count());
 
         Author::factory()->count(10)->create();

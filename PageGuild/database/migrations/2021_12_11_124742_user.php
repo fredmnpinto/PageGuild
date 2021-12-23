@@ -21,12 +21,14 @@ class User extends Migration
             $table->text('password');
             $table->boolean('sex');
             $table->dateTime("email_verified_at");
-
             $table->dateTime("update_date");
             $table->timestamp('registration_date');
             $table->text('nif')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('user_type_id');
+
+            $table->foreign('user_type_id')->references('id')->on('user_type');
 
             $table->unique('email');
         });

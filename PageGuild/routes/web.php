@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +21,12 @@ Route::get('/', [IndexController::Class, 'index']);
 
 Route::get('/index', [IndexController::Class, 'index']);
 
-Route::get('/book', function () {
-    return view('book_details');
-});
+Route::resource('/ratings', RatingController::Class);
+
+Route::resource('/users', UserController::Class);
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
