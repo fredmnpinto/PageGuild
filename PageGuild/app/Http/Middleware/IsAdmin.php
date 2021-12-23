@@ -17,7 +17,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
         //Se for um admin
-        if(auth()->user()->user_type == 1) {
+        if(auth()->user()->user_type_id == 2) {
             return $next($request);
         }
 
