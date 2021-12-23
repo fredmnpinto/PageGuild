@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: '7.3.11'
     - uses: actions/checkout@v2
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -29,11 +26,11 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      env:
-        DB_CONNECTION: pgsql
-        DB_HOST: 127.0.0.1
-        DB_PORT: 5432
-        DB_DATABASE: pageguild
-        DB_USERNAME: postgres
-        DB_PASSWORD: secret
+      env: |
+        DB_CONNECTION=sqlite
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=database
+        DB_USERNAME=homestead
+        DB_PASSWORD=secret
       run: vendor/bin/phpunit
