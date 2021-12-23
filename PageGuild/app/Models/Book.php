@@ -36,6 +36,8 @@ class Book extends Model
         "bookbinding"
     ];
 
+    public $timestamps = false;
+
     public function item() {
         return $this->hasOne(Item::class);
     }
@@ -50,5 +52,9 @@ class Book extends Model
 
     public function genre() {
         return $this->hasManyThrough(Genre::class, BookGenre::class);
+    }
+
+    public function language() {
+        return $this->hasOne(Language::class);
     }
 }

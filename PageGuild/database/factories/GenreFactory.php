@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PagamentoFactory extends Factory
+class GenreFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,9 @@ class PagamentoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "name" => $this->faker->unique()->name,
+            'registration_date' => $this->faker->dateTime(),
+            'update_date' => $this->faker->dateTimeThisMonth(),
         ];
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Country extends Migration
+class LanguageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class Country extends Migration
      */
     public function up()
     {
-        Schema::create('country', function (Blueprint $table) {
+        Schema::create('language', function (Blueprint $table) {
             $table->id();
-            $table->text('country');
-
-            $table->unique('country');
+            $table->text('name')->unique();
         });
     }
 
@@ -28,6 +26,6 @@ class Country extends Migration
      */
     public function down()
     {
-        Schema::drop('country');
+        //
     }
 }

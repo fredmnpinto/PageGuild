@@ -23,6 +23,9 @@ class Genre extends Model
      */
     protected $primaryKey = "id";
 
+    const CREATED_AT = "registration_date";
+    const UPDATED_AT = "update_date";
+
     /**
      * Os atributos que poderão ser inseridos pela
      * UI da aplicação

@@ -23,6 +23,8 @@ class Publisher extends Model
      */
     protected $primaryKey = "id";
 
+    public $timestamps = false;
+
     /**
      * Os atributos que poderão ser inseridos pela
      * UI da aplicação

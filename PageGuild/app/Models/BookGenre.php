@@ -30,6 +30,8 @@ class BookGenre extends Model
      */
     public $incrementing = false;
 
+    public $timestamps = false;
+
     /**
      * Os atributos que poderão ser inseridos pela
      * UI da aplicação

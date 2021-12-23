@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class VendaFactory extends Factory
+class LanguageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class VendaFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "name" => "English"
         ];
     }
 }
