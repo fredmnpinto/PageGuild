@@ -30,7 +30,7 @@ jobs:
         DB_CONNECTION=pgsql
         DB_HOST=54.171.101.244
         DB_PORT=5432
-        DB_DATABASE=pageguild
-        DB_USERNAME=pageguild_adm
-        DB_PASSWORD=p4g3gu1ld
+        DB_DATABASE=ci_tests_pageguild
+        DB_USERNAME=github_actions
+        DB_PASSWORD=123456789
       run: vendor/bin/phpunit
