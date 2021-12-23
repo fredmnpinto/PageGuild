@@ -15,12 +15,17 @@ class User extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('email', 70);
-            $table->string('password', 50);
+            $table->text('name');
+            $table->text('username')->unique();
+            $table->text('email', 70);
+            $table->text('password');
             $table->boolean('sex');
+            $table->dateTime("email_verified_at");
+            $table->dateTime("update_date");
             $table->timestamp('registration_date');
-            $table->integer('nif')->nullable();
+            $table->text('nif')->nullable();
+            $table->rememberToken();
+            $table->timestamps();
             $table->integer('user_type_id');
 
             $table->foreign('user_type_id')->references('id')->on('user_type');

@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ItemCarrinhoComprasFactory extends Factory
+class ItemShoppingCartFactory extends Factory
 {
     /**
      * Define the model's default state.

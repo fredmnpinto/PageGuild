@@ -15,20 +15,21 @@ class Book extends Migration
     {
         Schema::create('book', function (Blueprint $table) {
             $table->integer('item_id');
-            $table->string('title', 25);
-            $table->string('subtitle', 50)->nullable();
-            $table->text('synopsis')->nullable();
+            $table->text('title')->unique();
+            $table->text('subtitle')->nullable();
+            $table->text('synopsis');
             $table->integer('publication_year');
-            $table->integer('isbn');
-            $table->integer('num_pages')->nullable();
-            $table->decimal('width', $precision = 3, $scale = 1)->nullable();
-            $table->decimal('length', $precision = 3, $scale = 1)->nullable();
-            $table->decimal('height', $precision = 3, $scale = 1)->nullable();
-            $table->string('bookbinding')->nullable();
+            $table->text('isbn')->unique();
+            $table->integer('num_pages');
+            $table->decimal('width')->nullable();
+            $table->decimal('length')->nullable();
+            $table->decimal('height')->nullable();
+            $table->text('bookbinding')->nullable();
             $table->integer('publisher_id')->nullable();
+            $table->integer('language_id');
+            $table->integer('edition_year')->nullable();
 
-            $table->unique('isbn');
-
+            $table->foreign('language_id')->references('id')->on('language');
             $table->foreign('item_id')->references('id')->on('item');
             $table->foreign('publisher_id')->references('id')->on('publisher');
 

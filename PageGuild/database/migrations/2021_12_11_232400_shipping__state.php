@@ -15,7 +15,7 @@ class ShippingState extends Migration
     {
         Schema::create('shipping_state', function (Blueprint $table) {
             $table->id();
-            $table->string('state', 50);
+            $table->text('state');
 
             $table->unique('state');
         });

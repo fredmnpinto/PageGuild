@@ -15,12 +15,12 @@ class Coupon extends Migration
     {
         Schema::create('coupon', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 50);
+            $table->text('code');
             $table->timestamp('start_date');
             $table->timestamp('end_date');
             $table->integer('dicount'); //desconto em %
             $table->boolean('flg_active');
-            $table->string('description',255)->nullable();
+            $table->text('description')->nullable();
 
             $table->unique('code');
         });

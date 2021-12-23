@@ -15,7 +15,7 @@ class PaymentStatus extends Migration
     {
         Schema::create('payment_status', function (Blueprint $table) {
             $table->id();
-            $table->string('status', 50);
+            $table->text('status');
 
             $table->unique('status');
         });

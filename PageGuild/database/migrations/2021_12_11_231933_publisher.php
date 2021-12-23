@@ -15,7 +15,9 @@ class Publisher extends Migration
     {
         Schema::create('publisher', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
+            $table->text('name');
+            $table->dateTime('registration_date');
+            $table->dateTime('update_date');
         });
     }
 

@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class EnderecoFactory extends Factory
+class ItemTypeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class EnderecoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "type" => "Book",
         ];
     }
 }
