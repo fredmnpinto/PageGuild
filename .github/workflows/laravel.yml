@@ -21,6 +21,10 @@ jobs:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
+    
+    - name: Update composer dependencies
+      run: |
+        composer update
  
     - name: Install composer dependencies
       run: |
