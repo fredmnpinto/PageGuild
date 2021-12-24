@@ -20,7 +20,7 @@
                 </li>
             </ul>
             <!-- logo -->
-            <a class="navbar-brand" href="{{ url('/home') }}">
+            <a class="navbar-brand" href="{{ url('/index') }}">
                 <img src="../../images/logo.png" alt="" height="60">
             </a>
             <!-- Right Side Of Navbar -->
