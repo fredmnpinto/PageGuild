@@ -23,7 +23,7 @@ LabWeb | Index
                 <p>{{ $item->price }}</p>
 
                 <h3>SINOPSE</h3>
-                <p>{{ $book->synopsys }}</p>
+                <p>{{ $book->synopsis }}</p>
 
                 <h3>DETALHES DO PRODUTO</h3>
                 <p>ISBN: {{ $book->isbn }}</p>
