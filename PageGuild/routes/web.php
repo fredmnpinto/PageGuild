@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RatingController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [HomeController::class, 'index']);
+
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+
+Route::get('details/{id}', [ItemController::class, 'showDetails']);
