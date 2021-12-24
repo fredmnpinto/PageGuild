@@ -24,11 +24,11 @@ jobs:
     
     - name: Update composer dependencies
       run: |
-        composer update
+        composer update -q --no-ansi --no-interaction --no-progress --prefer-dist
  
     - name: Install composer dependencies
       run: |
-        composer install --no-scripts
+        composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
  
     - name: Prepare Laravel Application
       run: |
