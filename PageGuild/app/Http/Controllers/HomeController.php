@@ -25,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Popula a pagina incial com todos os livros
         return view('home', ['books' => Book::all()] );
     }
 }
