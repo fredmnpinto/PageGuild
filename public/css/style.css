@@ -26,3 +26,7 @@ footer {
 #scolor {
     background-color: #d16666;
 }
+
+h1, h3, p {
+    color: white; 
+}
