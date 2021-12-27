@@ -20,8 +20,8 @@ class User extends Migration
             $table->text('email', 70);
             $table->text('password');
             $table->boolean('sex');
-            $table->dateTime("email_verified_at");
-            $table->dateTime("update_date");
+            $table->dateTime("email_verified_at")->nullable();
+            $table->dateTime("update_date")->nullable();
             $table->timestamp('registration_date');
             $table->text('nif')->nullable();
             $table->rememberToken();

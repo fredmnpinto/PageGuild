@@ -45,7 +45,7 @@ class LoginController extends Controller
        $input = $request->all();
 
        $this->validate($request, [
-           'email' => 'required|email',
+           'username' => 'required|username',
            'password' => 'required',
        ]);
 
@@ -53,7 +53,7 @@ class LoginController extends Controller
             return redirect()->route('home');
        }else{
            return redirect()->route('login')
-               ->with('error','Email-Address And Password Are Wrong.');
+               ->with('error','Email-Address And/Or Password Are Wrong.');
        }
     }
 }
