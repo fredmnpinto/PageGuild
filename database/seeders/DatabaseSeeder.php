@@ -14,8 +14,14 @@ use App\Models\OrderStatus;
 use App\Models\Publisher;
 use App\Models\User;
 use App\Models\UserType;
+<<<<<<< HEAD:database/seeders/DatabaseSeeder.php
+=======
+use App\Models\AuthorBook;
+>>>>>>> 5fe2d113a860b19c2b01e4fb75d9f55754bf64b1:PageGuild/database/seeders/DatabaseSeeder.php
 use Database\Factories\BookFactory;
 use Database\Factories\OrderFactory;
+use Database\Factories\AuthorBookFactory;
+use Database\Factories\GenreBookFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -43,12 +49,15 @@ class DatabaseSeeder extends Seeder
         Publisher::factory()->count(10)->create();
         Genre::factory()->count(10)->create();
 
-        Book::factory()->count(10)
-            ->create();
-
+        Book::factory()->count(10)->create();
+     
         BookFactory::new()->count(5)
             ->hasPublisher()
             ->create();
 
+        $this->call([
+            AuthorBookSeeder::class,
+            GenreBookSeeder::class
+        ]);
     }
 }

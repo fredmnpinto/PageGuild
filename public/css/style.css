@@ -1,19 +1,19 @@
 body {
-    background-color: #f8f4e3;
+    background-color: #14213d;
     min-height: 100vh;
 }
 
 nav {
-    background-color: #f8f4e3;
+    background-color: #fca311;
 }
 
 .primary-color {
-    background-color: #558C8C;
+    background-color: #fca311;
     color: antiquewhite;
 }
 
 footer {
-    position: fixed;
+    position: relative;
     padding: 10px 10px 0px 10px;
     bottom: 0;
     width: 100%;
@@ -25,4 +25,8 @@ footer {
 
 #scolor {
     background-color: #d16666;
+}
+
+h1, h3, p {
+    color: white; 
 }
