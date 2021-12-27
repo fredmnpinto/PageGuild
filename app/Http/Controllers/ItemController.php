@@ -70,6 +70,7 @@ class ItemController extends Controller
 
         $author = array();
 
+        //Lista todos os autores do livro
         foreach($authorBook as $row) {
             $author[] = Author::find($row->author_id);
         }
@@ -88,10 +89,50 @@ class ItemController extends Controller
 
         $genre = array();
 
+        // Lista todos os generos do livro
         foreach($genreBook as $row) {
             $genre[] = Genre::find($row->genre_id);
         }
 
         return $genre;
     }
+
+    /**
+     * Search items by item type
+     */
+    public function searchItems(Request $request) {
+        //Procura por todas as referencias relacionadas aos livros
+        $bookResults =  ItemController::searchBooks($request->search);
+
+        return view('search/results', ['bookResults' => $bookResults]);
+    }
+
+    /**
+     * Search books that contains the substring searched.
+     * Search books by title, by authors, by idiom, etc... 
+     * 
+     * @param string $substring
+     * 
+     * @return $books 
+     */
+    private function searchBooks($substring) {
+            /**
+             * Procura por todos os livros que tenham uma referencia(coluna) que contenha a substring.
+             * Ex.: Titulos, isbn, autores do livro com um nome que contenha a substring, editores, etc...  
+             * 
+             * 
+             * Obs.: Não sei o que significa as percentagens. So sei que precisa delas e do like para funcionar.
+             * 
+             * @author Gabriel
+             */
+            $books = Book::where('title','like','%'.$substring.'%') // Procura por titulos
+                        ->orWhere('isbn','like','%'.$substring.'%') // Procura por isbn
+                        ->get();
+
+           
+
+            return $books;
+    }
+
+
 }

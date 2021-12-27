@@ -27,3 +27,4 @@ Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home
 
 Route::get('details/{id}', [ItemController::class, 'showDetails']);
 
+Route::post('/search/results', [ItemController::class, 'searchItems']);
