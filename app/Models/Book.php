@@ -43,7 +43,7 @@ class Book extends Model
     }
 
     public function author() {
-        return $this->hasManyThrough(Author::class, BookAuthor::class);
+        return $this->hasManyThrough(Author::class, AuthorBook::class);
     }
 
     public function publisher() {

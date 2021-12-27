@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Book;
 use App\Models\Item;
-use App\Models\BookAuthor;
+use App\Models\AuthorBook;
 use App\Models\ItemType;
 use App\Models\Publisher;
 use App\Models\Language;
+use App\Models\Author;
 
 class ItemController extends Controller
 {
@@ -31,14 +32,8 @@ class ItemController extends Controller
                 $book = Book::find($id);
 
                 // No caso do livro vai buscar ainda os authors e os genres
-                $authors = BookAuthor::where('item_id', $id);
-                //$genres = BookGenre::where('item_id', $id);
-
-                $authorName = array();
-
-                foreach($authors as $author) {
-                    $authorName[] = $author->name;
-                }
+                $authors = ItemController::getBookAuthors($id);
+                //$genres = BookGenre::where('item_id', $id);    
 
                 // Vai buscar o editor
                 $publisher = Publisher::find($book->publisher_id);
@@ -49,7 +44,7 @@ class ItemController extends Controller
                 return view('bookDetails', ['item' => $item,
                                             'itemType' => $itemType,  
                                             'book' => $book,
-                                            'authors' => $authorName,
+                                            'authors' => $authors,
                                             // Verifica se o publisher existe. Se sim, envia o nome
                                             'publisher' => $publisher == null ? "Não tem" : $publisher->name,
                                             'language' => $language
@@ -59,5 +54,23 @@ class ItemController extends Controller
                 //
             }
         }
+    }
+
+    /**
+     * Returns array of authors of specified book
+     * 
+     * @param int $item_id
+     * @return $author
+     */
+    private function getBookAuthors($item_id) {
+        $authorBook = AuthorBook::where('book_item_id', $item_id)->get();
+
+        $author = array();
+
+        foreach($authorBook as $row) {
+            $author[] = Author::find($row->author_id);
+        }
+
+        return $author;
     }
 }

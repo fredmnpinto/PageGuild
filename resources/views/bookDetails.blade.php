@@ -15,7 +15,7 @@ LabWeb | Index
 
                 <h3>de 
                     @foreach ($authors as $author)
-                    {{ $author }}
+                    {{ $author->name }}
                     @endforeach
                 </h3>
 
