@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Item;
 use App\Models\AuthorBook;
+use App\Models\GenreBook;
+use App\Models\Genre;
 use App\Models\ItemType;
 use App\Models\Publisher;
 use App\Models\Language;
@@ -33,7 +35,7 @@ class ItemController extends Controller
 
                 // No caso do livro vai buscar ainda os authors e os genres
                 $authors = ItemController::getBookAuthors($id);
-                //$genres = BookGenre::where('item_id', $id);    
+                $genres = ItemController::getBookGenres($id);    
 
                 // Vai buscar o editor
                 $publisher = Publisher::find($book->publisher_id);
@@ -45,6 +47,7 @@ class ItemController extends Controller
                                             'itemType' => $itemType,  
                                             'book' => $book,
                                             'authors' => $authors,
+                                            'genres' => $genres,
                                             // Verifica se o publisher existe. Se sim, envia o nome
                                             'publisher' => $publisher == null ? "Não tem" : $publisher->name,
                                             'language' => $language
@@ -72,5 +75,23 @@ class ItemController extends Controller
         }
 
         return $author;
+    }
+
+    /**
+     * Returns array of genres of specified book
+     * 
+     * @param int $item_id
+     * @return $genre
+     */
+    private function getBookGenres($item_id) {
+        $genreBook = GenreBook::where('book_item_id', $item_id)->get();
+
+        $genre = array();
+
+        foreach($genreBook as $row) {
+            $genre[] = Genre::find($row->genre_id);
+        }
+
+        return $genre;
     }
 }

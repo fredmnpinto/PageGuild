@@ -34,6 +34,11 @@ LabWeb | Index
                 <p>Encadernação: {{ $book->bookbinding }}</p>
                 <p>Paginas: {{ $book->num_pages }}</p>
                 <p>Tipo de produto: {{ $itemType->type }}</p>
+                
+                <h3>GENEROS</h3>
+                @foreach ($genres as $genre)
+                <p>{{ $genre->name }}</p>
+                @endforeach
             </div>
         </div>
     </div>
