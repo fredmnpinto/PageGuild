@@ -15,12 +15,12 @@ class GenreBook extends Migration
     {
         Schema::create('genre_book', function (Blueprint $table) {
             $table->integer('genre_id');
-            $table->integer('book_item_id');
+            $table->integer('item_id');
 
             $table->foreign('genre_id')->references('id')->on('genre');
-            $table->foreign('book_item_id')->references('item_id')->on('book');
+            $table->foreign('item_id')->references('item_id')->on('book');
 
-            $table->primary(['genre_id','book_item_id']);
+            $table->primary(['genre_id','item_id']);
         });
     }
 

@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Author;
+use App\Models\Book;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class LivroAutorFactory extends Factory
+class BookAuthorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +16,8 @@ class LivroAutorFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'author_id' => rand(1, Author::all()->count()),
+            'item_id' => rand(1, Book::all()->count()),
         ];
     }
 }
