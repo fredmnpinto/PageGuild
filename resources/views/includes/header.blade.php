@@ -4,7 +4,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <form class="d-flex">
+                    <div>
                         @guest
                             @if (Route::has('login'))
                             @endif
@@ -13,14 +13,17 @@
                             @endif
                     
                             @else
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search my-auto" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
-                            <input class="form-control me-2 border-0 bg-transparent" type="search" placeholder="Search" aria-label="Search">     
+                            <form action="/search/results" method="POST" class="d-inline-flex">
+                                @csrf
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search my-auto" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+                                <input class="form-control me-2 border-0 bg-transparent" name="search" type="text" placeholder="Search" aria-label="Search">     
+                            </form>
                         @endguest
-                    </form>
+                    </div>
                 </li>
             </ul>
             <!-- logo -->
-            <a class="navbar-brand" href="{{ url('/index') }}">
+            <a class="navbar-brand" href="{{ url('/home') }}">
                 <img src="../../images/logo.png" alt="" height="60">
             </a>
             <!-- Right Side Of Navbar -->

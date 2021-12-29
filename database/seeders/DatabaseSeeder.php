@@ -14,8 +14,11 @@ use App\Models\OrderStatus;
 use App\Models\Publisher;
 use App\Models\User;
 use App\Models\UserType;
+use App\Models\AuthorBook;
 use Database\Factories\BookFactory;
 use Database\Factories\OrderFactory;
+use Database\Factories\AuthorBookFactory;
+use Database\Factories\GenreBookFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -43,12 +46,15 @@ class DatabaseSeeder extends Seeder
         Publisher::factory()->count(10)->create();
         Genre::factory()->count(10)->create();
 
-        Book::factory()->count(10)
-            ->create();
-
+        Book::factory()->count(10)->create();
+     
         BookFactory::new()->count(5)
             ->hasPublisher()
             ->create();
 
+        $this->call([
+            AuthorBookSeeder::class,
+            GenreBookSeeder::class
+        ]);
     }
 }
