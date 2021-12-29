@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Address;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\BookAuthor;
 use App\Models\Genre;
 use App\Models\Item;
 use App\Models\ItemType;
@@ -44,11 +45,13 @@ class DatabaseSeeder extends Seeder
         Genre::factory()->count(10)->create();
 
         Book::factory()->count(10)
+            ->hasAttached(Author::factory(), BookAuthor::class, 'authors')
             ->create();
 
         BookFactory::new()->count(5)
             ->hasPublisher()
             ->create();
+
 
     }
 }

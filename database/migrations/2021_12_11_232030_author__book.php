@@ -15,12 +15,12 @@ class AuthorBook extends Migration
     {
         Schema::create('author_book', function (Blueprint $table) {
             $table->integer('author_id');
-            $table->integer('book_item_id');
+            $table->integer('item_id');
 
             $table->foreign('author_id')->references('id')->on('author');
-            $table->foreign('book_item_id')->references('item_id')->on('book');
+            $table->foreign('item_id')->references('item_id')->on('book');
 
-            $table->primary(['author_id','book_item_id']);
+            $table->primary(['author_id','item_id']);
         });
     }
 

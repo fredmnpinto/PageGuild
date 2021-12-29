@@ -2,11 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\Item;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ItemWishlist extends Factory
+class ItemReservationListFactory extends Factory
 {
     /**
      * Define the model's default state.
