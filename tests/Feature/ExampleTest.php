@@ -17,10 +17,8 @@ class ExampleTest extends TestCase
      */
     public function test_example()
     {
-        $user = User::factory()->create();
-
         $response = $this->actingAs($user)
-                         ->withSession(['email' =>  $user->email, 'password' => 'password'])
+                         ->withSession(['email' =>  'connelly.henderson@example.com', 'password' => 'password'])
                          ->get('/');
 
         $response->assertStatus(200);
