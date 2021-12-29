@@ -28,8 +28,6 @@ Route::resource('/users', UserController::Class);
 
 Auth::routes();
 
-Auth::routes(['verify' => true]);
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
