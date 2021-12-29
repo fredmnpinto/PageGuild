@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -33,7 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var string
      */
-    protected $dateFormat = "U";
+    protected $dateFormat = "Ymd";
 
     /**
      * Tabelas em que as timestamps sao guardadas
@@ -47,7 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-      "password"
+      "password", "remember_token"
     ];
 
     /**
@@ -57,8 +57,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        "name", "email", "password",
-        "sex", "nif", "user_type"
+        "name", "email", "password", "username",
+        "sex", "nif", "user_type_id"
     ];
 
     public function address() {
