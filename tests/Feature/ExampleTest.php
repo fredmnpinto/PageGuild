@@ -20,7 +20,7 @@ class ExampleTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)
-                         ->withSession(['foo' => 'bar'])
+                         ->withSession(['email' =>  $user->email, 'password' => 'password'])
                          ->get('/');
 
         $response->assertStatus(200);
