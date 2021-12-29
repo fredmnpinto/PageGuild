@@ -27,4 +27,8 @@ class HomeController extends Controller
     {
         return view('home', ['books' => Book::all()]);
     }
+
+    public function adminHome() {
+        return view('home', ['books' => Book::all()]);
+    }
 }
