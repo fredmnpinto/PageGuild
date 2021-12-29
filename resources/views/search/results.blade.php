@@ -14,6 +14,12 @@ LabWeb | Index
 
         <!-- Editor -->
         @include('includes.accordion', ['filterName' => 'Publisher', 'options' => $publisherFilterContent])
+
+        <!-- Genero -->
+        @include('includes.accordion', ['filterName' => 'Genre', 'options' => $genreFilterContent])
+
+        <!-- Ano de publicacao -->
+        @include('includes.accordion', ['filterName' => 'Publication_year', 'options' => $yearFilterContent])
     </div>
 
     <!-- Ordenações -->
@@ -24,7 +30,7 @@ LabWeb | Index
         @foreach ($results as $book) 
             <div class="col my-5">
                 <a class="navbar-brand" href="/details/{{ $book->item_id }}">
-                    <img src="../../images/bookimg.webp" class="img-fluid" alt="Photo of book: {{ $book->title }}">
+                    <img src="/images/bookimg.webp" class="img-fluid" alt="Photo of book: {{ $book->title }}">
                     <p>{{ $book->title }}</p>
                 </a>
             </div>

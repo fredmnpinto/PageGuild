@@ -69,11 +69,15 @@ class ItemController extends Controller
      * Funcao chamada pela rota /search/results
      */
     public function unfilteredSearch(Request $request) {
-        return ItemController::searchItems($request->search, ['null','null']);
+        return ItemController::searchItems($request->search, [0,0,0,0]);
     }
 
-    public function filterSearch($substring, $author_id, $publisher_id) {
-        return ItemController::searchItems($substring, [$author_id, $publisher_id]);
+    /**
+     * Funcao chamada quando efetuamos uma pesquisa com filtros
+     * Funcao chamada pela rota /search/results/filter/
+     */
+    public function filterSearch($substring, $author_id, $publisher_id, $genre_id, $publication_year) {
+        return ItemController::searchItems($substring, [$author_id, $publisher_id, $genre_id, $publication_year]);
     }
 
     /**
@@ -89,12 +93,31 @@ class ItemController extends Controller
         /** 
          * Procura por todas as referencias relacionadas aos livros
          */
-        $results = BookController::searchBooks($substring, $filters);
+        $results = BookController::searchBooks($substring, ['book.item_id', 'book.title'], $filters)->get();
 
+        /**
+         * Vai buscar todos os filtros que sao possiveis aplicar aos resultados
+         */
         $authorFilterContent = ItemController::getFilterContent($substring, ['author.id','author.name'], $filters);
         $publisherFilterContent = ItemController::getFilterContent($substring, ['publisher.id','publisher.name'], $filters);
+        $genreFilterContent = ItemController::getFilterContent($substring, ['genre.id','genre.name'], $filters);
+        $yearFilterContent = ItemController::getFilterContent($substring, ['book.publication_year', 'book.publication_year'], $filters);
+        //$priceFilterContent = ItemController::getFilterContent($substring, ['book.publication_year'], $filters);
+        //$availableFilterContent = ItemController::getFilterContent($substring, ['book.publication_year'], $filters);
 
-        return view('search/results', ['substring' => $substring, 'results' => $results, 'authorsFilterContent' => $authorFilterContent, 'publisherFilterContent' => $publisherFilterContent]);
+        /**
+         * Aqui são guardadados todos os dados do url atual
+         * E utilizado para manter filtros.
+         * Por exemplo.: search/results/filter/{substring}/1/0, ele vai filtrar os resultados de substring pelos livros escritos por o autor.id = 1
+         *               sarch/results/filter/{substring}/1/1, aos resultados anteriores ele vai aplicar um novo filtro pelos livros publicados pela publisher.id = 1
+         * 
+         * Quando o valor e 0 significa que nenhum filtro foi aplicado
+         * 
+         * @author Gabriel
+         */
+        $url = array($substring, $filters[0], $filters[1], $filters[2], $filters[3]);
+
+        return view('search/results', ['url' => $url, 'results' => $results, 'authorsFilterContent' => $authorFilterContent, 'publisherFilterContent' => $publisherFilterContent, 'genreFilterContent' => $genreFilterContent, 'yearFilterContent' => $yearFilterContent]);
     }
 
     /**
@@ -107,57 +130,15 @@ class ItemController extends Controller
      * @author Gabriel
      */
     private function getFilterContent($substring, $selectArgs, $filters) {
-        return DB::table('author')
-                    ->select($selectArgs[0], $selectArgs[1], DB::raw('count('.$selectArgs[0].')'))
-                    ->leftjoin('author_book', 'author.id','=','author_book.author_id')
-                    ->leftjoin('book', 'book.item_id','=','author_book.book_item_id')
-                    ->leftjoin('publisher','publisher.id','=','book.publisher_id')
-
-                    /**
-                     * Para agrupar todos os orwhere num so where. Isto e importante para os filtros.
-                     * O equivalente em sql seria colocar estes wheres todos dentro de um parenteses
-                     * @author Gabriel
-                     */
-                    ->where( function ($query) use ($substring) {
-                        $query
-                        /**
-                        * Procura por todos os livros que tenham uma referencia(coluna) que contenha a substring.
-                        * Ex.: Titulos, isbn, autores do livro com um nome que contenha a substring, editores, etc...  
-                        * 
-                        * 
-                        * Obs.: Não sei o que significa as percentagens. So sei que precisa delas e do like para funcionar.
-                        * 
-                        * @author Gabriel
-                        */
-                        ->where('book.title','like','%'.$substring.'%') // Procura por titulos
-                        ->orWhere('book.isbn','like','%'.$substring.'%') // Procura por isbn
-
-                        /**
-                        * Procura por todos os autores que o nome contenha a substring.
-                        * 
-                        * Obs.: Não sei o que significa as percentagens. So sei que precisa delas e do like para funcionar.
-                        * 
-                        * @author Gabriel
-                        */
-                        ->orWhereIn('item_id', AuthorBook::whereIn('author_id', Author::where('name','like','%'.$substring.'%')
-                                                                                    ->get('id'))
-                                                        ->get('book_item_id'));
-                    })
-                    /**
-                     * Parte onde são aplicados os filtros
-                     */
-                    ->where( function ($query) use ($filters) {
-                        if($filters[0] != 'null') {
-                            $query->where('author.id', '=', $filters[0]); 
-                        }
-                        if($filters[1] != 'null') {
-                            $query->where('publisher.id', '=', $filters[1]);
-                        }
-                    })
-                    /**
-                     * Agrupa por id's
-                     */
-                    ->groupBy($selectArgs[0])
-                    ->get();
+        return BookController::searchBooks($substring, $selectArgs, $filters)
+                /**
+                * Agrupa por id's
+                */
+                ->groupBy($selectArgs[0])
+                /**
+                * Adiciona um count
+                */
+                ->addSelect(DB::raw('count('.$selectArgs[0].')'))
+                ->get();
     }
 }
