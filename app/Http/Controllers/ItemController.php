@@ -14,6 +14,11 @@ use App\Models\Publisher;
 use App\Models\Language;
 use App\Models\Author;
 
+use Illuminate\Support\Facades\DB;
+
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\AuthorController;
+
 class ItemController extends Controller
 {
     /**
@@ -34,8 +39,8 @@ class ItemController extends Controller
                 $book = Book::find($id);
 
                 // No caso do livro vai buscar ainda os authors e os genres
-                $authors = ItemController::getBookAuthors($id);
-                $genres = ItemController::getBookGenres($id);    
+                $authors = BookController::getBookAuthors($id);
+                $genres = BookController::getBookGenres($id);    
 
                 // Vai buscar o editor
                 $publisher = Publisher::find($book->publisher_id);
@@ -60,79 +65,96 @@ class ItemController extends Controller
     }
 
     /**
-     * Returns array of authors of specified book
-     * 
-     * @param int $item_id
-     * @return $author
+     * Funcao chamada quando efetuamos uma pesquisa sem filtros
+     * Funcao chamada pela rota /search/results
      */
-    private function getBookAuthors($item_id) {
-        $authorBook = AuthorBook::where('book_item_id', $item_id)->get();
+    public function unfilteredSearch(Request $request) {
+        return ItemController::searchItems($request->search, ['null','null']);
+    }
 
-        $author = array();
+    /**
+     * Funcao chamada quando efetuamos uma pesquisa com filtragem por autor
+     * Funcao chamada pela rota /search/filterAuthor
+     */
+    public function filterAuthorSearch(Request $request, $id) {
+        return ItemController::searchItems($request->search, ['author.id',$id]);
+    }
 
-        //Lista todos os autores do livro
-        foreach($authorBook as $row) {
-            $author[] = Author::find($row->author_id);
+    /**
+     * Procura por todos os tipos de item
+     * Procura tambem resultados por filtro
+     * 
+     * @param $substring
+     * @param $filter - Array com o tipo de filtro, e id do filtro(id do autor, id do editor, etc...) que esta a ser aplicado aos resultados. Por default e null para ignorar a filtragem
+     * 
+     * @author Gabriel
+     */
+    private function searchItems($substring, $filter) {
+        /** 
+         * Procura por todas as referencias relacionadas aos livros
+         */
+        $results = BookController::searchBooks($substring, $filter);
+
+        $authorFilterContent = ItemController::getFilterContent($substring, ['author.id','author.name'], $filter);
+        $publisherFilterContent = ItemController::getFilterContent($substring, ['publisher.id','publisher.name'], $filter);
+
+        return view('search/results', ['results' => $results, 'authorsFilterContent' => $authorFilterContent, 'publisherFilterContent' => $publisherFilterContent]);
+    }
+
+    /**
+     * Faz exatamente a mesma pesquisa de resultados de livros (BookController::searchBooks())
+     * Porem, busca o id, nome e numero de resultados escritos por x autor/editor/etc..
+     * Em termos de SQL e adicionado o select() e um groupBy().
+     * 
+     * Esta função serve para popular o accordion dos diversos filtros (autores, editores, etc...)
+     * 
+     * @author Gabriel
+     */
+    private function getFilterContent($substring, $selectArgs, $filter) {
+        $query = DB::table('author')
+                    ->select($selectArgs[0], $selectArgs[1], DB::raw('count('.$selectArgs[0].')'))
+                    ->leftjoin('author_book', 'author.id','=','author_book.author_id')
+                    ->leftjoin('book', 'book.item_id','=','author_book.book_item_id')
+                    ->leftjoin('publisher','publisher.id','=','book.publisher_id')
+
+                    /**
+                     * Para agrupar todos os orwhere num so where. Isto e importante para os filtros.
+                     * O equivalente em sql seria colocar estes wheres todos dentro de um parenteses
+                     * @author Gabriel
+                     */
+                    ->where( function ($query) use ($substring) {
+                        $query
+                        /**
+                        * Procura por todos os livros que tenham uma referencia(coluna) que contenha a substring.
+                        * Ex.: Titulos, isbn, autores do livro com um nome que contenha a substring, editores, etc...  
+                        * 
+                        * 
+                        * Obs.: Não sei o que significa as percentagens. So sei que precisa delas e do like para funcionar.
+                        * 
+                        * @author Gabriel
+                        */
+                        ->where('book.title','like','%'.$substring.'%') // Procura por titulos
+                        ->orWhere('book.isbn','like','%'.$substring.'%') // Procura por isbn
+
+                        /**
+                        * Procura por todos os autores que o nome contenha a substring.
+                        * 
+                        * Obs.: Não sei o que significa as percentagens. So sei que precisa delas e do like para funcionar.
+                        * 
+                        * @author Gabriel
+                        */
+                        ->orWhereIn('item_id', AuthorBook::whereIn('author_id', Author::where('name','like','%'.$substring.'%')
+                                                                                    ->get('id'))
+                                                        ->get('book_item_id'));
+                    });
+
+         /**
+         * Parte onde são aplicados os filtros
+         */
+        if($filter[0] == 'null') {
+            return $query->groupBy($selectArgs[0])->get();
+        }else{
+            return $query->where($filter[0], '=', $filter[1])->groupBy($selectArgs[0])->get(); 
         }
-
-        return $author;
     }
-
-    /**
-     * Returns array of genres of specified book
-     * 
-     * @param int $item_id
-     * @return $genre
-     */
-    private function getBookGenres($item_id) {
-        $genreBook = GenreBook::where('book_item_id', $item_id)->get();
-
-        $genre = array();
-
-        // Lista todos os generos do livro
-        foreach($genreBook as $row) {
-            $genre[] = Genre::find($row->genre_id);
-        }
-
-        return $genre;
-    }
-
-    /**
-     * Search items by item type
-     */
-    public function searchItems(Request $request) {
-        //Procura por todas as referencias relacionadas aos livros
-        $bookResults =  ItemController::searchBooks($request->search);
-
-        return view('search/results', ['bookResults' => $bookResults]);
-    }
-
-    /**
-     * Search books that contains the substring searched.
-     * Search books by title, by authors, by idiom, etc... 
-     * 
-     * @param string $substring
-     * 
-     * @return $books 
-     */
-    private function searchBooks($substring) {
-            /**
-             * Procura por todos os livros que tenham uma referencia(coluna) que contenha a substring.
-             * Ex.: Titulos, isbn, autores do livro com um nome que contenha a substring, editores, etc...  
-             * 
-             * 
-             * Obs.: Não sei o que significa as percentagens. So sei que precisa delas e do like para funcionar.
-             * 
-             * @author Gabriel
-             */
-            $books = Book::where('title','like','%'.$substring.'%') // Procura por titulos
-                        ->orWhere('isbn','like','%'.$substring.'%') // Procura por isbn
-                        ->get();
-
-           
-
-            return $books;
-    }
-
-
 }
