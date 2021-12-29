@@ -47,7 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-      "password"
+      "password", "remember_token"
     ];
 
     /**
@@ -60,6 +60,7 @@ class User extends Authenticatable implements MustVerifyEmail
         "name", "email", "password", "username",
         "sex", "nif", "user_type_id"
     ];
+
 
     public function address() {
         return $this->hasMany(Address::class);

@@ -25,7 +25,6 @@ class User extends Migration
             $table->timestamp('registration_date');
             $table->text('nif')->nullable();
             $table->rememberToken();
-            $table->timestamps();
             $table->integer('user_type_id');
 
             $table->foreign('user_type_id')->references('id')->on('user_type');

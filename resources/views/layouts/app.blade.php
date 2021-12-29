@@ -23,7 +23,7 @@
 <body>
     <div id="app">
         @include('includes.header')
-        <main class="py-4">
+        <main class="py-4 container">
             @yield('content')
         </main>
         @include('includes.footer')
