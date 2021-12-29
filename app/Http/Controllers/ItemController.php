@@ -72,12 +72,8 @@ class ItemController extends Controller
         return ItemController::searchItems($request->search, ['null','null']);
     }
 
-    /**
-     * Funcao chamada quando efetuamos uma pesquisa com filtragem por autor
-     * Funcao chamada pela rota /search/filterAuthor
-     */
-    public function filterAuthorSearch(Request $request, $id) {
-        return ItemController::searchItems($request->search, ['author.id',$id]);
+    public function filterSearch($substring, $author_id, $publisher_id) {
+        return ItemController::searchItems($substring, [$author_id, $publisher_id]);
     }
 
     /**
@@ -89,16 +85,16 @@ class ItemController extends Controller
      * 
      * @author Gabriel
      */
-    private function searchItems($substring, $filter) {
+    private function searchItems($substring, $filters) {
         /** 
          * Procura por todas as referencias relacionadas aos livros
          */
-        $results = BookController::searchBooks($substring, $filter);
+        $results = BookController::searchBooks($substring, $filters);
 
-        $authorFilterContent = ItemController::getFilterContent($substring, ['author.id','author.name'], $filter);
-        $publisherFilterContent = ItemController::getFilterContent($substring, ['publisher.id','publisher.name'], $filter);
+        $authorFilterContent = ItemController::getFilterContent($substring, ['author.id','author.name'], $filters);
+        $publisherFilterContent = ItemController::getFilterContent($substring, ['publisher.id','publisher.name'], $filters);
 
-        return view('search/results', ['results' => $results, 'authorsFilterContent' => $authorFilterContent, 'publisherFilterContent' => $publisherFilterContent]);
+        return view('search/results', ['substring' => $substring, 'results' => $results, 'authorsFilterContent' => $authorFilterContent, 'publisherFilterContent' => $publisherFilterContent]);
     }
 
     /**
@@ -110,8 +106,8 @@ class ItemController extends Controller
      * 
      * @author Gabriel
      */
-    private function getFilterContent($substring, $selectArgs, $filter) {
-        $query = DB::table('author')
+    private function getFilterContent($substring, $selectArgs, $filters) {
+        return DB::table('author')
                     ->select($selectArgs[0], $selectArgs[1], DB::raw('count('.$selectArgs[0].')'))
                     ->leftjoin('author_book', 'author.id','=','author_book.author_id')
                     ->leftjoin('book', 'book.item_id','=','author_book.book_item_id')
@@ -146,15 +142,22 @@ class ItemController extends Controller
                         ->orWhereIn('item_id', AuthorBook::whereIn('author_id', Author::where('name','like','%'.$substring.'%')
                                                                                     ->get('id'))
                                                         ->get('book_item_id'));
-                    });
-
-         /**
-         * Parte onde são aplicados os filtros
-         */
-        if($filter[0] == 'null') {
-            return $query->groupBy($selectArgs[0])->get();
-        }else{
-            return $query->where($filter[0], '=', $filter[1])->groupBy($selectArgs[0])->get(); 
-        }
+                    })
+                    /**
+                     * Parte onde são aplicados os filtros
+                     */
+                    ->where( function ($query) use ($filters) {
+                        if($filters[0] != 'null') {
+                            $query->where('author.id', '=', $filters[0]); 
+                        }
+                        if($filters[1] != 'null') {
+                            $query->where('publisher.id', '=', $filters[1]);
+                        }
+                    })
+                    /**
+                     * Agrupa por id's
+                     */
+                    ->groupBy($selectArgs[0])
+                    ->get();
     }
 }

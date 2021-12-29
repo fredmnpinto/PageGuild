@@ -25,10 +25,11 @@ class BookController extends Controller
      * @return $results
      * 
      */
-    public static function searchBooks($substring, $filter) {
-        $query = DB::table('author')
+    public static function searchBooks($substring, $filters) {
+        return DB::table('author')
                     ->leftjoin('author_book', 'author.id','=','author_book.author_id')
                     ->leftjoin('book', 'book.item_id','=','author_book.book_item_id')
+                    ->leftjoin('publisher','publisher.id','=','book.publisher_id')
                     /**
                      * Para agrupar todos os orwhere num so where. Isto e importante para os filtros.
                      * O equivalente em sql seria colocar estes wheres todos dentro de um parenteses
@@ -45,7 +46,7 @@ class BookController extends Controller
                         * 
                         * @author Gabriel
                         */
-                        ->where('book.title','like','%'.$substring.'%') // Procura por titulos
+                        ->orwhere('book.title','like','%'.$substring.'%') // Procura por titulos
                         ->orWhere('book.isbn','like','%'.$substring.'%') // Procura por isbn
 
                         /**
@@ -58,17 +59,19 @@ class BookController extends Controller
                         ->orWhereIn('item_id', AuthorBook::whereIn('author_id', Author::where('name','like','%'.$substring.'%')
                                                                                     ->get('id'))
                                                         ->get('book_item_id'));
-                    });
-                                                        
-
-        /**
-         * Parte onde são aplicados os filtros
-         */
-        if($filter[0] == 'null') {
-            return $query->get();
-        }else{
-            return $query->where($filter[0], '=', $filter[1])->get(); 
-        }
+                    })
+                    /**
+                     * Parte onde são aplicados os filtros
+                     */
+                    ->where( function ($query) use ($filters) {
+                        if($filters[0] != 'null') {
+                            $query->where('author.id', '=', $filters[0]); 
+                        }
+                        if($filters[1] != 'null') {
+                            $query->where('publisher.id', '=', $filters[1]);
+                        }
+                    })
+                    ->get();
     }
 
     /**

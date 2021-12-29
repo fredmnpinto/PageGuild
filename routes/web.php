@@ -29,4 +29,4 @@ Route::get('details/{id}', [ItemController::class, 'showDetails']);
 
 Route::post('/search/results', [ItemController::class, 'unfilteredSearch']);
 
-Route::get('/search/filterAuthor/{id}', [ItemController::class, 'filterAuthorSearch']);
+Route::get('/search/filter/{substring}{author_id}{publisher_id}', [ItemController::class, 'filterSearch']);

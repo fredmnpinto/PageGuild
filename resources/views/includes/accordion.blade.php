@@ -6,9 +6,9 @@
     </h2>
     <div id="collapse{{ $filterName }}" class="accordion-collapse collapse show" aria-labelledby="heading{{ $filterName }}">
         <div class="accordion-body">
-            @foreach ($options as $author)
-                <a class="navbar-brand" href="/search/filterAuthor/{{ $author->id }}">
-                    <p class="text-dark">{{ $author->name }} ({{ $author->count }})</p>
+            @foreach ($options as $filterResult)
+                <a class="navbar-brand" href="/search/filter/{{ $substring }}{{ $filterResult->id }}">
+                    <p class="text-dark">{{ $filterResult->name }} ({{ $filterResult->count }})</p>
                 </a>
             @endforeach
         </div>
