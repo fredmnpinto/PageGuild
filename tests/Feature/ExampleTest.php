@@ -17,8 +17,10 @@ class ExampleTest extends TestCase
      */
     public function test_example()
     {
+        $user = User::find(1);
+
         $response = $this->actingAs($user)
-                         ->withSession(['email' =>  'connelly.henderson@example.com', 'password' => 'password'])
+                         ->withSession(['email' =>  $user->email, 'password' => 'password'])
                          ->get('/');
 
         $response->assertStatus(200);
