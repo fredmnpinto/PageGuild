@@ -8,6 +8,10 @@ use App\Models\User;
 
 use Tests\TestCase;
 
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 class ExampleTest extends TestCase
 {
     /**
@@ -21,7 +25,7 @@ class ExampleTest extends TestCase
 
         $response = $this->actingAs($user)
                          ->withSession(['email' =>  $user->email, 'password' => 'password'])
-                         ->get('/');
+                         ->get('/home');
 
         $response->assertStatus(200);
     }
