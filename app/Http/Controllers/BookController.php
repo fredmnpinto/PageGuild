@@ -31,7 +31,7 @@ class BookController extends Controller
      * @return $results
      * 
      */
-    public static function searchBooks($substring, $selectArgs, $filters) {
+    public static function searchBooks($substring, $selectArgs, $filters, $order) {
         return DB::table('book')
         ->select($selectArgs[0], $selectArgs[1])
         ->leftjoin('author_book', 'book.item_id','=','author_book.book_item_id')

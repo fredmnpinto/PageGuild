@@ -68,16 +68,16 @@ class ItemController extends Controller
      * Funcao chamada quando efetuamos uma pesquisa sem filtros
      * Funcao chamada pela rota /search/results
      */
-    public function unfilteredSearch(Request $request) {
-        return ItemController::searchItems($request->search, [0,0,0,0]);
+    public function defaultSearch(Request $request) {
+        return ItemController::searchItems($request->search, [0,0,0,0], ['null', 'null']);
     }
 
     /**
-     * Funcao chamada quando efetuamos uma pesquisa com filtros
-     * Funcao chamada pela rota /search/results/filter/
+     * Funcao chamada quando efetuamos uma pesquisa com filtros ou ordenações, ou as duas
+     * Funcao chamada pela rota /search/results/orderFilter/
      */
-    public function filterSearch($substring, $author_id, $publisher_id, $genre_id, $publication_year) {
-        return ItemController::searchItems($substring, [$author_id, $publisher_id, $genre_id, $publication_year]);
+    public function orderFilterSearch($substring, $author_id, $publisher_id, $genre_id, $publication_year, $order_arg, $order_way) {
+        return ItemController::searchItems($substring, [$author_id, $publisher_id, $genre_id, $publication_year], [$order_arg, $order_way]);
     }
 
     /**
@@ -89,11 +89,19 @@ class ItemController extends Controller
      * 
      * @author Gabriel
      */
-    private function searchItems($substring, $filters) {
+    private function searchItems($substring, $filters, $order) {
         /** 
          * Procura por todas as referencias relacionadas aos livros
+         * 
+         * Se tiver aplicado uma ordenacao faz a pesquisa com ordenacao
+         * 
+         * @author Gabriel
          */
-        $results = BookController::searchBooks($substring, ['book.item_id', 'book.title'], $filters)->get();
+        if($order[0] != 'null') {
+            $results = BookController::searchBooks($substring, ['book.item_id', 'book.title'], $filters, $order)->orderBy($order[0], $order[1])->get();
+        }else{
+            $results = BookController::searchBooks($substring, ['book.item_id', 'book.title'], $filters, $order)->get();
+        }
 
         /**
          * Vai buscar todos os filtros que sao possiveis aplicar aos resultados
@@ -116,7 +124,8 @@ class ItemController extends Controller
          * @author Gabriel
          */
         $url = [ "substring" => $substring, 
-                 "filters" => $filters
+                 "filters" => $filters,
+                 "order" => $order
                ];
 
         return view('search/results', ['url' => $url, 'results' => $results, 'filtersContent' => $filtersContent]);
@@ -132,7 +141,7 @@ class ItemController extends Controller
      * @author Gabriel
      */
     private function getFilterContent($substring, $selectArgs, $filters) {
-        return BookController::searchBooks($substring, $selectArgs, $filters)
+        return BookController::searchBooks($substring, $selectArgs, $filters, ['null', 'null'])
                 /**
                 * Agrupa por id's
                 */

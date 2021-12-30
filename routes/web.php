@@ -28,6 +28,6 @@ Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home
 
 Route::get('details/{id}', [ItemController::class, 'showDetails']);
 
-Route::post('/search/results', [ItemController::class, 'unfilteredSearch']);
+Route::post('/search/results', [ItemController::class, 'defaultSearch']);
 
-Route::get('/search/results/filter/{substring}/{author_id}/{publisher_id}/{genre_id}/{publication_year}', [ItemController::class, 'filterSearch']);
+Route::get('/search/results/orderFilter/{substring}/{author_id}/{publisher_id}/{genre_id}/{publication_year}/{order_arg}/{order_way}', [ItemController::class, 'orderFilterSearch']);
