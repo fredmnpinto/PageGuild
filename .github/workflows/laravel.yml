@@ -1,5 +1,9 @@
 on: push
 name: CI
+
+env:
+  DB_HOST: ${{ secrets.DB_HOST }}
+
 jobs:
   phpunit:
     runs-on: ubuntu-latest
@@ -10,10 +14,9 @@ jobs:
       postgres:
         image: postgres:10.8
         env:
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USERNAME: ${{ secrets.DB_TEST_USER }}
-          DB_PASSWORD: ${{ secrets.DB_TEST_USER_PASS }}
-          DB_DATABASE: ${{ secrets.DB_TEST_NAME }}
+          POSTGRES_USER: ${{ secrets.DB_TEST_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_TEST_USER_PASS }}
+          POSTGRES_DB: ${{ secrets.DB_TEST_NAME }}
         ports:
         - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
