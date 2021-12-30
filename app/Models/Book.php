@@ -43,15 +43,15 @@ class Book extends Model
     }
 
     public function authors() {
-        return $this->hasManyThrough(Author::class, BookAuthor::class);
+        return $this->hasManyThrough(Author::class, BookAuthor::class, 'item_id', 'author_id');
     }
 
     public function publisher() {
-        return $this->hasOneThrough(Publisher::class, BookPublisher::class);
+        return $this->hasOneThrough(Publisher::class, BookPublisher::class, 'item_id', 'publisher_id');
     }
 
     public function genre() {
-        return $this->hasManyThrough(Genre::class, BookGenre::class);
+        return $this->hasManyThrough(Genre::class, BookGenre::class, 'item_id', 'genre_id');
     }
 
     public function language() {

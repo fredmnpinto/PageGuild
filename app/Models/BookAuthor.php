@@ -14,14 +14,14 @@ class BookAuthor extends Model
      *
      * @var string
      */
-    protected $table = "book_author";
+    protected $table = "author_book";
 
     /**
      * Primary key dessa tabela
      *
      * @var array
      */
-    protected $primaryKey = ["book_id", "author_id"];
+    protected $primaryKey = ["item_id", "author_id"];
 
     /**
      * Define que as primary keys não serão autoincrementadas
@@ -39,6 +39,14 @@ class BookAuthor extends Model
      * @var array
      */
     protected $fillable = [
-        "book_id", "author_id"
+        "item_id", "author_id"
     ];
+
+    public function book() {
+        return $this->hasOne(Book::class, 'item_id', 'item_id');
+    }
+
+    public function author() {
+        return $this->hasOne(Author::class);
+    }
 }

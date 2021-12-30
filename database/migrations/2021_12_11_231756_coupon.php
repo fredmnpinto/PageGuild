@@ -18,7 +18,7 @@ class Coupon extends Migration
             $table->text('code');
             $table->timestamp('start_date');
             $table->timestamp('end_date');
-            $table->integer('dicount'); //desconto em %
+            $table->integer('discount'); //desconto em %
             $table->boolean('flg_active');
             $table->text('description')->nullable();
 

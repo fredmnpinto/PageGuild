@@ -14,13 +14,13 @@ class CreateBookPublisher extends Migration
     public function up()
     {
         Schema::create('book_publisher', function (Blueprint $table) {
-            $table->integer('book_id');
+            $table->integer('item_id');
             $table->integer('publisher_id');
 
-            $table->foreign('book_id')->references('id')->on('book');
+            $table->foreign('item_id')->references('item_id')->on('book');
             $table->foreign('publisher_id')->references('id')->on('publisher');
 
-            $table->primary(['book_id', 'publisher_id']);
+            $table->primary(['item_id', 'publisher_id']);
         });
     }
 

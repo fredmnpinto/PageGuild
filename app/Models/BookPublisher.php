@@ -21,7 +21,7 @@ class BookPublisher extends Model
      *
      * @var array
      */
-    protected $primaryKey = ["book_id", "publisher_id"];
+    protected $primaryKey = ["item_id", "publisher_id"];
 
     /**
      * Define que as primary keys não serão autoincrementadas
@@ -39,6 +39,6 @@ class BookPublisher extends Model
      * @var array
      */
     protected $fillable = [
-        "publisher_id", "book_id"
+        "publisher_id", "item_id"
     ];
 }

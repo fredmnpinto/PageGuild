@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Book;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -18,7 +19,7 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            "registration_date" => $this->faker->dateTime('-1 month')->format("Ymd"),
+            'registration_date' => $this->faker->dateTime('-1 month')->format("Ymd"),
             "order_status_id" => rand(1, OrderStatus::all()->count()),
         ];
     }
