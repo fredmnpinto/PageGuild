@@ -36,6 +36,10 @@ jobs:
         cp .env.ci .env
         php artisan key:generate
  
+    - name: Run Migrations
+      run: |
+        composer migrate:fresh
+ 
     - name: Run Testsuite
       env:
           # The hostname used to communicate with the PostgreSQL service container
