@@ -22,9 +22,9 @@ jobs:
       with:
         fetch-depth: 1
         
-    - name: Copy env
-      run: |
-        cp .env.ci .env
+#     - name: Copy env
+#       run: |
+#         cp .env.ci .env
     
     - name: Update composer dependencies
       run: |
