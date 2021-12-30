@@ -10,7 +10,7 @@
             @switch ($filterName)
                 @case('Author')
                     @foreach ($options as $filterResult)
-                        <a class="navbar-brand" href="/search/results/filter/{{ $url[0] }}/{{ $filterResult->id }}/{{ $url[2] }}/{{ $url[3] }}/{{ $url[4] }}">
+                        <a class="navbar-brand" href="/search/results/filter/{{ $url['substring'] }}/{{ $url['filters'][0] }}/{{ $url['filters'][1] }}/{{ $url['filters'][2] }}/{{ $url['filters'][3] }}">
                             <p class="text-dark">{{ $filterResult->name }} ({{ $filterResult->count }})</p>
                         </a>
                     @endforeach
@@ -18,7 +18,7 @@
 
                 @case('Publisher')
                     @foreach ($options as $filterResult)
-                        <a class="navbar-brand" href="/search/results/filter/{{ $url[0] }}/{{ $url[1] }}/{{ $filterResult->id }}/{{ $url[3] }}/{{ $url[4] }}">
+                        <a class="navbar-brand" href="/search/results/filter/{{ $url['substring'] }}/{{ $url['filters'][0] }}/{{ $url['filters'][1] }}/{{ $url['filters'][2] }}/{{ $url['filters'][3] }}">
                             <p class="text-dark">{{ $filterResult->name }} ({{ $filterResult->count }})</p>
                         </a>
                     @endforeach
@@ -26,7 +26,7 @@
 
                 @case('Genre')
                     @foreach ($options as $filterResult)
-                        <a class="navbar-brand" href="/search/results/filter/{{ $url[0] }}/{{ $url[1] }}/{{ $url[2] }}/{{ $filterResult->id }}/{{ $url[4] }}">
+                        <a class="navbar-brand" href="/search/results/filter/{{ $url['substring'] }}/{{ $url['filters'][0] }}/{{ $url['filters'][1] }}/{{ $url['filters'][2] }}/{{ $url['filters'][3] }}">
                             <p class="text-dark">{{ $filterResult->name }} ({{ $filterResult->count }})</p>
                         </a>
                     @endforeach
@@ -34,12 +34,11 @@
                 
                 @case('Publication_year')
                     @foreach ($options as $filterResult)
-                        <a class="navbar-brand" href="/search/results/filter/{{ $url[0] }}/{{ $url[1] }}/{{ $url[2] }}/{{ $url[3] }}/{{ $filterResult->publication_year }}">
+                        <a class="navbar-brand" href="/search/results/filter/{{ $url['substring'] }}/{{ $url['filters'][0] }}/{{ $url['filters'][1] }}/{{ $url['filters'][2] }}/{{ $url['filters'][3] }}">
                             <p class="text-dark">{{ $filterResult->publication_year }} ({{ $filterResult->count }})</p>
                         </a>
                     @endforeach
                     @break
-
             @endswitch
         </div>
     </div>

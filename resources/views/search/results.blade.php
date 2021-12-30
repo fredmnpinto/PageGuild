@@ -10,16 +10,16 @@ LabWeb | Index
         <!-- Estou a passar os valores do accordion para ser dinamico. Ao inves de repetir sempre o mesmo HTML @author Gabriel -->
         
         <!-- Autor -->
-        @include('includes.accordion', ['filterName' => 'Author', 'options' => $authorsFilterContent])
+        @include('includes.accordion', ['filterName' => 'Author', 'options' => $filtersContent['author']])
 
         <!-- Editor -->
-        @include('includes.accordion', ['filterName' => 'Publisher', 'options' => $publisherFilterContent])
+        @include('includes.accordion', ['filterName' => 'Publisher', 'options' => $filtersContent['publisher']])
 
         <!-- Genero -->
-        @include('includes.accordion', ['filterName' => 'Genre', 'options' => $genreFilterContent])
+        @include('includes.accordion', ['filterName' => 'Genre', 'options' => $filtersContent['genre']])
 
         <!-- Ano de publicacao -->
-        @include('includes.accordion', ['filterName' => 'Publication_year', 'options' => $yearFilterContent])
+        @include('includes.accordion', ['filterName' => 'Publication_year', 'options' => $filtersContent['year']])
     </div>
 
     <!-- Ordenações -->

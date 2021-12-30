@@ -84,8 +84,8 @@ class BookController extends Controller
            }
            if($filters[3] != 0) {
             $query->where('book.publication_year', '=', $filters[3]);
-        }
-       });
+           }
+        });
     }
 
     /**

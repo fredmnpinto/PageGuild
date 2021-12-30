@@ -97,13 +97,13 @@ class ItemController extends Controller
 
         /**
          * Vai buscar todos os filtros que sao possiveis aplicar aos resultados
+         * Vai ser utilizado para popular dinamicamente o conteudo nos accordion de filtros
          */
-        $authorFilterContent = ItemController::getFilterContent($substring, ['author.id','author.name'], $filters);
-        $publisherFilterContent = ItemController::getFilterContent($substring, ['publisher.id','publisher.name'], $filters);
-        $genreFilterContent = ItemController::getFilterContent($substring, ['genre.id','genre.name'], $filters);
-        $yearFilterContent = ItemController::getFilterContent($substring, ['book.publication_year', 'book.publication_year'], $filters);
-        //$priceFilterContent = ItemController::getFilterContent($substring, ['book.publication_year'], $filters);
-        //$availableFilterContent = ItemController::getFilterContent($substring, ['book.publication_year'], $filters);
+        $filtersContent = [ "author" => ItemController::getFilterContent($substring, ['author.id','author.name'], $filters),
+                            "publisher" => ItemController::getFilterContent($substring, ['publisher.id','publisher.name'], $filters),
+                            "genre" => ItemController::getFilterContent($substring, ['genre.id','genre.name'], $filters),
+                            "year" => ItemController::getFilterContent($substring, ['book.publication_year', 'book.publication_year'], $filters),
+                           ]; 
 
         /**
          * Aqui são guardadados todos os dados do url atual
@@ -115,9 +115,11 @@ class ItemController extends Controller
          * 
          * @author Gabriel
          */
-        $url = array($substring, $filters[0], $filters[1], $filters[2], $filters[3]);
+        $url = [ "substring" => $substring, 
+                 "filters" => $filters
+               ];
 
-        return view('search/results', ['url' => $url, 'results' => $results, 'authorsFilterContent' => $authorFilterContent, 'publisherFilterContent' => $publisherFilterContent, 'genreFilterContent' => $genreFilterContent, 'yearFilterContent' => $yearFilterContent]);
+        return view('search/results', ['url' => $url, 'results' => $results, 'filtersContent' => $filtersContent]);
     }
 
     /**
