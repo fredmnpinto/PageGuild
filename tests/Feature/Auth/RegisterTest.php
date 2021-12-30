@@ -10,7 +10,7 @@ class RegisterTest extends TestCase
 {
 
     public function test_index() {
-        $this->get('/')->assertStatus(200);
+        $this->get('/register')->assertOk();
     }
 
     public function test_registration()
@@ -25,7 +25,7 @@ class RegisterTest extends TestCase
         /* Make sure it doesn't already exists */
         $user_id = User::where('username', '=', $testUser['username'])
             ->where('email', '=', $testUser['email'])
-            ->get('id')[0]['id'];
+            ->post('id')[0]['id'];
 
         if ($user_id != null) {
             User::destroy(
@@ -78,7 +78,7 @@ class RegisterTest extends TestCase
 
         /* Try to login with him */
         $loginResponse = $this
-            ->post('/login', [
+            ->get('/login', [
                 'username' => $testUser['username'],
                 'password' => $testUser['password'],
             ]);
