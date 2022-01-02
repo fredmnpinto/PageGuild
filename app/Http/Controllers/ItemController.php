@@ -103,7 +103,7 @@ class ItemController extends Controller
         $results = BookController::buildSearchBooksQuery($searchQuery, ['book.item_id as item_id', 'book.title as item_name'],
             author_id: $author_id, genre_id: $genre_id, publisher_id: $publisher_id, year: $year);
 
-        if($order_by != 'null' && $order_by != null) {
+        if($order_by != null && $order_by != 0) {
             $results = $results->orderBy($order_by, $order_direction);
         }
 
@@ -112,10 +112,10 @@ class ItemController extends Controller
          * Vai ser utilizado para popular dinamicamente o conteudo nos accordion de filtros
          */
         $possibleFilterOptions = [
-            ['name' => 'author', 'options' => ItemController::getFilterOptions($results, ['author.id','author.name'])],
-            ['name' => 'publisher', 'options' => ItemController::getFilterOptions($results, ['publisher.id','publisher.name'])],
-            ['name' => 'genre', 'options' => ItemController::getFilterOptions($results, ['genre.id','genre.name'])],
-            ['name' => 'year', 'options' => ItemController::getFilterOptions($results, ['book.publication_year', 'book.publication_year'])],
+            'author' => ItemController::getFilterOptions($searchQuery, ['author.id','author.name'], author_id: $author_id, genre_id: $genre_id, publisher_id: $publisher_id, year: $year),
+            'publisher' => ItemController::getFilterOptions($searchQuery, ['publisher.id','publisher.name'], author_id: $author_id, genre_id: $genre_id, publisher_id: $publisher_id, year: $year),
+            'genre' => ItemController::getFilterOptions($searchQuery, ['genre.id','genre.name'], author_id: $author_id, genre_id: $genre_id, publisher_id: $publisher_id, year: $year),
+            'year' => ItemController::getFilterOptions($searchQuery, ['book.publication_year', 'book.publication_year'], author_id: $author_id, genre_id: $genre_id, publisher_id: $publisher_id, year: $year),
         ];
 
         /**
@@ -130,12 +130,12 @@ class ItemController extends Controller
         $url = [
             "searchQuery" => $searchQuery,
             "filters" => [
-                'author' => $author_id,
-                'publisher' => $publisher_id,
-                'genre' => $genre_id,
-                'year' => $year
+                'author' => $author_id ? : 0,
+                'publisher' => $publisher_id ? : 0,
+                'genre' => $genre_id ? : 0,
+                'year' => $year ? : 0
             ],
-            "order_by" => $order_by,
+            "order_by" => $order_by ? : 0,
             "order_direction" => $order_direction
            ];
 
@@ -149,16 +149,18 @@ class ItemController extends Controller
      * Esta função serve para popular o accordion dos diversos filtros (autores, editores, etc...)
      *
      */
-    private function getFilterOptions(Builder $query, array $filterColumns): \Illuminate\Support\Collection
+    private function getFilterOptions(string $searchQuery, array $filterColumns, int $author_id = null, 
+                                      int $publisher_id = null, int $genre_id = null, int $year = null, 
+                                      string $order_by = null, string $order_direction = 'asc'): \Illuminate\Support\Collection
     {
-        $filterOptionsQuery = $query->clone();
-        $filterOptionsQuery->columns = ["{$filterColumns[0]} as filter_option", "{$filterColumns[1]} as option_desc"];
+        $query = BookController::buildSearchBooksQuery($searchQuery, [$filterColumns[0], $filterColumns[1]],
+            author_id: $author_id, genre_id: $genre_id, publisher_id: $publisher_id, year: $year);
 
-        return $filterOptionsQuery
+        return $query
                 /**
                 * Agrupa por id's
                 */
-                ->groupBy('filter_option')
+                ->groupBy($filterColumns[0])
                 /**
                 * Adiciona um count
                 */

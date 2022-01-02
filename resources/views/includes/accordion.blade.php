@@ -7,12 +7,43 @@
     <div id="collapse{{ $filterName }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $filterName }}">
         <div class="accordion-body">
             {{-- A forma como os href são preenchidos muda consoante o tipo de filtro do accordion --}}
-            @foreach ($options as $opt)
-                @php($chosen_filter_url = $url['filters'][ $filterName] = $opt->filter_option)
-                <a class="navbar-brand" href="/search/results/orderFilter/{{ $chosen_filter_url['searchQuery'] ?: 'null'}}/{{ $chosen_filter_url['filters']['author'] ?: '0' }}/{{ $chosen_filter_url['filters']['publisher'] ?: '0' }}/{{ $chosen_filter_url['filters']['genre'] ?: '0' }}/{{ $chosen_filter_url['filters']['year'] ?: '0' }}/{{ $chosen_filter_url['order_by'] ?: 'null' }}/{{ $chosen_filter_url['order_direction'] ?: 'asc' }}">
-                    <p class="text-dark">{{ $opt->option_desc }} ({{ $options->count}})</p>
-                </a>
-            @endforeach
+            @switch ($filterName)
+                @case('Author')
+                    @foreach ($options as $filterResult)
+                        @php $url['filters']['author'] = $filterResult->id @endphp
+                        <a class="navbar-brand" href="/search/results/orderFilter/{{ $url['searchQuery'] }}/{{ $url['filters']['author'] }}/{{ $url['filters']['publisher'] }}/{{ $url['filters']['genre'] }}/{{ $url['filters']['year'] }}/{{ $url['order_by'] }}/{{ $url['order_direction'] }}">
+                            <p class="text-dark">{{ $filterResult->name }} ({{ $filterResult->count }})</p>
+                        </a>
+                    @endforeach
+                    @break
+
+                @case('Publisher')
+                    @foreach ($options as $filterResult)
+                        @php $url['filters']['publisher'] = $filterResult->id @endphp
+                        <a class="navbar-brand" href="/search/results/orderFilter/{{ $url['searchQuery'] }}/{{ $url['filters']['author'] }}/{{ $url['filters']['publisher'] }}/{{ $url['filters']['genre'] }}/{{ $url['filters']['year'] }}/{{ $url['order_by'] }}/{{ $url['order_direction'] }}">
+                            <p class="text-dark">{{ $filterResult->name }} ({{ $filterResult->count }})</p>
+                        </a>
+                    @endforeach
+                    @break
+
+                @case('Genre')
+                    @foreach ($options as $filterResult)
+                        @php $url['filters']['genre'] = $filterResult->id @endphp
+                        <a class="navbar-brand" href="/search/results/orderFilter/{{ $url['searchQuery'] }}/{{ $url['filters']['author'] }}/{{ $url['filters']['publisher'] }}/{{ $url['filters']['genre'] }}/{{ $url['filters']['year'] }}/{{ $url['order_by'] }}/{{ $url['order_direction'] }}">
+                            <p class="text-dark">{{ $filterResult->name }} ({{ $filterResult->count }})</p>
+                        </a>
+                    @endforeach
+                    @break
+                
+                @case('Publication_year')
+                    @foreach ($options as $filterResult)
+                        @php $url['filters']['year'] = $filterResult->publication_year @endphp
+                        <a class="navbar-brand" href="/search/results/orderFilter/{{ $url['searchQuery'] }}/{{ $url['filters']['author'] }}/{{ $url['filters']['publisher'] }}/{{ $url['filters']['genre'] }}/{{ $url['filters']['year'] }}/{{ $url['order_by'] }}/{{ $url['order_direction'] }}">
+                            <p class="text-dark">{{ $filterResult->publication_year }} ({{ $filterResult->count }})</p>
+                        </a>
+                    @endforeach
+                    @break
+            @endswitch
         </div>
     </div>
 </div>
