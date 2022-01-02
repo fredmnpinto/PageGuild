@@ -150,8 +150,7 @@ class ItemController extends Controller
      *
      */
     private function getFilterOptions(string $searchQuery, array $filterColumns, int $author_id = null, 
-                                      int $publisher_id = null, int $genre_id = null, int $year = null, 
-                                      string $order_by = null, string $order_direction = 'asc'): \Illuminate\Support\Collection
+                                      int $publisher_id = null, int $genre_id = null, int $year = null): \Illuminate\Support\Collection
     {
         $query = BookController::buildSearchBooksQuery($searchQuery, [$filterColumns[0], $filterColumns[1]],
             author_id: $author_id, genre_id: $genre_id, publisher_id: $publisher_id, year: $year);
