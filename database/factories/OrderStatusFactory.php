@@ -17,7 +17,7 @@ class OrderStatusFactory extends Factory
     public function definition()
     {
         return [
-            "status" => $this->faker->word(),
+            "status" => $this->faker->unique()->word(),
         ];
     }
 }
