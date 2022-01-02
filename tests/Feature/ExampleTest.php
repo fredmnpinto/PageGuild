@@ -2,8 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use Tests\TestCase;
+
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ExampleTest extends TestCase
 {
@@ -14,7 +20,11 @@ class ExampleTest extends TestCase
      */
     public function test_example()
     {
-        $response = $this->get('/');
+        $user = User::find(1);
+
+        $response = $this->actingAs($user)
+                         ->withSession(['email' =>  $user->email, 'password' => 'password'])
+                         ->get('/home');
 
         $response->assertStatus(200);
     }

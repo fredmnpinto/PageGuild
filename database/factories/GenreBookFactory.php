@@ -2,22 +2,24 @@
 
 namespace Database\Factories;
 
-use App\Models\OrderStatus;
+use App\Models\Genre;
+use App\Models\Book;
+use App\Models\GenreBook;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class OrderStatusFactory extends Factory
+class GenreBookFactory extends Factory
 {
-    protected $model = OrderStatus::class;
-
     /**
      * Define the model's default state.
      *
      * @return array
      */
-    public function definition()
+    public function definition() : array
     {
         return [
-            "status" => $this->faker->unique()->word(),
+            'book_item_id' => 1,
+            'genre_id' => 1
         ];
     }
 }
