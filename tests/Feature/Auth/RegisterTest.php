@@ -4,7 +4,10 @@ namespace Feature\Auth;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Models\User;
+use Illuminate\Foundation\Testing\Concerns\MakesHttpRequests;
+use PHPUnit\Util\Test;
 use Tests\TestCase;
+use TheSeer\Tokenizer\Exception;
 
 class RegisterTest extends TestCase
 {
@@ -23,13 +26,12 @@ class RegisterTest extends TestCase
         ];
 
         /* Make sure it doesn't already exists */
-        $user_id = User::where('username', '=', $testUser['username'])
-            ->where('email', '=', $testUser['email'])
-            ->post('id')[0]['id'];
+        $user = User::where('username', '=', $testUser['username'])
+            ->where('email', '=', $testUser['email'])->first('id');
 
-        if ($user_id != null) {
+        if ($user != null) {
             User::destroy(
-                $user_id
+                $user->id
             );
         }
 
@@ -78,7 +80,7 @@ class RegisterTest extends TestCase
 
         /* Try to login with him */
         $loginResponse = $this
-            ->get('/login', [
+            ->post('/login', [
                 'username' => $testUser['username'],
                 'password' => $testUser['password'],
             ]);
