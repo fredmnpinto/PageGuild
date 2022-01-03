@@ -13,12 +13,18 @@ use App\Models\Language;
 use App\Models\OrderStatus;
 use App\Models\Publisher;
 use App\Models\User;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\UserType;
 use App\Models\AuthorBook;
 use Database\Factories\BookFactory;
 use Database\Factories\OrderFactory;
 use Database\Factories\AuthorBookFactory;
 use Database\Factories\GenreBookFactory;
+use Database\Factories\CountryFactory;
+use Database\Factories\CityFactory;
+use Database\Factories\AddressFactory;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -56,5 +62,11 @@ class DatabaseSeeder extends Seeder
             AuthorBookSeeder::class,
             GenreBookSeeder::class
         ]);
+
+        Country::factory()->count(5)->create();
+
+        City::factory()->count(15)->create();
+
+        Address::factory()->count(20)->create();
     }
 }
