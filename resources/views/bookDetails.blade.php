@@ -5,17 +5,17 @@ LabWeb | Index
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container scolor book-details">
         <div class="row">
             <div class="col">
-                <img src="../../images/bookimg.webp" class="img-fluid" alt="Photo of book: {{ $book->title }}">
+                <img src="../../images/bookimg.webp" class="img-fluid book-cover" alt="Photo of book: {{ $book->title }}">
             </div>
             <div class="col">
                 <h1>{{ $book->title }}</h1>
 
-                <h3>de 
+                <h3>de
                     @foreach ($authors as $author)
-                    {{ $author->name }}
+                    {{ $author->name }} @if($authors->count() > 1), @endif
                     @endforeach
                 </h3>
 
@@ -34,11 +34,15 @@ LabWeb | Index
                 <p>Encadernação: {{ $book->bookbinding }}</p>
                 <p>Paginas: {{ $book->num_pages }}</p>
                 <p>Tipo de produto: {{ $itemType->type }}</p>
-                
-                <h3>GENEROS</h3>
-                @foreach ($genres as $genre)
-                <p>{{ $genre->name }}</p>
-                @endforeach
+
+                <div style="min-height: 10vh">
+                    <h3>GENEROS</h3>
+                        @foreach ($genres as $genre)
+                            <p>{{ $genre->name }}</p>
+                        @endforeach
+                </div>
+
+                <input type="submit" class="buy-button" value="{{ __('Comprar') }}">
             </div>
         </div>
     </div>

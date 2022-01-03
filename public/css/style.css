@@ -9,7 +9,7 @@ nav {
 
 .primary-color {
     background-color: #fca311;
-    color: antiquewhite;
+    color: #2c2925;
 }
 
 footer {
@@ -19,14 +19,32 @@ footer {
     width: 100%;
 }
 
-#pcolor {
+.book-details .book-cover {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 10%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.book-details .buy-button {
+    position: relative;
+    left: 70%;
+    bottom: 15%;
+    height: 10vh;
+    width: 20vh;
+    font-size: x-large;
+}
+
+.pcolor {
     background-color: #1E3231;
 }
 
-#scolor {
-    background-color: #d16666;
+.scolor {
+    background-color: #455b8c;
 }
 
 h1, h3, p {
-    color: white; 
+    color: white;
 }
