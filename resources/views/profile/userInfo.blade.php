@@ -31,33 +31,4 @@
             </div>
         </div>
     </form>
-
-    <!-- Enderecos do utilizador -->
-    <form method="POST"  action="{{ route('updateInfo') }}">
-    @csrf
-    @method('POST')
-        <div class="row bg-white my-4 p-5">  
-            <h2>ENDERECOS ATIVOS</h2>
-            @if($activeAddress->isEmpty())
-                <h8>Não possuis nenhum endereço ativo</h8> 
-            @endif
-
-            @isset($activeAddress)
-                @foreach($activeAddress as $address)
-                    <h8>{{ $address->address }}</h8> 
-                @endforeach
-            @endisset
-        
-            <h2>ENDERECOS DESATIVADOS</h2>
-            @if($deactiveAddress->isEmpty())
-                <h8>Não possuis nenhum endereço desativo</h8> 
-            @endif
-
-            @isset($deactiveAddress)
-                @foreach($deactiveAddress as $address)
-                    <h8>{{ $address->address }}</h8> 
-                @endforeach
-            @endisset
-        </div>
-    </form>
 @endsection

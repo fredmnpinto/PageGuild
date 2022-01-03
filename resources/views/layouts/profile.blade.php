@@ -21,7 +21,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app" class="row p-0 m-0 w-100">
+    <div id="app" class="row p-0 m-0 w-100 min-vh-100">
         <!-- Sidebar -->
         <div class="col-2 p-0">
             @yield('sidebar')
@@ -29,7 +29,7 @@
 
         <div class="col p-0">
             @include('includes.header')
-            <main class="py-4 container">
+            <main class="py-4 container min-vh-100">
                 @yield('content')
             </main>
             @include('includes.footer')

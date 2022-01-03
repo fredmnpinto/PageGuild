@@ -21,7 +21,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="min-vh-100">
         @include('includes.header')
         <main class="py-4 container">
             @yield('content')
