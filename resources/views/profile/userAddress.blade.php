@@ -8,7 +8,7 @@
             @if($activeAddress->isEmpty())
                 <h8>Não possuis nenhum endereço ativo</h8> 
             @else
-            <table>
+            <table aria-label="Tabela de endereços desativados">
                 <tr>
                     <th>Morada</th>
                     <th>Cidade</th>
@@ -38,7 +38,7 @@
             @if($deactiveAddress->isEmpty())
                 <h8>Não possuis nenhum endereço desativo</h8> 
             @else
-            <table>
+            <table aria-label="Tabela de endereços desativados">
                 <tr>
                     <th>Morada</th>
                     <th>Cidade</th>
