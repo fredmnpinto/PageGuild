@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function showUserInfo() {
         // Vai buscar o utilizador que esta neste momento autenticado
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
 
         return view('profile.userInfo', ['user' => $user]);
     }
@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function showUserAddress() {
         // Vai buscar o utilizador que esta neste momento autenticado
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
 
         // Vai buscar os endereços do utilizador
         $activeAddress = AddressController::buildSearchAddressQuery($user->id, ['address.id','user_id', 'address','country','city','flg_active','flg_delete'], 'true')->get();
@@ -61,7 +61,7 @@ class UserController extends Controller
      */
     public function showUserOrders() {
         // Vai buscar o utilizador que esta neste momento autenticado
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
 
         $orders = OrderController::buildSearchOrdersQuery($user->id, ['order.id', 'order_status.status', 'registration_date', 'update_date', 'coupon_id'])->get();
 
@@ -75,7 +75,7 @@ class UserController extends Controller
      */
     public function updateUserInfo(Request $request) {
         // Vai buscar o utilizador que esta neste momento autenticado
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
 
         /**
          * Valida as informacaoes. Por exemplo, se o email e unico.

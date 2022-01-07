@@ -132,7 +132,7 @@ class AddressController extends Controller
      */
     public static function createAddress(Request $request) {
         // Vai buscar o utilizador que esta neste momento autenticado
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
 
         /**
          * Valida as informacaoes.
