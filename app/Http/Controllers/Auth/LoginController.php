@@ -39,31 +39,19 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function credentials(Request $request)
-    {
-
-        /// this method is overriden form Illuminate\Foundation\Auth\AuthenticatesUsers; class
-        $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
-            ? $this->username()
-            : 'username';
-
-        return [
-            $field => $request->get($this->username()),
-            'password' => $request->password,
-        ];
-    }
-
     // override default login
     public function login(Request $request)
     {
        $input = $request->all();
 
        $this->validate($request, [
-        'username' => 'required',
+        'username/email' => 'required',
         'password' => 'required',
         ]);
 
-        if(auth()->attempt(array('username' => $input['username'], 'password' => $input['password']))){
+        if(auth()->attempt(array('username' => $input['username/email'], 'password' => $input['password']))){// Faz 1º tentativa com username
+            return redirect()->route('home');
+        }else if(auth()->attempt(array('email' => $input['username/email'], 'password' => $input['password']))) {// Faz 2º tentativa com email
             return redirect()->route('home');
         }else{
             return redirect()->route('login')
