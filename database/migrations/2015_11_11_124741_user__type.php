@@ -26,6 +26,6 @@ class UserType extends Migration
      */
     public function down()
     {
-        Schemma::drop('user_type');
+        Schema::drop('user_type');
     }
 }

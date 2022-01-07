@@ -42,7 +42,9 @@ LabWeb | Index
                         @endforeach
                 </div>
 
-                <input type="submit" class="buy-button" value="{{ __('Comprar') }}">
+                <form action="{{route('order.checkout', $item)}}">
+                    <input type="submit" class="buy-button" value="{{ __('Comprar') }}">
+                </form>
             </div>
         </div>
     </div>
