@@ -1,17 +1,15 @@
 body {
+    background-color: #14213d;
     min-height: 100vh;
 }
 
 nav {
+    background-color: #fca311;
 }
 
 .primary-color {
-    background-color: #F7F0F5;
-    color: #56473b;
-}
-
-.secondary-color {
-    background-color: #DECBB7;
+    background-color: #fca311;
+    color: antiquewhite;
 }
 
 footer {
