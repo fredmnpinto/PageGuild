@@ -36,37 +36,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        ItemType::factory()->create();
-        Language::factory()->create();
-        OrderStatus::factory()->count(5)->create();
-
-        UserType::factory()->create();
-        UserType::factory()->admin()->create();
-
-        User::factory()->count(7)->create();
-        User::factory()->count(3)->admin()->create();
-
-        Address::factory()->count(User::all()->count());
-
-        Author::factory()->count(10)->create();
-        Publisher::factory()->count(10)->create();
-        Genre::factory()->count(10)->create();
-
-        Book::factory()->count(10)->create();
-     
-        BookFactory::new()->count(5)
-            ->hasPublisher()
-            ->create();
-
         $this->call([
-            AuthorBookSeeder::class,
-            GenreBookSeeder::class
+            ItemSeeder::class,
+            UserSeeder::class,
+            OrderSeeder::class,
         ]);
-
-        Country::factory()->count(5)->create();
-
-        City::factory()->count(15)->create();
-
-        Address::factory()->count(20)->create();
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\UserController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -61,10 +61,12 @@ Route::post('/profile/userInformation/update', [UserController::class, 'updateUs
 
 Route::get('/profile/userAddress', [UserController::class, 'showUserAddress'])->name('userAddress');
 
-Route::get('/profile/userAddress/desactivate{address_id}', [UserController::class, 'desactivateAddress'])->name('desactivateAddress');
+Route::get('/profile/userAddress/desactivate{address_id}', [AddressController::class, 'desactivateAddress'])->name('desactivateAddress');
 
-Route::get('/profile/userAddress/activate{address_id}', [UserController::class, 'activateAddress'])->name('activateAddress');
+Route::get('/profile/userAddress/activate{address_id}', [AddressController::class, 'activateAddress'])->name('activateAddress');
 
-Route::get('/profile/userAddress/delete{address_id}', [UserController::class, 'deleteAddress'])->name('deleteAddress');
+Route::get('/profile/userAddress/delete{address_id}', [AddressController::class, 'deleteAddress'])->name('deleteAddress');
 
-Route::post('/profile/userAddress/createAddress', [UserController::class, 'createAddress'])->name('createAddress');
+Route::post('/profile/userAddress/createAddress', [AddressController::class, 'createAddress'])->name('createAddress');
+
+Route::get('/profile/userOrders', [UserController::class, 'showUserOrders'])->name('userOrders');

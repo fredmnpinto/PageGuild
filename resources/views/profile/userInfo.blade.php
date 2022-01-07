@@ -6,6 +6,8 @@
     @csrf
     @method('POST')
         <div class="row bg-white my-4 p-5">
+            <h2>INFORMAÇÕES DO UTILIZADOR</h2>
+            
             <!-- Nome -->
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" name="name" id="floatingInput" placeholder="Nome" value="{{ $user->name }}">
