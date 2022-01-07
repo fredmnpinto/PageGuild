@@ -22,7 +22,7 @@ class Address extends Migration
             $table->integer('city_id');
 
             $table->foreign('city_id')->references('id')->on('city');
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

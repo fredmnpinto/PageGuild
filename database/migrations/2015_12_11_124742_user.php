@@ -13,7 +13,7 @@ class User extends Migration
      */
     public function up()
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->text('name');
             $table->text('username')->unique();
@@ -40,6 +40,6 @@ class User extends Migration
      */
     public function down()
     {
-        Schema::drop('user');
+        Schema::drop('users');
     }
 }

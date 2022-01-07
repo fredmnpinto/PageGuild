@@ -23,7 +23,7 @@ class Order extends Migration
 
             $table->foreign('order_status_id')->references('id')->on('order_status');
             $table->foreign('coupon_id')->references('id')->on('coupon');
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
