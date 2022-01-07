@@ -43,7 +43,8 @@ class ItemShoppingCart extends Pivot
      * @var array
      */
     protected $fillable = [
-        "registration_date", "flag_delete", "flag_active", "amount"
+        "registration_date", "flag_delete", "flag_active",
+        'user_id', 'item_id'
     ];
 
     public function user() {

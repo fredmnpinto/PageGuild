@@ -3,17 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\ItemShoppingCart;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
     //
 
-    public function addToCart(Request $request, Item $item) {
+    public function addToCart(Request $request, Item $item = null): RedirectResponse
+    {
         $user = $request->user();
 
-        return back()->with('message', 'Well... I tried');
+        if ($item == null) {
+            return back()->with('error', __('System Error: Item not provided to addToCart()'));
+        }
+
+        DB::table('shopping_cart')
+            ->insert(
+                [
+                    'item_id' => $item->id,
+                    'user_id' => $user->id,
+                ]
+            );
+
+        return back()->with('message', __('Item was added to your cart'));
     }
 
     public function shoppingCart() {

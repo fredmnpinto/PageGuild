@@ -15,7 +15,7 @@ LabWeb | Index
 
                 <h3>de
                     @foreach ($authors as $author)
-                    {{ $author->name }} @if($authors->count() > 1), @endif
+                    {{ $author->name }} @if(count($authors) > 1), @endif
                     @endforeach
                 </h3>
 
@@ -42,15 +42,18 @@ LabWeb | Index
                         @endforeach
                 </div>
 
-                <form method="post" action="{{ route('order.add_to_cart', $item->id) }}">
+                <form method="POST" action="{{ route('order.add_to_cart', $item->id) }}">
+                    @csrf
                     <input type="submit" class="buy-button" value="{{ __('Comprar') }}">
 
-                    @if(session('message'))
-                        <div class="alert alert-success" role="alert">{{ session('message') }}</div>
-                    @endif
-                    @if(session('error'))
-                        <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
-                    @endif
+                    <div class="response" style="width: 50%">
+                        @if(session('message'))
+                            <div class="alert alert-success" role="alert">{{ session('message') }}</div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
+                        @endif
+                    </div>
                 </form>
             </div>
         </div>

@@ -1,15 +1,17 @@
 body {
-    background-color: #14213d;
     min-height: 100vh;
 }
 
 nav {
-    background-color: #fca311;
 }
 
 .primary-color {
-    background-color: #fca311;
-    color: #2c2925;
+    background-color: #F7F0F5;
+    color: #56473b;
+}
+
+.secondary-color {
+    background-color: #DECBB7;
 }
 
 footer {
@@ -30,21 +32,10 @@ footer {
 
 .book-details .buy-button {
     position: relative;
-    left: 70%;
+    left: 15%;
     bottom: 15%;
     height: 10vh;
-    width: 20vh;
+    width: 50%;
     font-size: x-large;
 }
 
-.pcolor {
-    background-color: #1E3231;
-}
-
-.scolor {
-    background-color: #455b8c;
-}
-
-h1, h3, p {
-    color: white;
-}
