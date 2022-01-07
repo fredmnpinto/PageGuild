@@ -1,5 +1,6 @@
 body {
     background-color: #14213d;
+    color: antiquewhite;
     min-height: 100vh;
 }
 
@@ -37,3 +38,6 @@ footer {
     font-size: x-large;
 }
 
+table {
+    background: ghostwhite;
+}
