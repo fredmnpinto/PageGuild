@@ -42,7 +42,7 @@ LabWeb | Index
                         @endforeach
                 </div>
 
-                <form method="POST" action="{{ route('order.add_to_cart', $item->id) }}">
+                <form method="POST" action="{{ route('order.add_to_cart', ['item_id' => $item->id]) }}">
                     @csrf
                     <input type="submit" class="buy-button" value="{{ __('Comprar') }}">
 

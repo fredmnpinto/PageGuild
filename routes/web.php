@@ -44,7 +44,7 @@ Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order
 
 Route::get('/order/shopping_cart', [OrderController::class, 'shoppingCart'])->name('order.shopping_cart');
 
-Route::post('/order/add_to_cart/{id}', [OrderController::class, 'addToCart'])->name('order.add_to_cart');
+Route::post('/order/add_to_cart', [OrderController::class, 'addToCart'])->name('order.add_to_cart');
 
 Route::post('/order/purchase', [OrderController::class, 'purchase'])->name('order.purchase');
 

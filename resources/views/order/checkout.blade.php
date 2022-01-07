@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
-    <form method="POST" action="{{-- route('order.purchase', $item->id) --}}" class="card-form mt-3 mb-3">
+    <form method="POST" action=" {{ route('order.purchase') }}" class="card-form mt-3 mb-3">
         <h1>You are buying</h1>
 
-        <table class="table text-white">
+        <table class="table">
             @foreach($items as $item)
                <tr>
                    <td>{{ $item->name }}</td>
