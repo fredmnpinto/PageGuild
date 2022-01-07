@@ -6,7 +6,16 @@
 
 @section('content')
     <form method="POST" action="{{-- route('order.purchase', $item->id) --}}" class="card-form mt-3 mb-3">
-        <h1>Item id = {{ $item->id }}</h1>
+        <h1>You are buying</h1>
+
+        <table class="table text-white">
+            @foreach($items as $item)
+               <tr>
+                   <td>{{ $item->name }}</td>
+                   <td>{{ $item->price }}</td>
+               </tr>
+            @endforeach
+        </table>
         @csrf
         <input type="hidden" name="payment_method" class="payment-method">
         <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>

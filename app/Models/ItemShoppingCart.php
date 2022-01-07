@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ItemShoppingCart extends Model
+class ItemShoppingCart extends Pivot
 {
     use HasFactory;
 
@@ -14,7 +15,7 @@ class ItemShoppingCart extends Model
      *
      * @var string
      */
-    protected $table = "item_shopping_cart";
+    protected $table = "shopping_cart";
 
     /**
      * Primary key dessa tabela
@@ -42,14 +43,14 @@ class ItemShoppingCart extends Model
      * @var array
      */
     protected $fillable = [
-        "registration_date", "flg_delete", "amount"
+        "registration_date", "flag_delete", "flag_active", "amount"
     ];
 
     public function user() {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function item() {
-        return $this->hasOne(Item::class);
+        return $this->belongsTo(Item::class);
     }
 }

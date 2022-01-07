@@ -66,8 +66,8 @@ class User extends Authenticatable
         return $this->hasMany(Address::class);
     }
 
-    public function shoppingCartItem() {
-        return $this->hasManyThrough(Item::class, ItemShoppingCart::class);
+    public function shoppingCart() {
+        return $this->belongsToMany(Item::class, ItemShoppingCart::class, 'user_id', 'item_id');
     }
 
     public function reservationListItem() {

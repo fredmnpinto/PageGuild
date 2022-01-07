@@ -60,8 +60,9 @@ class ItemController extends Controller
                                             'language' => $language
                                             ]);
             }
-            case 2: {
-                //
+
+            default: {
+                redirect('home');
             }
         }
     }
@@ -149,7 +150,7 @@ class ItemController extends Controller
      * Esta função serve para popular o accordion dos diversos filtros (autores, editores, etc...)
      *
      */
-    private function getFilterOptions(string $searchQuery, array $filterColumns, int $author_id = null, 
+    private function getFilterOptions(string $searchQuery, array $filterColumns, int $author_id = null,
                                       int $publisher_id = null, int $genre_id = null, int $year = null): \Illuminate\Support\Collection
     {
         $query = BookController::buildSearchBooksQuery($searchQuery, [$filterColumns[0], $filterColumns[1]],

@@ -42,8 +42,15 @@ LabWeb | Index
                         @endforeach
                 </div>
 
-                <form action="{{route('order.checkout', $item)}}">
+                <form method="post" action="{{ route('order.add_to_cart', $item->id) }}">
                     <input type="submit" class="buy-button" value="{{ __('Comprar') }}">
+
+                    @if(session('message'))
+                        <div class="alert alert-success" role="alert">{{ session('message') }}</div>
+                    @endif
+                    @if(session('error'))
+                        <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
+                    @endif
                 </form>
             </div>
         </div>
