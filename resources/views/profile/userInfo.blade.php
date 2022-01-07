@@ -1,4 +1,4 @@
-@extends('profile.profileView')
+@extends('profile.profileView', ['activeNav' => 2])
 
 @section('optionContent')
     <!-- Informações do Utilizador -->

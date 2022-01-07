@@ -5,7 +5,7 @@ PageGuild | Profile
 @endsection
 
 @section('sidebar')
-    @include('includes.sidebar')
+    @include('includes.sidebar', ['activeNav' => $activeNav ])
 @endsection
 
 @section('content')

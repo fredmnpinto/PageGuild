@@ -1,4 +1,4 @@
-@extends('profile.profileView')
+@extends('profile.profileView', ['activeNav' => 1])
 
 @section('optionContent')
     <div class="row bg-white my-4 p-5">  
