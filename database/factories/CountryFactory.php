@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class VendaArtigoFactory extends Factory
+class CountryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class VendaArtigoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'country' => $this->faker->unique()->words(random_int(1, 3), true)
         ];
     }
 }

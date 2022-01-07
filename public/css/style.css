@@ -3,7 +3,7 @@ body {
     min-height: 100vh;
 }
 
-nav {
+nav, #sidebar {
     background-color: #fca311;
 }
 
@@ -29,4 +29,21 @@ footer {
 
 h1, h3, p {
     color: white; 
+}
+
+.navLink {
+    color: white;
+    display: block;
+    padding: .5rem 1rem;
+    text-decoration: none;
+}
+
+.navLink:hover {
+    color: white;
+    background-color: #0d6dfd73;
+}
+
+.active {
+    color: white;
+    background-color: #0d6efd;
 }

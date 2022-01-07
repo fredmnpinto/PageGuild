@@ -21,12 +21,19 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app" class="min-vh-100">
-        @include('includes.header')
-        <main class="py-4 container">
-            @yield('content')
-        </main>
-        @include('includes.footer')
+    <div id="app" class="row p-0 m-0 w-100 min-vh-100">
+        <!-- Sidebar -->
+        <div class="col-2 p-0">
+            @yield('sidebar')
+        </div>
+
+        <div class="col p-0">
+            @include('includes.header')
+            <main class="py-4 container min-vh-100">
+                @yield('content')
+            </main>
+            @include('includes.footer')
+        </div>
     </div>
 </body>
 </html>

@@ -33,8 +33,7 @@ class Address extends Model
     /**
      * Tabelas em que as timestamps sao guardadas
      */
-    const CREATED_AT = "registration_date";
-    const UPDATED_AT = "update_date";
+    public $timestamps = false;
 
     /**
      * Os atributos que poderão ser inseridos pela
