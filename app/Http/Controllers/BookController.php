@@ -40,7 +40,8 @@ class BookController extends Controller
         ->leftjoin('author', 'author.id','=','author_book.author_id')
         ->leftjoin('genre_book', 'book.item_id', '=', 'genre_book.book_item_id')
         ->leftjoin('genre', 'genre.id', '=', 'genre_book.genre_id')
-        ->leftjoin('publisher','publisher.id','=','book.publisher_id');
+        ->leftjoin('publisher','publisher.id','=','book.publisher_id')
+            ->join('item', 'item.id', '=', 'book.item_id');
 
         /**
         * Para agrupar todos os orwhere num so where. Isto e importante para os filtros.
