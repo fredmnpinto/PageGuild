@@ -40,7 +40,7 @@ PageGuild | {{ $book->title }} details
                     <p>{{ $genre->name }}</p>
                 @endforeach
                 
-
+                <!-- Botão de comprar -->
                 <form method="POST" action="{{ route('order.add_to_cart', ['item_id' => $item->id]) }}">
                     @csrf
                     <input type="submit" class="buy-button btn btn-primary" value="{{ __('Adicionar ao carrinho') }}">

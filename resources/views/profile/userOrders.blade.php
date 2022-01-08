@@ -1,7 +1,7 @@
 @extends('profile.profileView', ['activeNav' => 3])
 
 @section('optionContent')
-    <div class="row bg-white my-4 p-5">  
+    <div class="row terciary-color my-4 p-5">  
         <h2>USER ORDER'S</h2>
         <table>
             <tr>

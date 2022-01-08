@@ -9,7 +9,7 @@ PageGuild | Home
         <div class="row row-cols-3">
         @foreach ( $books as $book) 
             <div class="col my-5">
-                <a class="navbar-brand" href="/details/{{ $book->item_id }}">
+                <a class="navbar-brand bookLink" href="/details/{{ $book->item_id }}">
                     <img src="../../images/bookimg.webp" class="img-fluid" alt="Photo of book: {{ $book->title }}">
                     <p>{{ $book->title }}</p>
                 </a>

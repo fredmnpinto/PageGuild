@@ -5,7 +5,7 @@
     <form method="POST" action="{{ route('updateInfo') }}">
     @csrf
     @method('POST')
-        <div class="row bg-white my-4 p-5">
+        <div class="row terciary-color my-4 p-5">
             <h2>INFORMAÇÕES DO UTILIZADOR</h2>
             
             <!-- Nome -->

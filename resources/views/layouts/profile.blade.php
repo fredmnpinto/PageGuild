@@ -21,7 +21,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app" class="row p-0 m-0 w-100 min-vh-100">
+    <div id="app" class="row p-0 m-0 w-100 min-vh-100 secondary-color">
         <!-- Sidebar -->
         <div class="col-2 p-0">
             @yield('sidebar')
