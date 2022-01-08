@@ -8,18 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Billable;
 
     /**
      * Nome da tabela associada a essa modal
      *
      * @var string
      */
-    protected $table = "user";
+    protected $table = "users";
 
     /**
      * Primary key dessa tabela
@@ -65,8 +66,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Address::class);
     }
 
-    public function shoppingCartItem() {
-        return $this->hasManyThrough(Item::class, ItemShoppingCart::class);
+    public function shoppingCart() {
+        return $this->belongsToMany(Item::class, ItemShoppingCart::class, 'user_id', 'item_id');
     }
 
     public function reservationListItem() {

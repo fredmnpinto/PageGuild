@@ -19,14 +19,19 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    @yield('styles')
 </head>
-<body>
-    <div id="app" class="min-vh-100">
+<body class="secondary-color">
+    <div id="app">
+
         @include('includes.header')
         <main class="py-4 container">
             @yield('content')
         </main>
         @include('includes.footer')
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    @yield('scripts')
 </body>
 </html>

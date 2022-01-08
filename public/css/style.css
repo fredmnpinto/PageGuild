@@ -1,5 +1,6 @@
-body {
+.secondary-color {
     background-color: #14213d;
+    color: antiquewhite;
     min-height: 100vh;
 }
 
@@ -19,16 +20,51 @@ footer {
     width: 100%;
 }
 
-#pcolor {
-    background-color: #1E3231;
+.book-details .book-cover {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 10%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
-#scolor {
-    background-color: #d16666;
+.book-details .buy-button {
+    position: relative;
+    height: 10vh;
+    width: 100%;
+    font-size: x-large;
 }
 
-h1, h3, p {
-    color: white; 
+.response {
+    width:100%;
+}
+
+table {
+    background: ghostwhite;
+    max-height: 50vh;
+    overflow: auto;
+}
+
+form {
+    background: ghostwhite;
+    color: black;
+    padding: 4%;
+    border-radius: 25px;
+}
+
+tr.purchase-total-amount td:first-child {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+tr.purchase-total-amount td:last-child {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+nav form {
+    padding: 3%;
 }
 
 .navLink {

@@ -25,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        redirect();
         return view('home', ['books' => Book::all()]);
     }
 

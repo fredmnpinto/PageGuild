@@ -20,7 +20,7 @@ class ItemReserveList extends Migration
             $table->boolean('flg_delete');
             $table->timestamp('registration_date');
 
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('item_id')->references('id')->on('item');
         });
     }

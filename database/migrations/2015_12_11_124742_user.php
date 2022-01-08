@@ -13,11 +13,11 @@ class User extends Migration
      */
     public function up()
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->text('name');
             $table->text('username')->unique();
-            $table->text('email', 70);
+            $table->text('email', 70)->unique();
             $table->text('password');
             $table->boolean('sex');
             $table->dateTime("email_verified_at")->nullable();
@@ -28,8 +28,6 @@ class User extends Migration
             $table->integer('user_type_id');
 
             $table->foreign('user_type_id')->references('id')->on('user_type');
-
-            $table->unique('email');
         });
     }
 
@@ -40,6 +38,6 @@ class User extends Migration
      */
     public function down()
     {
-        Schema::drop('user');
+        Schema::drop('users');
     }
 }

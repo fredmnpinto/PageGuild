@@ -17,10 +17,11 @@ class ShoppingCart extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('item_id');
-            $table->boolean('flg_delete');
+            $table->boolean('flag_delete')->default(false);
+            $table->boolean('flag_active')->default(true);
             $table->timestamp('registration_date');
 
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('item_id')->references('id')->on('item');
         });
     }

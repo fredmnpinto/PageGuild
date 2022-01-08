@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Auth;
 use Validator;
 
@@ -117,5 +118,16 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('userInfo');
+    }
+
+    public function itemsInShoppingCart() {
+        $user = Auth::user();
+
+        $query = DB::table('item', 'i')
+            ->join('shopping_cart sc', 'sc.user_id', '=', "{$user->id}")
+            ->where('i.flag_delete', 'is not', 'true')
+            ->where('sc.flag_delete', 'is not', 'true');
+
+        return $query->get('i.id');
     }
 }
