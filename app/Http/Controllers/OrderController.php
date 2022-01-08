@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Item;
 use App\Models\ItemShoppingCart;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,5 +75,17 @@ class OrderController extends Controller
         }
 
         return back()->with('message', 'Product purchased successfully!');
+    }
+
+    private function createOrder(array $items, User $user, int $coupon_id = null) {
+        $order = new Order;
+        $order->setAttribute('coupon_id', $coupon_id);
+        $order->setAttribute('registration_date', 'now()');
+        $order->setAttribute('order_status_id', 3); /* 1 -> Waiting for Payment; 2 -> Processing Payment; 3 -> Payment Complete */
+        $order->save();
+
+        foreach($items as $item) {
+            $orderItem = new OrderItem;
+        }
     }
 }
