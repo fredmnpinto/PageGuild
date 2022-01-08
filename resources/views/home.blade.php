@@ -16,7 +16,7 @@ PageGuild | Home
 
             @foreach ( $books as $book)
                 <div class="col my-5">
-                    <a class="navbar-brand" class="bookLink" href="/details/{{ $book->item_id }}">
+                    <a class="navbar-brand bookLink" href="/details/{{ $book->item_id }}">
                         <img src="../../images/bookimg.webp" class="img-fluid" alt="Photo of book: {{ ucwords($book->title, ' ') }}">
                         <p>{{ ucwords($book->title, ' ') }}</p>
                     </a>
