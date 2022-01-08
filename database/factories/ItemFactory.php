@@ -19,7 +19,7 @@ class ItemFactory extends Factory
             'price' => $this->faker->randomFloat(2, 4.99, 49.99),
             'registration_date' => $this->faker->dateTime('-1 month')->format("Ymd"),
             'update_date' => $this->faker->dateTimeThisMonth()->format("Ymd"),
-            'flag_delete' => $this->faker->boolean(80),
+            'flag_delete' => $this->faker->boolean(50),
             'item_type_id' => rand(1, ItemType::all()->count()),
         ];
     }
