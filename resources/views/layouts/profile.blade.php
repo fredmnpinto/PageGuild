@@ -19,19 +19,21 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    @yield('styles')
 </head>
-<body class="secondary-color">
-    <div id="app">
+<body>
+    <div id="app" class="row p-0 m-0 w-100 min-vh-100">
+        <!-- Sidebar -->
+        <div class="col-2 p-0">
+            @yield('sidebar')
+        </div>
 
-        @include('includes.header')
-        <main class="py-4 container">
-            @yield('content')
-        </main>
-        @include('includes.footer')
+        <div class="col p-0">
+            @include('includes.header')
+            <main class="py-4 container min-vh-100">
+                @yield('content')
+            </main>
+            @include('includes.footer')
+        </div>
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    @yield('scripts')
 </body>
 </html>

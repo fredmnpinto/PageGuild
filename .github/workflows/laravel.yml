@@ -5,15 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: kirschbaumdevelopment/laravel-test-runner:7.3
- 
+      
     services:
+      # Label used to access the service container
       postgres:
         image: postgres:10.8
         env:
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USERNAME: ${{ secrets.DB_TEST_USER }}
-          DB_PASSWORD: ${{ secrets.DB_TEST_USER_PASS }}
-          DB_DATABASE: ${{ secrets.DB_TEST_NAME }}
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test
         ports:
         - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -33,8 +33,14 @@ jobs:
  
     - name: Prepare Laravel Application
       run: |
-        cp .env.example .env
+        cp .env.ci .env
         php artisan key:generate
+        php artisan migrate:fresh --seed
  
     - name: Run Testsuite
+      env:
+          # The hostname used to communicate with the PostgreSQL service container
+          POSTGRES_HOST: postgres
+          # The default PostgreSQL port
+          POSTGRES_PORT: 5432
       run: vendor/bin/phpunit tests/

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-LabWeb | Index
+PageGuild | {{ $book->title }} details 
 @endsection
 
 @section('content')
@@ -43,7 +43,7 @@ LabWeb | Index
 
                 <form method="POST" action="{{ route('order.add_to_cart', ['item_id' => $item->id]) }}">
                     @csrf
-                    <input type="submit" class="buy-button" value="{{ __('Comprar') }}">
+                    <input type="submit" class="buy-button btn btn-primary" value="{{ __('Adicionar ao carrinho') }}">
 
                     <div class="response">
                         @if(session('message'))

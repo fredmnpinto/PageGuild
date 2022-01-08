@@ -5,10 +5,8 @@
 @endsection
 
 @section('content')
-    <form method="POST" action=" {{ route('order.purchase') }}" class="card-form mt-3 mb-3">
-    @csrf
+    <form method="POST" action=" {{ route('order.purchase', ['total_amount' => $total_amount]) }}" class="card-form mt-3 mb-3">
         <h1>You are buying</h1>
-
         <table class="table">
             @foreach($items as $item)
                <tr>
@@ -16,6 +14,14 @@
                    <td>{{ $item->price }}</td>
                </tr>
             @endforeach
+            <tr class="secondary-color purchase-total-amount">
+                <td>
+                    {{ __('Total Price') }}
+                </td>
+                <td>
+                    {{ $total_amount }}
+                </td>
+            </tr>
         </table>
         @csrf
         <input type="hidden" name="payment_method" class="payment-method">
@@ -23,7 +29,11 @@
         <div class="col-lg-4 col-md-6">
             <div id="card-element"></div>
         </div>
-        <div id="card-errors" role="alert"></div>
+        <div id="card-errors" role="alert">
+            @if(session('error'))
+                <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
+            @endif
+        </div>
         <div class="form-group mt-3">
             <button type="submit" class="btn btn-primary pay">
                 Purchase
@@ -31,15 +41,12 @@
             @if(session('message'))
                 <div class="alert alert-success" role="alert">{{ session('message') }}</div>
             @endif
-            @if(session('error'))
-                <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
-            @endif
         </div>
     </form>
 @endsection
 
 @section('styles')
-/*    <style>
+    <style>
         .StripeElement {
             box-sizing: border-box;
             height: 40px;
@@ -60,10 +67,10 @@
         .StripeElement--webkit-autofill {
             background-color: #fefde5 !important;
         }
-    </style>*/
+    </style>
 @endsection
 
-@section('scripts')/*
+@section('scripts')
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         let stripe = Stripe("{{ env('STRIPE_KEY') }}")
@@ -87,6 +94,7 @@
         card.mount('#card-element')
         let paymentMethod = null
         $('.card-form').on('submit', function (e) {
+            debugger
             $('button.pay').attr('disabled', true)
             if (paymentMethod) {
                 return true
@@ -111,5 +119,5 @@
             })
             return false
         })
-    </script>*/
+    </script>
 @endsection

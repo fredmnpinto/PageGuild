@@ -1,10 +1,10 @@
-body {
+.secondary-color {
     background-color: #14213d;
     color: antiquewhite;
     min-height: 100vh;
 }
 
-nav {
+nav, #sidebar {
     background-color: #fca311;
 }
 
@@ -31,13 +31,55 @@ footer {
 
 .book-details .buy-button {
     position: relative;
-    left: 15%;
-    bottom: 15%;
     height: 10vh;
-    width: 50%;
+    width: 100%;
     font-size: x-large;
+}
+
+.response {
+    width:100%;
 }
 
 table {
     background: ghostwhite;
+    max-height: 50vh;
+    overflow: auto;
+}
+
+form {
+    background: ghostwhite;
+    color: black;
+    padding: 4%;
+    border-radius: 25px;
+}
+
+tr.purchase-total-amount td:first-child {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+tr.purchase-total-amount td:last-child {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+nav form {
+    padding: 3%;
+}
+
+.navLink {
+    color: white;
+    display: block;
+    padding: .5rem 1rem;
+    text-decoration: none;
+}
+
+.navLink:hover {
+    color: white;
+    background-color: #0d6dfd73;
+}
+
+.active {
+    color: white;
+    background-color: #0d6efd;
 }
