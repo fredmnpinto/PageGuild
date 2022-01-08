@@ -66,7 +66,7 @@ LabWeb | Index
         <div class="row row-cols-3">
         @foreach ($results as $item)
             <div class="col my-5">
-                <a class="navbar-brand bookLink" href="{{ route('showDetails', $item->item_id) }}">
+                <a class="navbar-brand bookLink" class="bookLink" href="{{ route('showDetails', $item->item_id) }}">
                     <img src="/images/bookimg.webp" class="img-fluid" alt="Photo of book: {{ $item->item_name }}">
                     <p>{{ $item->item_name }}</p>
                 </a>
