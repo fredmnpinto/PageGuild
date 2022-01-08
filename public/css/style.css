@@ -31,6 +31,7 @@ footer {
 
 .book-details .buy-button {
     position: relative;
+    border-radius: 0;
     height: 10vh;
     width: 100%;
     font-size: x-large;
@@ -49,8 +50,6 @@ table {
 form {
     background: ghostwhite;
     color: black;
-    padding: 4%;
-    border-radius: 25px;
 }
 
 tr.purchase-total-amount td:first-child {
@@ -64,6 +63,7 @@ tr.purchase-total-amount td:last-child {
 }
 
 nav form {
+    border-radius: 25px;
     padding: 3%;
 }
 
@@ -82,4 +82,18 @@ nav form {
 .active {
     color: white;
     background-color: #0d6efd;
+}
+
+.terciary-color {
+    background-color: white;
+    color: black;
+}
+
+.bookLink {
+    text-decoration: none;
+    color: white;
+}
+
+.bookLink:hover {
+    color:rgb(148, 148, 148);
 }

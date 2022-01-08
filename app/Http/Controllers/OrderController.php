@@ -39,7 +39,6 @@ class OrderController extends Controller
                     'item_id' => $item_id,
                     'user_id' => $user->id,
                     'registration_date' => 'now()',
-                    'flg_delete' => 'false',
                 ]
             );
 
