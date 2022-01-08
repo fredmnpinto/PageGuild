@@ -63,6 +63,15 @@ tr.purchase-total-amount td:last-child {
     border-top-right-radius: 10px;
 }
 
+.card form {
+    padding: 0;
+}
+
+.card {
+    background: ghostwhite;
+    color: black;
+}
+
 nav form {
     padding: 3%;
 }

@@ -19,8 +19,8 @@ class AddressFactory extends Factory
             "address" => $this->faker->streetAddress(),
             "user_id" => $this->faker->numberBetween(1, User::all()->count()),
             "city_id" => $this->faker->numberBetween(1, City::all()->count()),
-            "flg_active" => $this->faker->boolean(90),
-            "flg_delete" => false
+            "flag_active" => $this->faker->boolean(90),
+            "flag_delete" => false
         ];
     }
 }

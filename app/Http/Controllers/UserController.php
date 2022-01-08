@@ -48,9 +48,9 @@ class UserController extends Controller
         $user = Auth::user();
 
         // Vai buscar os endereços do utilizador
-        $activeAddress = AddressController::buildSearchAddressQuery($user->id, ['address.id','user_id', 'address','country','city','flg_active','flg_delete'], 'true')->get();
-        $deactiveAddress = AddressController::buildSearchAddressQuery($user->id, ['address.id','user_id','address','country','city','flg_active','flg_delete'],'false')->get();
-        
+        $activeAddress = AddressController::buildSearchAddressQuery($user->id, ['address.id','user_id', 'address','country','city','flag_active','flag_delete'], 'true')->get();
+        $deactiveAddress = AddressController::buildSearchAddressQuery($user->id, ['address.id','user_id','address','country','city','flag_active','flag_delete'],'false')->get();
+
         // Vai buscar todas as opçoes de cidades da base de dados
         $countryCity_list = AddressController::listCountryCity();
 
@@ -71,7 +71,7 @@ class UserController extends Controller
 
     /**
      * Atualiza a informação de um utilizador
-     * 
+     *
      * Esta função e chamada quando atualizamos alguma informação
      */
     public function updateUserInfo(Request $request) {
@@ -82,9 +82,9 @@ class UserController extends Controller
          * Valida as informacaoes. Por exemplo, se o email e unico.
          *
          * @link https://laravel.com/docs/8.x/validation#quick-displaying-the-validation-errors
-         * 
+         *
          * @author Gabriel
-         */ 
+         */
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
@@ -93,9 +93,9 @@ class UserController extends Controller
 
         /**
          * Adiciona regras especiais, para no caso de por exemplo o email não ter sido atualizado não faz sentido este ser validado como unico visto que e o mesmo.
-         * 
+         *
          * @link https://laravel.com/docs/5.2/validation#conditionally-adding-rules
-         * 
+         *
          * @author Gabriel
          */
         $validator->sometimes('email', 'unique:user', function($input) use ($user, $request) {

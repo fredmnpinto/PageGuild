@@ -17,8 +17,8 @@ class Address extends Migration
             $table->id();
             $table->text('address');
             $table->integer('user_id');
-            $table->boolean('flg_active');
-            $table->boolean('flg_delete');
+            $table->boolean('flag_active');
+            $table->boolean('flag_delete');
             $table->integer('city_id');
 
             $table->foreign('city_id')->references('id')->on('city');

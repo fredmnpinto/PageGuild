@@ -81,6 +81,8 @@ class BookController extends Controller
             }
         });
 
+        $query->where('item.flag_delete', '=', false);
+
         return $query;
     }
 

@@ -19,7 +19,7 @@ class Promotion extends Migration
             $table->timestamp('start_date');
             $table->timestamp('end_date');
             $table->timestamp('delete_date')->nullable();
-            $table->boolean('flg_delete');
+            $table->boolean('flag_delete');
         });
     }
 

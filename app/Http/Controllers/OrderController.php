@@ -10,12 +10,14 @@ use App\Models\OrderItem;
 use App\Models\User;
 
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
+use Nette\Utils\DateTime;
 use Stripe\Stripe;
 
 
@@ -40,8 +42,9 @@ class OrderController extends Controller
                 [
                     'item_id' => $item_id,
                     'user_id' => $user->id,
-                    'registration_date' => 'now()',
-                    'flg_delete' => 'false',
+                    'registration_date' => (new DateTime)->format('Ymd'),
+                    'flag_active' => true,
+                    'flag_delete' => false,
                 ]
             );
 
@@ -66,10 +69,15 @@ class OrderController extends Controller
     public function checkout() {
         $user = auth()->user();
         $intent = $user->createSetupIntent();
-        $items = $user->shoppingCart()->get();
+        $items = self::getBillableShoppingCart();
+
+        if ($items->count() == 0) {
+            redirect(route('home'));
+        }
+
         $total_amount = 0;
 
-        foreach($user->shoppingCart()->get() as $itemInCart) {
+        foreach($items as $itemInCart) {
             $total_amount += $itemInCart->price;
         }
 
@@ -90,27 +98,66 @@ class OrderController extends Controller
             return back()->with('error', $exception->getMessage());
         }
 
-        return back()->with('message', 'Product purchased successfully!');
+        self::createOrder(self::getBillableShoppingCart(), $user);
+
+        self::emptyCart($user);
+
+        return redirect(route('home'))->with('message', 'Purchase completed successfully!');
     }
 
-    private function createOrder(array $items, User $user, int $coupon_id = null) {
-        $order = new Order;
-        $order->setAttribute('coupon_id', $coupon_id);
-        $order->setAttribute('registration_date', 'now()');
-        $order->setAttribute('order_status_id', 3); /* 1 -> Waiting for Payment; 2 -> Processing Payment; 3 -> Payment Complete */
-        $order->save();
+    public static function getBillableShoppingCart() {
+        $user = auth()->user();
 
+        return $user->shoppingCart()
+            ->where('shopping_cart.flag_delete', false)
+            ->where('shopping_cart.flag_active', true)
+            ->where('item.flag_delete', false)
+            ->groupBy(['item.id', 'shopping_cart.user_id', 'shopping_cart.item_id'])
+            ->get(['item.*', DB::raw('count(shopping_cart.id) as amount')]);
+    }
+
+    private static function createOrder(Collection $items, User $user, int $coupon_id = null) : Order {
+        $now = new DateTime;
+        $now = $now->format('Ymd');
+
+        $order_id = DB::table('order')
+            ->insertGetId([
+                'user_id' => $user->id,
+                'registration_date' => $now,
+                'order_status_id' => 3,
+                'update_date' => $now,
+                'coupon_id' => $coupon_id
+            ]);
+
+        $orderItems = [];
         foreach($items as $item) {
-            $orderItem = new OrderItem;
+            $orderItem = [
+                'order_id' => $order_id,
+                'item_id' => $item->id,
+                'amount' => $item->amount,
+            ];
+
+            $orderItems[] = $orderItem;
         }
+
+        OrderItem::insert($orderItems);
+
+        return Order::find($order_id);
     }
 
-     /**
+    private static function emptyCart(User $user) : void {
+        DB::table('shopping_cart')
+            ->where('flag_active', '=', true)
+            ->where('user_id', '=', $user->id)
+            ->update(['flag_active' => false]);
+    }
+
+    /**
      * Constroi a query para buscar todos as orders de um utilizador
      * Se forem aplicados filtros na pesquisa, ela tambem aplica
      *
      * @param int $user_id Id do utilizador que pretendemos obter as orders
-     *
+     * @param array $selectArgs
      * @return Builder
      */
     public static function buildSearchOrdersQuery(int $user_id, array $selectArgs) : Builder {

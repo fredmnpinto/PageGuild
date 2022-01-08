@@ -43,7 +43,7 @@ class ItemWishlish extends Model
      * @var array
      */
     protected $fillable = [
-        "registration_date", "flg_delete"
+        "registration_date", "flag_delete"
     ];
 
     public function user() {

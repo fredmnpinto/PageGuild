@@ -42,8 +42,8 @@ class Address extends Model
      * @var array
      */
     protected $fillable = [
-        "city_id", "address", "flg_active",
-        "flg_delete",
+        "city_id", "address", "flag_active",
+        "flag_delete",
     ];
 
     public function user() {
