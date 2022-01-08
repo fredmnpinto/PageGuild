@@ -1,7 +1,7 @@
 @extends('profile.profileView', ['activeNav' => 1])
 
 @section('optionContent')
-    <div class="row bg-white my-4 p-5">  
+    <div class="row terciary-color my-4 p-5">  
         <!-- Endereços ativados -->
     
             <h2>ENDERECOS ATIVOS</h2>

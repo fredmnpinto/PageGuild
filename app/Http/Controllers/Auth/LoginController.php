@@ -39,35 +39,23 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function credentials(Request $request)
-    {
-
-        /// this method is overriden form Illuminate\Foundation\Auth\AuthenticatesUsers; class
-        $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
-            ? $this->username()
-            : 'username';
-
-        return [
-            $field => $request->get($this->username()),
-            'password' => $request->password,
-        ];
-    }
-
     // override default login
     public function login(Request $request)
     {
        $input = $request->all();
 
        $this->validate($request, [
-        'username' => 'required',
+        'username/email' => 'required',
         'password' => 'required',
         ]);
 
-        if(auth()->attempt(array('username' => $input['username'], 'password' => $input['password']))){
+        if(auth()->attempt(array('username' => $input['username/email'], 'password' => $input['password']))) { // 1º tentativa
+            return redirect()->route('home');
+        }else if(auth()->attempt(array('email' => $input['username/email'], 'password' => $input['password']))) { // 2º tentativa
             return redirect()->route('home');
         }else{
             return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+                ->with('error','Username or Email-Address And Password Are Wrong.');
         }
     }
 }

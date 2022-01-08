@@ -95,3 +95,13 @@ Route::post('/profile/userAddress/createAddress', [AddressController::class, 'cr
 
 Route::get('/profile/userOrders', [UserController::class, 'showUserOrders'])->name('userOrders');
 
+
+/*
+ |---------------------------------------------------
+ | Rota do How-To  
+ |--------------------------------------------------- 
+ */
+
+ Route::get('how-to', [HomeController::class, 'howTo'])->name('how-to');
+
+
