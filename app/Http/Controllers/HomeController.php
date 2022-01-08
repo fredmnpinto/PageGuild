@@ -32,4 +32,8 @@ class HomeController extends Controller
     public function adminHome() {
         return view('home', ['books' => Book::all()]);
     }
+
+    public function howTo() {
+        return view('howTo');
+    }
 }
