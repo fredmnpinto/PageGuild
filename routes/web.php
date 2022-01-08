@@ -19,7 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Base Routes */
+/*
+ |---------------------------------------------------
+ | Rotas base
+ |--------------------------------------------------- 
+ */ 
+
 Route::get('/', [HomeController::class, 'index'])->name('/');
 
 Auth::routes();
@@ -29,7 +34,12 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
 
-/* Item Routes */
+/*
+ |---------------------------------------------------
+ | Rotas relativas a pesquisa de items
+ |--------------------------------------------------- 
+ */ 
+
 Route::get('details/{id}', [ItemController::class, 'showDetails'])->name('showDetails');
 
 Route::post('/search/results', [ItemController::class, 'defaultSearch']);
@@ -39,7 +49,12 @@ Route::get('/search/results', [ItemController::class, 'defaultSearch']);
 Route::get('/search/results/orderFilter/{searchQuery}/{author_id}/{publisher_id}/{genre_id}/{publication_year}/{order_by}/{order_direction}', [ItemController::class, 'orderFilterSearch']);
 
 
-/* Orders Routes */
+/*
+ |---------------------------------------------------
+ | Rotas do carrinho de compras 
+ |--------------------------------------------------- 
+ */
+
 Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
 
 Route::get('/order/shopping_cart', [OrderController::class, 'shoppingCart'])->name('order.shopping_cart');

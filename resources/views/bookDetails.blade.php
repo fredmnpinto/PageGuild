@@ -34,19 +34,18 @@ LabWeb | Index
                 <p>Encadernação: {{ $book->bookbinding }}</p>
                 <p>Paginas: {{ $book->num_pages }}</p>
                 <p>Tipo de produto: {{ $itemType->type }}</p>
-
-                <div style="min-height: 10vh">
-                    <h3>GENEROS</h3>
-                        @foreach ($genres as $genre)
-                            <p>{{ $genre->name }}</p>
-                        @endforeach
-                </div>
+                
+                <h3>GENEROS</h3>
+                @foreach ($genres as $genre)
+                    <p>{{ $genre->name }}</p>
+                @endforeach
+                
 
                 <form method="POST" action="{{ route('order.add_to_cart', ['item_id' => $item->id]) }}">
                     @csrf
                     <input type="submit" class="buy-button" value="{{ __('Comprar') }}">
 
-                    <div class="response" style="width: 50%">
+                    <div class="response">
                         @if(session('message'))
                             <div class="alert alert-success" role="alert">{{ session('message') }}</div>
                         @endif

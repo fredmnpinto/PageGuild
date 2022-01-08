@@ -6,6 +6,7 @@
 
 @section('content')
     <form method="POST" action=" {{ route('order.purchase') }}" class="card-form mt-3 mb-3">
+    @csrf
         <h1>You are buying</h1>
 
         <table class="table">
@@ -38,7 +39,7 @@
 @endsection
 
 @section('styles')
-    <style>
+/*    <style>
         .StripeElement {
             box-sizing: border-box;
             height: 40px;
@@ -59,10 +60,10 @@
         .StripeElement--webkit-autofill {
             background-color: #fefde5 !important;
         }
-    </style>
+    </style>*/
 @endsection
 
-@section('scripts')
+@section('scripts')/*
     <script src="https://js.stripe.com/v3/"></script>
     <script>
         let stripe = Stripe("{{ env('STRIPE_KEY') }}")
@@ -110,5 +111,5 @@
             })
             return false
         })
-    </script>
+    </script>*/
 @endsection

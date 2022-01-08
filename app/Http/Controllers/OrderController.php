@@ -11,8 +11,12 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    //
-
+   
+    /**
+     * Adiciona um item ao carrinho 
+     * 
+     * @author Gabriel
+     */
     public function addToCart(Request $request): RedirectResponse
     {
         $user = $request->user();
@@ -27,13 +31,19 @@ class OrderController extends Controller
                 [
                     'item_id' => $item_id,
                     'user_id' => $user->id,
-                    'registration_date' => 'now()'
+                    'registration_date' => 'now()',
+                    'flg_delete' => 'false',
                 ]
             );
 
         return back()->with('message', __('Item was added to your cart'));
     }
 
+    /**
+     * Retorna a view com o carrinho de compras
+     * 
+     * @author Gabriel
+     */
     public function shoppingCart() {
         $user = auth()->user();
 
@@ -42,6 +52,9 @@ class OrderController extends Controller
         return view('order.shopping_cart', compact('items'));
     }
 
+    /**
+     * 
+     */
     public function checkout() {
         $user = auth()->user();
         $intent = $user->createSetupIntent();
