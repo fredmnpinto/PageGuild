@@ -16,11 +16,14 @@ class Order extends Migration
         Schema::create('order', function (Blueprint $table) {
             $table->id();
             $table->timestamp('registration_date');
+            $table->timestamp('update_date');
             $table->integer('order_status_id');
             $table->integer('coupon_id')->nullable();
+            $table->integer('user_id');
 
             $table->foreign('order_status_id')->references('id')->on('order_status');
             $table->foreign('coupon_id')->references('id')->on('coupon');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

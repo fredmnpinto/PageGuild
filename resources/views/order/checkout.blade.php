@@ -7,7 +7,6 @@
 @section('content')
     <form method="POST" action=" {{ route('order.purchase', ['total_amount' => $total_amount]) }}" class="card-form mt-3 mb-3">
         <h1>You are buying</h1>
-
         <table class="table">
             @foreach($items as $item)
                <tr>
