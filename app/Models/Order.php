@@ -34,7 +34,7 @@ class Order extends Model
      * Tabelas em que as timestamps sao guardadas
      */
     const CREATED_AT = "registration_date";
-    const UPDATED_AT = false;
+    const UPDATED_AT = "update_date";
 
     /**
      * Os atributos que poderão ser inseridos pela
