@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Stripe\Stripe;
 
 class OrderController extends Controller
 {
@@ -46,23 +48,24 @@ class OrderController extends Controller
         $user = auth()->user();
         $intent = $user->createSetupIntent();
         $items = $user->shoppingCart()->get();
+        $total_amount = 0;
 
-        return view('order.checkout', compact('items', 'intent'));
+        foreach($user->shoppingCart()->get() as $itemInCart) {
+            $total_amount += $itemInCart->price;
+        }
+
+        return view('order.checkout', compact('items', 'intent', 'total_amount'));
     }
 
     public function purchase(Request $request) {
         $user          = $request->user();
         $paymentMethod = $request->input('payment_method');
-        $fullPrice = 0;
-
-        foreach($user->shoppingCart()->get() as $itemInCart) {
-            $fullPrice += $itemInCart->price;
-        }
+        $fullPrice = $request->get('total_amount');
 
         try {
             $user->createOrGetStripeCustomer();
             $user->updateDefaultPaymentMethod($paymentMethod);
-            /* Stripe faz as cobranças em cêntimos, por isso é preciso multiplar por 100 o preço */
+            /* Stripe faz as cobranças em cêntimos, por isso é preciso multiplicar por 100 o preço */
             $user->charge($fullPrice * 100, $paymentMethod);
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());

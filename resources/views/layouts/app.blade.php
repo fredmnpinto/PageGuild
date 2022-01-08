@@ -21,7 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="secondary-color">
     <div id="app">
         @include('includes.header')
         <main class="py-4 container">
@@ -30,6 +30,7 @@
         @include('includes.footer')
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @yield('scripts')
 </body>
 </html>

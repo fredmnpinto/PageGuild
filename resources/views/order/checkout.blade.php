@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <form method="POST" action=" {{ route('order.purchase') }}" class="card-form mt-3 mb-3">
+    <form method="POST" action=" {{ route('order.purchase', ['total_amount' => $total_amount]) }}" class="card-form mt-3 mb-3">
         <h1>You are buying</h1>
 
         <table class="table">
@@ -15,6 +15,14 @@
                    <td>{{ $item->price }}</td>
                </tr>
             @endforeach
+            <tr class="secondary-color purchase-total-amount">
+                <td>
+                    {{ __('Total Price') }}
+                </td>
+                <td>
+                    {{ $total_amount }}
+                </td>
+            </tr>
         </table>
         @csrf
         <input type="hidden" name="payment_method" class="payment-method">
@@ -22,16 +30,17 @@
         <div class="col-lg-4 col-md-6">
             <div id="card-element"></div>
         </div>
-        <div id="card-errors" role="alert"></div>
+        <div id="card-errors" role="alert">
+            @if(session('error'))
+                <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
+            @endif
+        </div>
         <div class="form-group mt-3">
             <button type="submit" class="btn btn-primary pay">
                 Purchase
             </button>
             @if(session('message'))
                 <div class="alert alert-success" role="alert">{{ session('message') }}</div>
-            @endif
-            @if(session('error'))
-                <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
             @endif
         </div>
     </form>
@@ -86,6 +95,7 @@
         card.mount('#card-element')
         let paymentMethod = null
         $('.card-form').on('submit', function (e) {
+            debugger
             $('button.pay').attr('disabled', true)
             if (paymentMethod) {
                 return true
