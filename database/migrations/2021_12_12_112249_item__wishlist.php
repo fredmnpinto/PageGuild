@@ -17,7 +17,7 @@ class ItemWishlist extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('item_id');
-            $table->boolean('flg_delete');
+            $table->boolean('flag_delete');
             $table->timestamp('registration_date');
 
             $table->foreign('user_id')->references('id')->on('users');

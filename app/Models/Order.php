@@ -43,7 +43,7 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-        "order_status_id"
+        "order_status_id", 'registration_date', 'coupon_id'
     ];
 
     public function item() {

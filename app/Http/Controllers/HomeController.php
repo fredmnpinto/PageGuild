@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Book;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -18,6 +19,14 @@ class HomeController extends Controller
         $this->middleware(['auth', 'verified']);
     }
 
+    private static function allBooks() {
+        $query = DB::table('book')
+            ->join('item', 'item.id', '=', 'book.item_id')
+            ->where('item.flag_delete', '=', false);
+
+        return $query->get('book.*');
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -25,12 +34,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        redirect();
-        return view('home', ['books' => Book::all()]);
+        return view('home', ['books' => self::allBooks()]);
     }
 
     public function adminHome() {
-        return view('home', ['books' => Book::all()]);
+        return view('home', ['books' => self::allBooks()]);
     }
 
     public function howTo() {

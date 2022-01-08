@@ -2,27 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Item;
 use App\Models\ItemShoppingCart;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
 
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
+use Nette\Utils\DateTime;
 use Stripe\Stripe;
 
 
 class OrderController extends Controller
 {
-   
+
     /**
-     * Adiciona um item ao carrinho 
-     * 
-     * @author Gabriel
+     * Adiciona um item ao carrinho
+     *
      */
     public function addToCart(Request $request): RedirectResponse
     {
@@ -38,7 +42,9 @@ class OrderController extends Controller
                 [
                     'item_id' => $item_id,
                     'user_id' => $user->id,
-                    'registration_date' => 'now()',
+                    'registration_date' => (new DateTime)->format('Ymd'),
+                    'flag_active' => true,
+                    'flag_delete' => false,
                 ]
             );
 
@@ -47,8 +53,7 @@ class OrderController extends Controller
 
     /**
      * Retorna a view com o carrinho de compras
-     * 
-     * @author Gabriel
+     *
      */
     public function shoppingCart() {
         $user = auth()->user();
@@ -59,15 +64,20 @@ class OrderController extends Controller
     }
 
     /**
-     * 
+     *
      */
     public function checkout() {
         $user = auth()->user();
         $intent = $user->createSetupIntent();
-        $items = $user->shoppingCart()->get();
+        $items = self::getBillableShoppingCart();
+
+        if ($items->count() == 0) {
+            redirect(route('home'));
+        }
+
         $total_amount = 0;
 
-        foreach($user->shoppingCart()->get() as $itemInCart) {
+        foreach($items as $itemInCart) {
             $total_amount += $itemInCart->price;
         }
 
@@ -88,18 +98,67 @@ class OrderController extends Controller
             return back()->with('error', $exception->getMessage());
         }
 
-        return back()->with('message', 'Product purchased successfully!');
+        self::createOrder(self::getBillableShoppingCart(), $user);
+
+        self::emptyCart($user);
+
+        return redirect(route('home'))->with('message', 'Purchase completed successfully!');
     }
-  
-     /**
+
+    public static function getBillableShoppingCart() {
+        $user = auth()->user();
+
+        return $user->shoppingCart()
+            ->where('shopping_cart.flag_delete', false)
+            ->where('shopping_cart.flag_active', true)
+            ->where('item.flag_delete', false)
+            ->groupBy(['item.id', 'shopping_cart.user_id', 'shopping_cart.item_id'])
+            ->get(['item.*', DB::raw('count(shopping_cart.id) as amount')]);
+    }
+
+    private static function createOrder(Collection $items, User $user, int $coupon_id = null) : Order {
+        $now = new DateTime;
+        $now = $now->format('Ymd');
+
+        $order_id = DB::table('order')
+            ->insertGetId([
+                'user_id' => $user->id,
+                'registration_date' => $now,
+                'order_status_id' => 3,
+                'update_date' => $now,
+                'coupon_id' => $coupon_id
+            ]);
+
+        $orderItems = [];
+        foreach($items as $item) {
+            $orderItem = [
+                'order_id' => $order_id,
+                'item_id' => $item->id,
+                'amount' => $item->amount,
+            ];
+
+            $orderItems[] = $orderItem;
+        }
+
+        OrderItem::insert($orderItems);
+
+        return Order::find($order_id);
+    }
+
+    private static function emptyCart(User $user) : void {
+        DB::table('shopping_cart')
+            ->where('flag_active', '=', true)
+            ->where('user_id', '=', $user->id)
+            ->update(['flag_active' => false]);
+    }
+
+    /**
      * Constroi a query para buscar todos as orders de um utilizador
      * Se forem aplicados filtros na pesquisa, ela tambem aplica
-     * 
+     *
      * @param int $user_id Id do utilizador que pretendemos obter as orders
-     * 
+     * @param array $selectArgs
      * @return Builder
-     * 
-     * @author Gabriel
      */
     public static function buildSearchOrdersQuery(int $user_id, array $selectArgs) : Builder {
         $query = DB::table('order')
@@ -108,20 +167,18 @@ class OrderController extends Controller
 
         /**
          * Pesquisa por todos as orders que pertencam ao user @param $user_id
-         * 
-         * @author Gabriel
+         *
          */
         $query = $query->where( function ($query) use($user_id) {
             $query->where('order.user_id','=',$user_id);
-        }); 
+        });
 
         /**
          * Parte onde são aplicaados os filtros
-         * 
-         * @author Gabriel
+         *
          */
         $query = $query->where(function ($query) {
-            
+
         });
 
         return $query;

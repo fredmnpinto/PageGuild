@@ -1,26 +1,26 @@
 @extends('layouts.app')
 
 @section('title')
-PageGuild | {{ $book->title }} details 
+PageGuild | {{ $book->title }} details
 @endsection
 
 @section('content')
     <div class="container scolor book-details">
         <div class="row">
             <div class="col">
-                <img src="../../images/bookimg.webp" class="img-fluid book-cover" alt="Photo of book: {{ $book->title }}">
+                <img src="../../images/bookimg.webp" class="img-fluid book-cover" alt="Photo of book: {{ ucwords($book->title, ' ') }}">
             </div>
             <div class="col">
-                <h1>{{ $book->title }}</h1>
+                <h1>{{ ucwords($book->title, ' ') }}</h1>
 
                 <h3>de
                     @foreach ($authors as $author)
-                    {{ $author->name }} @if(count($authors) > 1), @endif
+                    {{ ucwords($author->name, ' ') }} @if(count($authors) > 1), @endif
                     @endforeach
                 </h3>
 
                 <h3>PRICE</h3>
-                <p>{{ $item->price }}</p>
+                <p>{{ $item->price }}€</p>
 
                 <h3>SINOPSE</h3>
                 <p>{{ $book->synopsis }}</p>
@@ -28,13 +28,13 @@ PageGuild | {{ $book->title }} details
                 <h3>DETALHES DO PRODUTO</h3>
                 <p>ISBN: {{ $book->isbn }}</p>
                 <p>Ano de edição: {{ $book->publication_year }}</p>
-                <p>Editor: {{ $publisher }}</p>
+                <p>Editor: {{ ucwords($publisher, ' ') }}</p>
                 <p>Idioma: {{ $language->name }}</p>
                 <p>Dimensões: {{ $book->width }} x {{ $book->length }} x {{ $book->height }}</p>
                 <p>Encadernação: {{ $book->bookbinding }}</p>
                 <p>Paginas: {{ $book->num_pages }}</p>
                 <p>Tipo de produto: {{ $itemType->type }}</p>
-                
+
                 <h3>GENEROS</h3>
                 @foreach ($genres as $genre)
                     <p>{{ $genre->name }}</p>

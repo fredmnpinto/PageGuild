@@ -10,8 +10,8 @@
         <table class="table">
             @foreach($items as $item)
                <tr>
-                   <td>{{ $item->name }}</td>
-                   <td>{{ $item->price }}</td>
+                   <td>{{ ucwords($item->name, ' ') }}</td>
+                   <td>{{ $item->price }}€</td>
                </tr>
             @endforeach
             <tr class="secondary-color purchase-total-amount">
@@ -19,7 +19,7 @@
                     {{ __('Total Price') }}
                 </td>
                 <td>
-                    {{ $total_amount }}
+                    {{ $total_amount }}€
                 </td>
             </tr>
         </table>

@@ -18,7 +18,7 @@ class CouponFactory extends Factory
             "start_date" => $this->faker->dateTimeBetween('-2 month', '-2 week')->format("Ymd"),
             "end_date" => $this->faker->dateTimeBetween('-1 week', '+2 week')->format("Ymd"),
             "discount" => $this->faker->randomFloat(2, 0.1, 0.7),
-            "flg_active" => $this->faker->boolean(70),
+            "flag_active" => $this->faker->boolean(70),
             "description" => $this->faker->realText("100"),
         ];
     }
@@ -26,7 +26,7 @@ class CouponFactory extends Factory
     public function used() {
         return $this->state(function (array $attributes) {
             return [
-                'flg_active' => false,
+                'flag_active' => false,
             ];
         });
     }
