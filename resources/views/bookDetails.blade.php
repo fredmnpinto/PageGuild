@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-LabWeb | Index
+PageGuild | {{ $book->title }} details 
 @endsection
 
 @section('content')

@@ -4,7 +4,7 @@
     min-height: 100vh;
 }
 
-nav {
+nav, #sidebar {
     background-color: #fca311;
 }
 
@@ -65,4 +65,21 @@ tr.purchase-total-amount td:last-child {
 
 nav form {
     padding: 3%;
+}
+
+.navLink {
+    color: white;
+    display: block;
+    padding: .5rem 1rem;
+    text-decoration: none;
+}
+
+.navLink:hover {
+    color: white;
+    background-color: #0d6dfd73;
+}
+
+.active {
+    color: white;
+    background-color: #0d6efd;
 }

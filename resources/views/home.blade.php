@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-LabWeb | Index
+PageGuild | Home
 @endsection
 
 @section('content')

@@ -1,7 +1,7 @@
 <footer class="page-footer font-small primary-color py-3">
     <div class="page-footer d-flex flex-wrap justify-content-between align-items-center">
         <div class="col-md-4 d-flex align-items-center">
-            <img src="./images/logo.png" alt="PageGuild logo" height="40">
+            <img src="/images/logo.png" alt="PageGuild logo" height="40">
             <p class="footer-copyright text-white mx-2 my-auto">© 2021 Copyright: PageGuild</p>
         </div>
 

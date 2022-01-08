@@ -4,13 +4,16 @@ namespace Feature\Auth;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Models\User;
+use Illuminate\Foundation\Testing\Concerns\MakesHttpRequests;
+use PHPUnit\Util\Test;
 use Tests\TestCase;
+use TheSeer\Tokenizer\Exception;
 
 class RegisterTest extends TestCase
 {
 
     public function test_index() {
-        $this->get('/')->assertStatus(200);
+        $this->get('/register')->assertOk();
     }
 
     public function test_registration()
@@ -23,13 +26,12 @@ class RegisterTest extends TestCase
         ];
 
         /* Make sure it doesn't already exists */
-        $user_id = User::where('username', '=', $testUser['username'])
-            ->where('email', '=', $testUser['email'])
-            ->get('id')[0]['id'];
+        $user = User::where('username', '=', $testUser['username'])
+            ->where('email', '=', $testUser['email'])->first('id');
 
-        if ($user_id != null) {
+        if ($user != null) {
             User::destroy(
-                $user_id
+                $user->id
             );
         }
 

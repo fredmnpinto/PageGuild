@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AddressFactory extends Factory
@@ -16,7 +17,8 @@ class AddressFactory extends Factory
     {
         return [
             "address" => $this->faker->streetAddress(),
-            "user_id" => $this->faker->unique()->numberBetween(1, User::all()->count()),
+            "user_id" => $this->faker->numberBetween(1, User::all()->count()),
+            "city_id" => $this->faker->numberBetween(1, City::all()->count()),
             "flg_active" => $this->faker->boolean(90),
             "flg_delete" => false
         ];
