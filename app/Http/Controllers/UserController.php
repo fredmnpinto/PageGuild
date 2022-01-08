@@ -88,7 +88,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'nif' => 'required',
+            'nif' => '',
         ]);
 
         /**
@@ -98,7 +98,7 @@ class UserController extends Controller
          * 
          * @author Gabriel
          */
-        $validator->sometimes('email', 'unique:user', function($input) use ($user, $request) {
+        $validator->sometimes('email', 'unique:users', function($input) use ($user, $request) {
             //Se o email do utilizador for diferente do novo email, significa que e um email novo e tem que ser validado como unico
             return $user->email != $request->email;
         });
