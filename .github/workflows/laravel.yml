@@ -29,6 +29,7 @@ jobs:
           runner: self-hosted
         with:
           php-version: '8.0'
+          extensions: pgsql
           coverage: xdebug
        
       - name: Update composer dependencies
