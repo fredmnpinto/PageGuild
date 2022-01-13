@@ -49,11 +49,12 @@ class ItemControllerTest extends TestCase
                                                            'publisher_id' => $book->publisher_id == null ? 0 : $book->publisher_id,
                                                            'genre_id' => $genre_id, 
                                                            'publication_year' => $book->publication_year, 
-                                                           'order_by' => "book.title",
-                                                           'order_direction' => "asc"]));
+                                                           'order_by' => 'book.title',
+                                                           'order_direction' => 'asc']));
         
 
-        $response->assertOk();
+        $response->assertStatus(200);
+
         // Testa se ele ve o titulo do livro escolhido na view
         //$response->assertSee($book->title, $escaped = false);
     }
