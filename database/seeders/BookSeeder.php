@@ -25,7 +25,7 @@ class BookSeeder extends Seeder
         Genre::factory()->count(10)->create();
 
         // Popula os livros
-        Book::factory()->count(10)->create();
+        Book::factory()->count(40)->create();
      
         BookFactory::new()->count(5)
             ->hasPublisher()

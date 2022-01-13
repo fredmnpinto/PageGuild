@@ -53,9 +53,7 @@ Route::get('details/{id}', [ItemController::class, 'showDetails'])->name('showDe
 
 Route::post('/search/results', [ItemController::class, 'defaultSearch']);
 
-Route::get('/search/results', [ItemController::class, 'defaultSearch']);
-
-Route::get('/search/results/orderFilter/{searchQuery}/{author_id}/{publisher_id}/{genre_id}/{publication_year}/{order_by}/{order_direction}', [ItemController::class, 'orderFilterSearch']);
+Route::get('/search/results/orderFilter/{searchQuery}/{author_id}/{publisher_id}/{genre_id}/{publication_year}/{order_by}/{order_direction}', [ItemController::class, 'orderFilterSearch'])->name('orderFilterSearch');
 
 /*
  |---------------------------------------------------
