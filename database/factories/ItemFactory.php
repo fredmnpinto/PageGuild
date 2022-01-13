@@ -15,7 +15,7 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->words(random_int(1, 3), true),
+            'name' => $this->faker->unique()->name(),
             'price' => $this->faker->randomFloat(2, 4.99, 49.99),
             'registration_date' => $this->faker->dateTime('-1 month')->format("Ymd"),
             'update_date' => $this->faker->dateTimeThisMonth()->format("Ymd"),

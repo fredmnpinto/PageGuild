@@ -125,4 +125,12 @@ class BookController extends Controller
 
         return $genres;
     }
+
+    public static function allBooks() {
+        $query = DB::table('book')
+            ->join('item', 'item.id', '=', 'book.item_id')
+            ->where('item.flag_delete', '=', false);
+
+        return $query->get('book.*');
+    }
 }

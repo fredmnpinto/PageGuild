@@ -8,11 +8,11 @@
     <form method="POST" action=" {{ route('order.purchase', ['total_amount' => $total_amount]) }}" class="card-form mt-3 mb-3 terciary-color my-4 p-5">
         <h1>You are buying</h1>
         <table class="table">
-            @foreach($items as $item)
-               <tr>
-                   <td>{{ ucwords($item->name, ' ') }}</td>
-                   <td>{{ $item->price }}€</td>
-               </tr>
+            @foreach($shoppingCartItems as $item)
+                <tr>
+                    <td>{{ /* Põe a primeira letra de cada palavra em maiúscula */ ucwords(__($item->name), ' ') }}</td>
+                    <td>{{ $item->price }}€</td>
+                </tr>
             @endforeach
             <tr class="secondary-color purchase-total-amount">
                 <td>

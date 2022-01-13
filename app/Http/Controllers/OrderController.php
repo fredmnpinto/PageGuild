@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
+use Illuminate\Support\Facades\Validator;
 use Nette\Utils\DateTime;
 use Stripe\Stripe;
 
@@ -33,8 +34,9 @@ class OrderController extends Controller
         $user = $request->user();
         $item_id = $request->get('item_id');
 
-        if ($item_id == null) {
-            return back()->with('error', __('System Error: Item not provided to addToCart()'));
+        /* Checa se o item de input é null ou um item deletado */
+        if ($item_id == null or Item::find($item_id)->flag_delete) {
+            return back()->with('error', __('The selected item is not available'));
         }
 
         DB::table('shopping_cart')
@@ -42,7 +44,7 @@ class OrderController extends Controller
                 [
                     'item_id' => $item_id,
                     'user_id' => $user->id,
-                    'registration_date' => (new DateTime)->format('Ymd'),
+                    'registration_date' => (new DateTime)->format('Y-m-d h:i:s'),
                     'flag_active' => true,
                     'flag_delete' => false,
                 ]
@@ -64,24 +66,22 @@ class OrderController extends Controller
     }
 
     /**
+     * View do checkout
      *
+     * Middleware: cart_not_empty -> Nao se pode fazer checkout de carrinho vazio
      */
     public function checkout() {
         $user = auth()->user();
-        $intent = $user->createSetupIntent();
-        $items = self::getBillableShoppingCart();
-
-        if ($items->count() == 0) {
-            redirect(route('home'));
-        }
+        $intent = $user->createSetupIntent(); /* Stripe buy intent */
+        $shoppingCartItems = self::getShoppingCartItems(); /* Itens em forma de uma Collection do Eloquent */
 
         $total_amount = 0;
 
-        foreach($items as $itemInCart) {
+        foreach($shoppingCartItems as $itemInCart) {
             $total_amount += $itemInCart->price;
         }
 
-        return view('order.checkout', compact('items', 'intent', 'total_amount'));
+        return view('order.checkout', compact('shoppingCartItems', 'intent', 'total_amount'));
     }
 
     public function purchase(Request $request) {
@@ -98,14 +98,14 @@ class OrderController extends Controller
             return back()->with('error', $exception->getMessage());
         }
 
-        self::createOrder(self::getBillableShoppingCart(), $user);
+        self::createOrder(self::getShoppingCartItems(), $user);
 
         self::emptyCart($user);
 
         return redirect(route('home'))->with('message', 'Purchase completed successfully!');
     }
 
-    public static function getBillableShoppingCart() {
+    public static function getShoppingCartItems() {
         $user = auth()->user();
 
         return $user->shoppingCart()
@@ -116,9 +116,18 @@ class OrderController extends Controller
             ->get(['item.*', DB::raw('count(shopping_cart.id) as amount')]);
     }
 
+    /**
+     * Checa se o carrinho de compras do usuario validado está vazio
+     *
+     * @return bool
+     */
+    public static function isShoppingCartEmpty() : bool {
+        return count(self::getShoppingCartItems()) == 0;
+    }
+
     private static function createOrder(Collection $items, User $user, int $coupon_id = null) : Order {
         $now = new DateTime;
-        $now = $now->format('Ymd');
+        $now = $now->format('Y-m-d h:i:s');
 
         $order_id = DB::table('order')
             ->insertGetId([
@@ -145,7 +154,7 @@ class OrderController extends Controller
         return Order::find($order_id);
     }
 
-    private static function emptyCart(User $user) : void {
+    public static function emptyCart(User $user) : void {
         DB::table('shopping_cart')
             ->where('flag_active', '=', true)
             ->where('user_id', '=', $user->id)
