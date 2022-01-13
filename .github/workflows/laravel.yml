@@ -20,14 +20,18 @@ jobs:
  
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
 
       - name: Setup PHP with Xdebug
         uses: shivammathur/setup-php@v2
+        env:
+          runner: self-hosted
         with:
           php-version: '8.0'
           coverage: xdebug
-    
+       
       - name: Update composer dependencies
         run: |
           composer update -q --no-ansi --no-interaction --no-progress --prefer-dist
