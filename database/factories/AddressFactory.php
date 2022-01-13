@@ -17,8 +17,10 @@ class AddressFactory extends Factory
     {
         return [
             "address" => $this->faker->streetAddress(),
-            "user_id" => $this->faker->numberBetween(1, User::all()->count()),
-            "city_id" => $this->faker->numberBetween(1, City::all()->count()),
+            // Vai buscar o id de um utilizador EXISTENTE aleatorio
+            "user_id" => User::inRandomOrder()->first()->id,
+            // Vai buscar o id de uma cidade EXISTENTE aleatoria
+            "city_id" => City::inRandomOrder()->first()->id,
             "flag_active" => $this->faker->boolean(90),
             "flag_delete" => false
         ];

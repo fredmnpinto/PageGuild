@@ -158,7 +158,7 @@ class AddressController extends Controller
             'address' => $request->address,
             'flag_active' => true,
             'flag_delete' => false,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         return redirect()->route('userAddress');

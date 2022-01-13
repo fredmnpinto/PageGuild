@@ -3,15 +3,12 @@
 namespace Tests\Unit;
 
 use App\Models\Book;
+use App\Models\AuthorBook;
+use App\Models\GenreBook;
+
 use App\Http\Controllers\BookController;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
 use Tests\TestCase;
-
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BookControllerTest extends TestCase
 {
@@ -38,7 +35,7 @@ class BookControllerTest extends TestCase
     public function testGetBookGenres() {
         $book_id = Book::first()->item_id;
 
-        $this->assertNotEmpty(BookController::getBookAuthors($book_id), "A função BookController::getBookAuthors não pode retornar null!");
+        $this->assertNotEmpty(BookController::getBookGenres($book_id), "A função BookController::getBookAuthors não pode retornar null!");
     }
 
     /**
@@ -51,10 +48,15 @@ class BookControllerTest extends TestCase
      */
     public function testBuildSearchBooksQuery() {
         $book = Book::first();
+
+        // Estas variaveis são usadas para filtrar na query, portanto convem serem do livro escolhido
+        $book_first_author = AuthorBook::where('book_item_id','=', $book->item_id)->first()->author_id;
+        $book_first_genre = GenreBook::where('book_item_id','=',$book->item_id)->first()->genre_id;
+
         $book_title = $book->title;
 
         $this->assertEquals($book_title, 
-                            BookController::buildSearchBooksQuery($book_title,["title"], 0, 0, $book->publisher_id, $book->publication_year)->first()->title,
+                            BookController::buildSearchBooksQuery($book_title,["title"], $book_first_author, $book_first_genre, $book->publisher_id, $book->publication_year)->first()->title,
                             "A função BookController::buildSearchBooksQuery não está a funcionar corretamente!");
     }
 }
