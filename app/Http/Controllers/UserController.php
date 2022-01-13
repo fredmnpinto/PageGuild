@@ -16,6 +16,8 @@ use App\Models\Country;
 use App\Models\Address;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Storage;
+
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\AddressController;
@@ -129,5 +131,44 @@ class UserController extends Controller
             ->where('sc.flag_delete', 'is not', 'true');
 
         return $query->get('i.id');
+    }
+
+    /**
+     * Faz upload de uma imagem e define-a como a nova foto de perfil do utilizador
+     * 
+     * @author Gabriel
+     */
+    public function uploadProfileImage(Request $request) {
+        // Vai buscar o utilizador que esta neste momento autenticado
+        $user = Auth::user();
+
+        //Elimina imagem anterior do utilizador
+        Storage::delete('public/image/'.$user->img_path);
+
+        /**
+         * Valida as informacaoes. Por exemplo, se o email e unico.
+         *
+         * @link https://laravel.com/docs/8.x/validation#quick-displaying-the-validation-errors
+         *
+         * @author Gabriel
+         */
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+
+        // Se a validação falhar o laravel retorna o erro de validacao na pagina
+        if ($validator->fails()) {
+            return redirect()->route('userInfo')
+                        ->withErrors($validator, 'userInfo');
+        }
+
+        // Guarda a imagem no servidor
+        $request->file('image')->store('public/image');
+
+        // Guarda a path no utilizador
+        $user->img_path = $request->file('image')->hashName();
+        $user->save();
+
+        return redirect()->route('userInfo')->with("Status", "Image has been uploaded");
     }
 }

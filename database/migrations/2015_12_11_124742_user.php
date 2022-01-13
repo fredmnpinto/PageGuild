@@ -26,6 +26,7 @@ class User extends Migration
             $table->text('nif')->nullable();
             $table->rememberToken();
             $table->integer('user_type_id');
+            $table->text('img_path')->nullable();
 
             $table->foreign('user_type_id')->references('id')->on('user_type');
         });

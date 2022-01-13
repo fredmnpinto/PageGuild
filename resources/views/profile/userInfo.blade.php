@@ -1,6 +1,31 @@
 @extends('profile.profileView', ['activeNav' => 2])
 
 @section('optionContent')
+    <!-- Ava -->
+    <form method="POST" enctype="multipart/form-data" action="{{ route('updateProfileImage') }}">
+    @csrf
+    @method('POST')
+        <div class="row terciary-color my-4 p-5">
+            <h2>IMAGEM DE PERFIL</h2>
+
+            <img class="col-3 p-3" src="{{ asset('storage/image/'.$user->img_path) }}" alt="Foto de perfil de {{ $user->name }}">
+
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="inputGroupFile02" name="image">
+                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+            @if ($message = Session::get('status'))
+            <div class="alert alert-sucess">
+                <p>{{ $message }}</p>
+            </div>
+            @endif
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Submeter</button>
+            </div>
+        </div>
+    </form>
+
     <!-- Informações do Utilizador -->
     <form method="POST" action="{{ route('updateInfo') }}">
     @csrf

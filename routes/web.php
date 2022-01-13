@@ -81,7 +81,7 @@ Route::get('profile', [UserController::class, 'index'])->name('profile');
 
 Route::get('profile/userInformation', [UserController::class, 'showUserInfo'])->name('userInfo');
 
-Route::post('/profile/userInformation/update', [UserController::class, 'updateUserInfo'])->name('updateInfo');
+Route::post('/profile/userInformation/updateInfo', [UserController::class, 'updateUserInfo'])->name('updateInfo');
 
 Route::get('/profile/userAddress', [UserController::class, 'showUserAddress'])->name('userAddress');
 
@@ -94,6 +94,8 @@ Route::get('/profile/userAddress/delete{address_id}', [AddressController::class,
 Route::post('/profile/userAddress/createAddress', [AddressController::class, 'createAddress'])->name('createAddress');
 
 Route::get('/profile/userOrders', [UserController::class, 'showUserOrders'])->name('userOrders');
+
+Route::post('/profile/userInformation/updateAva', [UserController::class, 'uploadProfileImage'])->name('updateProfileImage');
 
 
 /*
