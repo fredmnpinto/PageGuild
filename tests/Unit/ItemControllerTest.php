@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Book;
 use App\Models\AuthorBook;
 use App\Models\GenreBook;
+use App\Models\User;
 
 use App\Http\Controllers\ItemController;
 
@@ -44,7 +45,11 @@ class ItemControllerTest extends TestCase
         $author_id = AuthorBook::where('book_item_id','=', $book->item_id)->first()->author_id;
         $genre_id = GenreBook::where('book_item_id','=',$book->item_id)->first()->genre_id;
 
-        $response = $this->get(route('orderFilterSearch', ['searchQuery' => $book->title, 
+        $user = User::first();
+
+        $response = $this->actingAs($user)
+                         ->withSession(['email' =>  $user->email, 'password' => 'password'])
+                         ->get(route('orderFilterSearch', ['searchQuery' => $book->title, 
                                                            'author_id' => $author_id, 
                                                            'publisher_id' => $book->publisher_id == null ? 0 : $book->publisher_id,
                                                            'genre_id' => $genre_id, 
@@ -52,7 +57,6 @@ class ItemControllerTest extends TestCase
                                                            'order_by' => 'book.title',
                                                            'order_direction' => 'asc']));
         
-
         $response->assertStatus(200);
 
         // Testa se ele ve o titulo do livro escolhido na view
