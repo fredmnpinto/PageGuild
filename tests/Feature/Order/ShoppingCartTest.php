@@ -34,17 +34,17 @@ class ShoppingCartTest extends TestCase
 
         $this->assertTrue(OrderController::isShoppingCartEmpty(), "Usuario recem criado não deve ter um carrinho vazio");
 
+        /* Para o teste, cria um item que nao foi ainda deletado */
         $itemToAdd = Item::factory()->create();
         $itemToAdd->setAttribute('flag_delete', false)->save();
-
         $this->assertDatabaseHas('item', ['name' => $itemToAdd->name, 'id' => $itemToAdd->id, 'flag_delete' => false]);
 
         $response = $this->post(route('order.add_to_cart'), ['item_id' => $itemToAdd->id]);
-
         $response->assertSessionMissing("error");
+        $response->assertSessionMissing("errors");
 
-//        $this->assertFalse(OrderController::isShoppingCartEmpty(), "Carrinho não deve estar vazio depois de adicionar um item elegível");
-
+        /* Garante que o item novo foi adicionado ao carrinho */
+        $this->assertFalse(OrderController::isShoppingCartEmpty(), "Carrinho não deve estar vazio depois de adicionar um item elegível");
         $this->assertTrue(OrderController::getShoppingCartItems()->contains($itemToAdd), "Carrinho deve conter o item adicionado");
     }
 
