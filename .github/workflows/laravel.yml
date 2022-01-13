@@ -1,6 +1,6 @@
 on: push
 name: CI
-jobs:   
+jobs:
   phpunit:
     runs-on: ubuntu-latest
     container:
@@ -19,33 +19,36 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
  
     steps:
-    - uses: actions/checkout@v1
-      with:
-        fetch-depth: 1
-        
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.0'
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring, intl
+          ini-values: post_max_size=256M, short_open_tag=On
+          coverage: xdebug    
+          tools: php-cs-fixer, phpunit
     
-    - name: Update composer dependencies
-      run: |
-        composer update -q --no-ansi --no-interaction --no-progress --prefer-dist
+      - name: Update composer dependencies
+        run: |
+          composer update -q --no-ansi --no-interaction --no-progress --prefer-dist
  
-    - name: Install composer dependencies
-      run: |
-        composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
+      - name: Install composer dependencies
+        run: |
+          composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
         
-    - name: Prepare Laravel Application
-      run: |
-        cp .env.ci .env
-        php artisan key:generate
-        php artisan migrate:fresh --seed
+      - name: Prepare Laravel Application
+        run: |
+          cp .env.ci .env
+          php artisan key:generate
+          php artisan migrate:fresh --seed
  
-    - name: Run Testsuite
-      env:
+      - name: Run Testsuite
+        env:
           # The hostname used to communicate with the PostgreSQL service container
           POSTGRES_HOST: postgres
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
-      run: vendor/bin/phpunit tests/
+        run: vendor/bin/phpunit tests/
