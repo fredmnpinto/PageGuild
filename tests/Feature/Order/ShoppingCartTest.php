@@ -39,7 +39,10 @@ class ShoppingCartTest extends TestCase
         $itemToAdd->setAttribute('flag_delete', false)->save();
         $this->assertDatabaseHas('item', ['name' => $itemToAdd->name, 'id' => $itemToAdd->id, 'flag_delete' => false]);
 
+        /* Adiciona ao carrinho */
         $response = $this->post(route('order.add_to_cart'), ['item_id' => $itemToAdd->id]);
+
+        /* Garante que nao haja erros na resposta */
         $response->assertSessionMissing("error");
         $response->assertSessionMissing("errors");
 
