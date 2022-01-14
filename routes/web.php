@@ -84,7 +84,7 @@ Route::post('/profile/userInformation/update', [UserController::class, 'updateUs
 
 Route::get('/profile/userAddress', [UserController::class, 'showUserAddress'])->name('userAddress')->middleware('auth');
 
-Route::get('/profile/userAddress/desactivate{address_id}', [AddressController::class, 'desactivateAddress'])->name('desactivateAddress')->middleware('auth');
+Route::get('/profile/userAddress/desactivate{address_id}', [AddressController::class, 'deactivateAddress'])->name('deactivateAddress');
 
 Route::get('/profile/userAddress/activate{address_id}', [AddressController::class, 'activateAddress'])->name('activateAddress')->middleware('auth');
 

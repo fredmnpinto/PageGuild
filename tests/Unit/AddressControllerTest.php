@@ -54,13 +54,13 @@ class AddressControllerTest extends TestCase
      * 
      * @author Gabriel
      */
-    public function testDesactivateAddress() {
+    public function testDeactivateAddress() {
         // Cria um novo address, com a flag_active igual a true
         $address = Address::factory()->create();
         $address->flag_active = true;
 
         // Desativa o address
-        AddressController::desactivateAddress($address->id);
+        AddressController::deactivateAddress($address->id);
 
         // Atualiza o address com os novos valores
         $address = Address::find($address->id);
@@ -145,6 +145,10 @@ class AddressControllerTest extends TestCase
         // Testamos se o endereço foi criado
         $newAddress = Address::where('user_id','=',$user->id)->first();
         $this->assertNotNull($newAddress, "O endereço não foi criado. Ha um problema com a AddressController::createAddress()");
+
+        // Testa se foi criado com os parametros corretos
+        $this->assertEquals($newAddress->city_id, $city_id);
+        $this->assertEquals($newAddress->address, $address);
 
         // Eliminamos o address e o user criados
         Address::find($newAddress->id)->delete();

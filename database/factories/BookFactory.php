@@ -44,7 +44,6 @@ class BookFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 "publisher_id" => $this->faker->numberBetween(1, Publisher::all()->count()),
-                "edition_year" => $this->faker->year(),
             ];
         });
     }
