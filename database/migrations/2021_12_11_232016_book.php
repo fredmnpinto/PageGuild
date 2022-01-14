@@ -27,7 +27,6 @@ class Book extends Migration
             $table->text('bookbinding')->nullable();
             $table->integer('publisher_id')->nullable();
             $table->integer('language_id');
-            $table->integer('edition_year')->nullable();
 
             $table->foreign('language_id')->references('id')->on('language');
             $table->foreign('item_id')->references('id')->on('item');

@@ -75,11 +75,11 @@ class AddressController extends Controller
     /**
      * Esta função e responsavel por desativar um endereço
      *
-     * Ela e chamada pela rota "desactivateAddress"
+     * Ela e chamada pela rota "deactivateAddress"
      *
      * @author Gabriel
      */
-    public static function desactivateAddress($address_id) {
+    public static function deactivateAddress($address_id) {
         $address = Address::find($address_id);
 
         $address->flag_active = false;
@@ -158,7 +158,7 @@ class AddressController extends Controller
             'address' => $request->address,
             'flag_active' => true,
             'flag_delete' => false,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
 
         return redirect()->route('userAddress');

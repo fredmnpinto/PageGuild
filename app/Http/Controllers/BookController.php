@@ -77,8 +77,7 @@ class BookController extends Controller
                 $query->where('genre.id', '=', $genre_id);
             }
             if ($year != null) {
-                $query->where('book.publication_year', '=', $year)
-                    ->orWhere('book.edition_year', '=', $year);
+                $query->where('book.publication_year', '=', $year);
             }
         });
 
@@ -124,5 +123,13 @@ class BookController extends Controller
         }
 
         return $genres;
+    }
+
+    public static function allBooks() {
+        $query = DB::table('book')
+            ->join('item', 'item.id', '=', 'book.item_id')
+            ->where('item.flag_delete', '=', false);
+
+        return $query->get('book.*');
     }
 }

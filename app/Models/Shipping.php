@@ -28,7 +28,7 @@ class Shipping extends Model
      *
      * @var string
      */
-    protected $dateFormat = "U";
+    protected $dateFormat = "Y-m-d H:i:s";
 
     /**
      * Tabelas em que as timestamps sao guardadas

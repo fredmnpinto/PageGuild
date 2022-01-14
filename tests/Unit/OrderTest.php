@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace Unit;
 
+use App\Models\User;
 use PHPUnit\Framework\TestCase;
 
-class ExampleTest extends TestCase
+class OrderTest extends TestCase
 {
     /**
      * A basic test example.
