@@ -16,7 +16,7 @@ class CityFactory extends Factory
     public function definition()
     {
         return [
-            "city" => $this->faker->unique()->words(random_int(1, 3), true),
+            "city" => $this->faker->unique()->city(),
             "country_id" => $this->faker->numberBetween(1, Country::all()->count()),
         ];
     }

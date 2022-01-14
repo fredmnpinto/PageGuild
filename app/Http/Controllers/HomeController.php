@@ -16,11 +16,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home', ['books' => BookController::allBooks()]);
-    }
+        $books = BookController::getBooks(6);
 
-    public function adminHome() {
-        return view('home', ['books' => BookController::allBooks()]);
+        return view('home', ['books' => $books]);
     }
 
     public function howTo() {

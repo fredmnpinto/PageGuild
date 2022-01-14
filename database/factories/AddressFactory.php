@@ -16,7 +16,7 @@ class AddressFactory extends Factory
     public function definition()
     {
         return [
-            "address" => $this->faker->streetAddress(),
+            "address" => $this->faker->address(),
             // Vai buscar o id de um utilizador EXISTENTE aleatorio
             "user_id" => User::inRandomOrder()->first()->id,
             // Vai buscar o id de uma cidade EXISTENTE aleatoria
