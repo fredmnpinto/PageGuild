@@ -59,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         "name", "email", "password", "username",
-        "sex", "nif", "user_type_id"
+        "sex", "nif", "user_type_id", "img_path"
     ];
 
     public function address() {
