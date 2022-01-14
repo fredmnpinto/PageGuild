@@ -77,8 +77,7 @@ class BookController extends Controller
                 $query->where('genre.id', '=', $genre_id);
             }
             if ($year != null) {
-                $query->where('book.publication_year', '=', $year)
-                    ->orWhere('book.edition_year', '=', $year);
+                $query->where('book.publication_year', '=', $year);
             }
         });
 

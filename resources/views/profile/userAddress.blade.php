@@ -21,7 +21,7 @@
                     <td>{{ $address->address }}</td>
                     <td>{{ $address->city }}</td> 
                     <td>{{ $address->country }}</td> 
-                    <td><a href="{{ route('desactivateAddress', ['address_id' =>  $address->id]) }}">Desativar</a></td> 
+                    <td><a href="{{ route('deactivateAddress', ['address_id' =>  $address->id]) }}">Desativar</a></td> 
                     <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteAddress{{ $address->id }}">Eliminar</button></td>
                     <!-- Inclui um modal que e prenchido dinamicamente --> 
                     @include('includes.confirmDeleteAddressModal', ['address' => $address])

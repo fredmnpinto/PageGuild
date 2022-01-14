@@ -31,7 +31,7 @@ class Book extends Model
      */
     protected $fillable = [
         "title", "subtitle", "sinopsys",
-        "publishing_year", "isbn", "edition_year",
+        "publishing_year", "isbn",
         "language_id", "num_pages", "width", "length", "height",
         "bookbinding"
     ];
