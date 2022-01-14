@@ -98,11 +98,20 @@ nav form {
     color: black;
 }
 
-.bookLink {
+.book-link {
     text-decoration: none;
     color: white;
 }
 
-.bookLink:hover {
+.book-link:hover {
     color:rgb(148, 148, 148);
+}
+
+table .book-link {
+    color: #14213d;
+}
+
+table .book-link:hover {
+    color: black;
+    font-weight: bold;
 }

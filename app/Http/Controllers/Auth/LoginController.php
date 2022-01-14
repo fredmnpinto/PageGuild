@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -57,5 +59,36 @@ class LoginController extends Controller
             return redirect()->route('login')
                 ->with('error','Username or Email-Address And Password Are Wrong.');
         }
+    }
+
+    /**
+     * Essa funcao corre sempre que o usuario faz login
+     *
+     * @param Request $request
+     * @param User $user
+     * @return void
+     */
+    public function authenticated(Request $request, User $user)
+    {
+        /* Busca o carrinho de compras daquele usuario da base de dados */
+        Cart::restore($user);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function logout(Request $request)
+    {
+        /* Guarda o carrinho na base de dados antes de fazer o logout do usuario */
+        Cart::store(auth()->user());
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/');
     }
 }

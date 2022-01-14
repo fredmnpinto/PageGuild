@@ -10,6 +10,7 @@ use App\Models\OrderItem;
 use App\Models\User;
 
 
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
@@ -24,7 +25,6 @@ use Stripe\Stripe;
 
 class OrderController extends Controller
 {
-
     /**
      * Adiciona um item ao carrinho
      *
@@ -34,21 +34,14 @@ class OrderController extends Controller
         $user = $request->user();
         $item_id = $request->get('item_id');
 
+        $item = Item::find($item_id);
+
         /* Checa se o item de input é null ou um item deletado */
-        if ($item_id == null or Item::find($item_id)->flag_delete) {
+        if ($item_id == null or $item == null or $item->flag_delete) {
             return back()->with('error', __('The selected item is not available'));
         }
 
-        DB::table('shopping_cart')
-            ->insert(
-                [
-                    'item_id' => $item_id,
-                    'user_id' => $user->id,
-                    'registration_date' => (new DateTime)->format('Y-m-d h:i:s'),
-                    'flag_active' => true,
-                    'flag_delete' => false,
-                ]
-            );
+        Cart::instance('shopping')->add($item, 1);
 
         return back()->with('message', __('Item was added to your cart'));
     }
@@ -58,9 +51,7 @@ class OrderController extends Controller
      *
      */
     public function shoppingCart() {
-        $user = auth()->user();
-
-        $items = $user->shoppingCart()->get();
+        $items = self::getShoppingCartItems();
 
         return view('order.shopping_cart', compact('items'));
     }
@@ -74,20 +65,24 @@ class OrderController extends Controller
         $user = auth()->user();
         $intent = $user->createSetupIntent(); /* Stripe buy intent */
         $shoppingCartItems = self::getShoppingCartItems(); /* Itens em forma de uma Collection do Eloquent */
+        $total_amount_tax_included = self::getCartTotal(true);
+        $total_amount = self::getCartTotal(false);
+        $total_qty = Cart::count();
 
-        $total_amount = 0;
-
-        foreach($shoppingCartItems as $itemInCart) {
-            $total_amount += $itemInCart->price;
-        }
-
-        return view('order.checkout', compact('shoppingCartItems', 'intent', 'total_amount'));
+        return view('order.checkout', compact('shoppingCartItems', 'intent', 'total_amount', 'total_amount_tax_included', 'total_qty'));
     }
 
+    /**
+     * Funcao que fara a ligacao com o Stripe
+     * para fazer de facto a venda do produto
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function purchase(Request $request) {
         $user          = $request->user();
         $paymentMethod = $request->input('payment_method');
-        $fullPrice = $request->get('total_amount');
+        $fullPrice = Cart::instance('shopping')->total();
 
         try {
             $user->createOrGetStripeCustomer();
@@ -100,20 +95,13 @@ class OrderController extends Controller
 
         self::createOrder(self::getShoppingCartItems(), $user);
 
-        self::emptyCart($user);
+        self::emptyCart();
 
         return redirect(route('home'))->with('message', 'Purchase completed successfully!');
     }
 
     public static function getShoppingCartItems() {
-        $user = auth()->user();
-
-        return $user->shoppingCart()
-            ->where('shopping_cart.flag_delete', false)
-            ->where('shopping_cart.flag_active', true)
-            ->where('item.flag_delete', false)
-            ->groupBy(['item.id', 'shopping_cart.user_id', 'shopping_cart.item_id'])
-            ->get(['item.*', DB::raw('count(shopping_cart.id) as amount')]);
+        return Cart::instance('shopping')->content();
     }
 
     /**
@@ -125,7 +113,29 @@ class OrderController extends Controller
         return count(self::getShoppingCartItems()) == 0;
     }
 
-    private static function createOrder(Collection $items, User $user, int $coupon_id = null) : Order {
+    /**
+     * Busca o preco total da soma de itens no
+     * carrinho de compras
+     *
+     * @param bool $tax - Impostos incluidos ou nao
+     * @return float    - Preco total
+     */
+    public static function getCartTotal(bool $tax = true) {
+        if ($tax) {
+            return Cart::instance('shopping')->total();
+        }
+        return Cart::instance('shopping')->priceTotal();
+    }
+
+    /**
+     * Salva a venda na base de dados
+     *
+     * @param Collection $items
+     * @param User $user
+     * @param int|null $coupon_id
+     * @return Order
+     */
+    private static function createOrder($items, User $user, int $coupon_id = null) : Order {
         $now = new DateTime;
         $now = $now->format('Y-m-d h:i:s');
 
@@ -143,7 +153,7 @@ class OrderController extends Controller
             $orderItem = [
                 'order_id' => $order_id,
                 'item_id' => $item->id,
-                'amount' => $item->amount,
+                'amount' => $item->qty,
             ];
 
             $orderItems[] = $orderItem;
@@ -154,11 +164,17 @@ class OrderController extends Controller
         return Order::find($order_id);
     }
 
-    public static function emptyCart(User $user) : void {
-        DB::table('shopping_cart')
-            ->where('flag_active', '=', true)
-            ->where('user_id', '=', $user->id)
-            ->update(['flag_active' => false]);
+    /**
+     * Apaga o registo que houver na base de dados
+     * sobre o carrinho desse utilizador
+     *
+     * @param User $user
+     * @return void
+     */
+    public static function emptyCart() : void {
+        $user = auth()->user();
+        Cart::destroy();
+        Cart::erase($user);
     }
 
     /**
