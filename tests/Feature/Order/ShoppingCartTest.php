@@ -29,7 +29,7 @@ class ShoppingCartTest extends TestCase
      * @return void
      */
     /*public function test_add_to_cart() {
-        
+
         $user = User::factory()->create();
         auth()->login($user);
 
@@ -121,7 +121,7 @@ class ShoppingCartTest extends TestCase
 
         $response = $this->post(route('order.add_to_cart'), ["item_id" => Item::where('flag_delete', false)->first()->id]);
 
-        OrderController::emptyCart($user);
+        OrderController::emptyCart();
 
         $this->assertTrue(OrderController::isShoppingCartEmpty(), "Carrinho deve estar vazio depois de emptyCart()");
 

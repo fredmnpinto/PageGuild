@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Gloudemans\Shoppingcart\Contracts\InstanceIdentifier;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, InstanceIdentifier
 {
     use HasApiTokens, HasFactory, Notifiable, Billable;
 
@@ -72,5 +73,18 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function reservationListItem() {
         return $this->hasManyThrough(Item::class, ItemReservationList::class);
+    }
+
+    /* Funcao do ShoppingCart, é basicamente o id do shoppingcart */
+    public function getInstanceIdentifier($options = null)
+    {
+        return $this->id;
+    }
+
+    /* Descontos a serem aplicados no ShoppingCart a tudo que o usuario for comprar,
+    por defeito, como todos os user são iguais, fica-se a 0. */
+    public function getInstanceGlobalDiscount($options = null)
+    {
+        return 0;
     }
 }

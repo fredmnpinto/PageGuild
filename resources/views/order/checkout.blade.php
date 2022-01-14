@@ -5,22 +5,22 @@
 @endsection
 
 @section('content')
-    <form method="POST" action=" {{ route('order.purchase', ['total_amount' => $total_amount]) }}" class="card-form mt-3 mb-3 terciary-color my-4 p-5">
+    <form method="POST" action=" {{ route('order.purchase') }}" class="card-form mt-3 mb-3 terciary-color my-4 p-5">
         <h1>You are buying</h1>
         <table class="table">
             @foreach($shoppingCartItems as $item)
                 <tr>
-                    <td>{{ /* Põe a primeira letra de cada palavra em maiúscula */ ucwords(__($item->name), ' ') }}</td>
-                    <td>{{ $item->price }}€</td>
+                    <td><a class="book-link" href="{{ route('showDetails', ['id' => $item->id]) }}">{{ /* Põe a primeira letra de cada palavra em maiúscula */ ucwords(__($item->name), ' ') }}</a></td>
+                    <td>{{ $item->qty }}</td>
+                    <td>{{ $item->total }}€</td>
+                    <td>{{ $item->subtotal }}€</td>
                 </tr>
             @endforeach
             <tr class="secondary-color purchase-total-amount">
-                <td>
-                    {{ __('Total Price') }}
-                </td>
-                <td>
-                    {{ $total_amount }}€
-                </td>
+                <td>{{ __('Total') }}</td>
+                <td>{{ $total_qty }}</td>
+                <td>{{ $total_amount_tax_included }}€</td>
+                <td>{{ $total_amount }}€</td>
             </tr>
         </table>
         @csrf

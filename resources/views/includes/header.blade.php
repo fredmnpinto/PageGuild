@@ -62,7 +62,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             @foreach(\App\Http\Controllers\OrderController::getShoppingCartItems() as $item)
                                 <a class="dropdown-item" href="{{ route('showDetails', $item->id) }}">
-                                    {{ $item->name }}
+                                    {{ $item->name }} | {{ $item->qty }} | {{ $item->total }}
                                 </a>
                             @endforeach
 
