@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Item;
 use App\Models\Book;
 use App\Models\AuthorBook;
 use App\Models\GenreBook;
@@ -47,7 +48,8 @@ class BookControllerTest extends TestCase
      * 
      */
     public function testBuildSearchBooksQuery() {
-        $book = Book::first();
+        $item = Item::where('flag_delete','=','false')->first();
+        $book = Book::find($item->id);
 
         // Estas variaveis são usadas para filtrar na query, portanto convem serem do livro escolhido
         $book_first_author = AuthorBook::where('book_item_id','=', $book->item_id)->first()->author_id;
