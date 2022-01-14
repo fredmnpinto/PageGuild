@@ -14,7 +14,7 @@ class CountryFactory extends Factory
     public function definition()
     {
         return [
-            'country' => $this->faker->unique()->words(random_int(1, 3), true)
+            'country' => $this->faker->unique()->country()
         ];
     }
 }

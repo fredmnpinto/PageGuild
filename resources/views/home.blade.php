@@ -13,7 +13,6 @@ PageGuild | Home
             <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
         @endif
         <div class="row row-cols-3">
-
             @foreach ( $books as $book)
                 <div class="col my-5">
                     <a class="navbar-brand bookLink" href="/details/{{ $book->item_id }}">
@@ -23,5 +22,7 @@ PageGuild | Home
                 </div>
             @endforeach
         </div>
+
+        {{ $books->links() }}
     </div>
 @endsection
