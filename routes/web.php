@@ -25,8 +25,8 @@ use Illuminate\Support\Facades\Route;
 /*
  |---------------------------------------------------
  | Rotas base
- |--------------------------------------------------- 
- */ 
+ |---------------------------------------------------
+ */
 
 Route::get('/', [HomeController::class, 'index'])->name('/');
 
@@ -34,9 +34,9 @@ Auth::routes(['verify' => true]);
 
  /*
  |---------------------------------------------------
- | Rotas de accesso a pagina inicial  
- |--------------------------------------------------- 
- */ 
+ | Rotas de accesso a pagina inicial
+ |---------------------------------------------------
+ */
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -46,8 +46,8 @@ Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home
 /*
  |---------------------------------------------------
  | Rotas relativas a pesquisa de items
- |--------------------------------------------------- 
- */ 
+ |---------------------------------------------------
+ */
 
 Route::get('details/{id}', [ItemController::class, 'showDetails'])->name('showDetails');
 
@@ -57,49 +57,50 @@ Route::get('/search/results/orderFilter/{searchQuery}/{author_id}/{publisher_id}
 
 /*
  |---------------------------------------------------
- | Rotas das compras  
- |--------------------------------------------------- 
- */ 
-  
-Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout');
-
-Route::get('/order/shopping_cart', [OrderController::class, 'shoppingCart'])->name('order.shopping_cart');
-
-Route::post('/order/add_to_cart', [OrderController::class, 'addToCart'])->name('order.add_to_cart');
-
-Route::post('/order/purchase', [OrderController::class, 'purchase'])->name('order.purchase');
-
-/*
+ | Rotas das compras
  |---------------------------------------------------
- | Rotas do perfil do usuario  
- |--------------------------------------------------- 
- */ 
-
-Route::get('profile', [UserController::class, 'index'])->name('profile');
-
-Route::get('profile/userInformation', [UserController::class, 'showUserInfo'])->name('userInfo');
-
-Route::post('/profile/userInformation/updateInfo', [UserController::class, 'updateUserInfo'])->name('updateInfo');
-
-Route::get('/profile/userAddress', [UserController::class, 'showUserAddress'])->name('userAddress');
-
-Route::get('/profile/userAddress/deactivate{address_id}', [AddressController::class, 'deactivateAddress'])->name('deactivateAddress');
-
-Route::get('/profile/userAddress/activate{address_id}', [AddressController::class, 'activateAddress'])->name('activateAddress');
-
-Route::get('/profile/userAddress/delete{address_id}', [AddressController::class, 'deleteAddress'])->name('deleteAddress');
-
-Route::post('/profile/userAddress/createAddress', [AddressController::class, 'createAddress'])->name('createAddress');
-
-Route::get('/profile/userOrders', [UserController::class, 'showUserOrders'])->name('userOrders');
-
-Route::post('/profile/userInformation/updateAva', [UserController::class, 'uploadProfileImage'])->name('updateProfileImage');
-
-
-/*
- |---------------------------------------------------
- | Rota do How-To  
- |--------------------------------------------------- 
  */
 
- Route::get('how-to', [HomeController::class, 'howTo'])->name('how-to');
+Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout')->middleware('auth')->middleware('cart_not_empty');
+
+Route::post('/order/purchase', [OrderController::class, 'purchase'])->name('order.purchase')->middleware('auth')->middleware('cart_not_empty');
+
+Route::get('/order/shopping_cart', [OrderController::class, 'shoppingCart'])->name('order.shopping_cart')->middleware('auth');
+
+Route::post('/order/add_to_cart', [OrderController::class, 'addToCart'])->name('order.add_to_cart')->middleware('auth');
+
+
+/*
+ |---------------------------------------------------
+ | Rotas do perfil do usuario
+ |---------------------------------------------------
+ */
+
+Route::get('profile', [UserController::class, 'index'])->name('profile')->middleware('auth');
+
+Route::get('profile/userInformation', [UserController::class, 'showUserInfo'])->name('userInfo')->middleware('auth');
+
+Route::post('/profile/userInformation/update', [UserController::class, 'updateUserInfo'])->name('updateInfo')->middleware('auth');
+
+Route::get('/profile/userAddress', [UserController::class, 'showUserAddress'])->name('userAddress')->middleware('auth');
+
+Route::get('/profile/userAddress/desactivate{address_id}', [AddressController::class, 'deactivateAddress'])->name('deactivateAddress');
+
+Route::get('/profile/userAddress/activate{address_id}', [AddressController::class, 'activateAddress'])->name('activateAddress')->middleware('auth');
+
+Route::get('/profile/userAddress/delete{address_id}', [AddressController::class, 'deleteAddress'])->name('deleteAddress')->middleware('auth');
+
+Route::post('/profile/userAddress/createAddress', [AddressController::class, 'createAddress'])->name('createAddress')->middleware('auth');
+
+Route::get('/profile/userOrders', [UserController::class, 'showUserOrders'])->name('userOrders')->middleware('auth');
+
+Route::post('/profile/userInformation/updateAva', [UserController::class, 'uploadProfileImage'])->name('updateProfileImage')->middleware('auth');
+
+
+/*
+ |---------------------------------------------------
+ | Rota do How-To
+ |---------------------------------------------------
+ */
+
+ Route::get('/how-to', [HomeController::class, 'howTo'])->name('how-to');
