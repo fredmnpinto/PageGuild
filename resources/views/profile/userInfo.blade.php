@@ -8,7 +8,9 @@
         <div class="row terciary-color my-4 p-5">
             <h2>IMAGEM DE PERFIL</h2>
 
+            @if ($user->img_path != null)
             <img class="col-3 p-3" src="{{ asset('storage/image/'.$user->img_path) }}" alt="Foto de perfil de {{ $user->name }}">
+            @endif
 
             <div class="input-group mb-3">
                 <input type="file" class="form-control" id="inputGroupFile02" name="image">
