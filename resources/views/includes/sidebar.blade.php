@@ -5,7 +5,7 @@
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      {{-- Esta parte serve para a sidebar deixar marcado o link da pagina em que estamos. Ao clicar num link da sidebar ele deve ficar marcado para indicar que estamos neste momento em x pagina --}} 
+      {{-- Esta parte serve para a sidebar deixar marcado o link da pagina em que estamos. Ao clicar num link da sidebar ele deve ficar marcado para indicar que estamos neste momento em x pagina --}}
        @php
           $selectedNav = array('notActive','notActive','notActive','notActive');
           $selectedNav[$activeNav-1] = "active";

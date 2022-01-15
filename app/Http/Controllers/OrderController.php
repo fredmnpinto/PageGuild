@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\ItemShoppingCart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\OrderStatus;
 use App\Models\User;
 
 
@@ -207,5 +208,32 @@ class OrderController extends Controller
         });
 
         return $query;
+    }
+
+    /**
+     * Retorna o historico de compras de um usuario,
+     * incluindo os itens presentes em cada compra
+     *
+     * @param User $user
+     * @return array
+     */
+    public static function getPastOrders(User $user) {
+        $userOrders = Order::where('user_id', $user->id)->get();
+
+        $ordersDetails = [];
+        foreach($userOrders as $order) {
+            $status = OrderStatus::find($order->order_status_id)->status;
+            $itemsInOrder = Item::join('order_item', 'order_item.item_id', 'item.id')
+                ->where('order_item.order_id', $order->id)
+                ->get(['item.id', 'item.name', 'item.price', 'order_item.amount']);
+
+            $ordersDetails[] = [
+                'order' => $order,
+                'status' => $status,
+                'items' => $itemsInOrder
+            ];
+        }
+
+        return $ordersDetails;
     }
 }

@@ -5,18 +5,26 @@
 @endsection
 
 @section('content')
-    <form method="POST" action=" {{ route('order.purchase') }}" class="card-form mt-3 mb-3 terciary-color my-4 p-5">
-        <h1>You are buying</h1>
-        <table class="table">
+    <form method="POST" action=" {{ route('order.purchase') }}" class="card-form rounded mt-3 mb-3 terciary-color my-4 p-5">
+        <h1>{{__("Itens a Comprar")}}</h1>
+        <table class="table rounded">
+            <thead>
+                <tr>
+                    <th>{{ __("Item") }}</th>
+                    <th>{{ __("Quantidade") }}</th>
+                    <th>{{ __("Total com iva") }}</th>
+                    <th class="text-secondary">{{ __("Total sem iva") }}</th>
+                </tr>
+            </thead>
             @foreach($shoppingCartItems as $item)
                 <tr>
                     <td><a class="book-link" href="{{ route('showDetails', ['id' => $item->id]) }}">{{ /* Põe a primeira letra de cada palavra em maiúscula */ ucwords(__($item->name), ' ') }}</a></td>
                     <td>{{ $item->qty }}</td>
                     <td>{{ $item->total }}€</td>
-                    <td>{{ $item->subtotal }}€</td>
+                    <td class="text-secondary">{{ $item->subtotal }}€</td>
                 </tr>
             @endforeach
-            <tr class="secondary-color purchase-total-amount">
+            <tr class="secondary-color row-highlight">
                 <td>{{ __('Total') }}</td>
                 <td>{{ $total_qty }}</td>
                 <td>{{ $total_amount_tax_included }}€</td>
@@ -25,23 +33,25 @@
         </table>
         @csrf
         <input type="hidden" name="payment_method" class="payment-method">
-        <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>
-        <div class="col-lg-4 col-md-6">
-            <div id="card-element"></div>
-        </div>
-        <div id="card-errors" role="alert">
-            @if(session('error'))
-                <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
-            @endif
-        </div>
-        <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary pay">
-                Purchase
-            </button>
-            @if(session('message'))
-                <div class="alert alert-success" role="alert">{{ session('message') }}</div>
-            @endif
-        </div>
+        <h2>{{ __("Informações do cartão") }}</h2>
+        <input class="StripeElement mb-3" name="card_holder_name" placeholder="{{ __("Nome no Cartão") }}" required>
+            <div class="col-lg-4 col-md-6">
+                <div id="card-element"></div>
+            </div>
+            <div id="card-errors" role="alert">
+                @if(session('error'))
+                    <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
+                @endif
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary pay">
+                    Purchase
+                </button>
+                @if(session('message'))
+                    <div class="alert alert-success" role="alert">{{ session('message') }}</div>
+                @endif
+            </div>
+
     </form>
 @endsection
 
@@ -94,7 +104,6 @@
         card.mount('#card-element')
         let paymentMethod = null
         $('.card-form').on('submit', function (e) {
-            debugger
             $('button.pay').attr('disabled', true)
             if (paymentMethod) {
                 return true
