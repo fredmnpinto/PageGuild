@@ -28,7 +28,7 @@ class ShoppingCartTest extends TestCase
      * @author Frederico
      * @return void
      */
-    /*public function test_add_to_cart() {
+    public function test_add_to_cart() {
 
         $user = User::factory()->create();
         auth()->login($user);
@@ -49,8 +49,8 @@ class ShoppingCartTest extends TestCase
 
         // Garante que o item novo foi adicionado ao carrinho
         $this->assertFalse(OrderController::isShoppingCartEmpty(), "Carrinho não deve estar vazio depois de adicionar um item elegível");
-        $this->assertTrue(OrderController::getShoppingCartItems()->contains($itemToAdd), "Carrinho deve conter o item adicionado");
-    }*/
+        $this->assertTrue(OrderController::cartContains($itemToAdd), "Carrinho deve conter o item adicionado");
+    }
 
     /**
      * Verifica se, depois de chamar o post de
@@ -135,7 +135,7 @@ class ShoppingCartTest extends TestCase
      * @author Frederico
      * @return void
      */
-    /*public function test_checkout_with_empty_cart() {
+    public function test_checkout_with_empty_cart() {
         $user = User::factory()->create();
         auth()->loginUsingId($user->id);
 
@@ -145,7 +145,7 @@ class ShoppingCartTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertSessionHas('error');
-    }*/
+    }
 
     /**
      * Checa se ao tentar fazer checkout sem antes
@@ -155,12 +155,12 @@ class ShoppingCartTest extends TestCase
      * @author Frederico
      * @return void
      */
-    /*public function test_checkout_without_login() {
+    public function test_checkout_without_login() {
         $response = $this->assertGuest()->get(route('order.checkout'));
 
         $response->assertRedirect(route('login'));
         $response->assertSessionHas('error');
-    }*/
+    }
 
     /**
      * Checa se ao tentar fazer checkout sem antes
@@ -181,5 +181,11 @@ class ShoppingCartTest extends TestCase
 
         $response->assertSessionMissing('error');
     }
+
+    /*
+     * TODO:
+     *  - Testes para remover artigos do carrinho
+     *  - Testes para ver a preservacao do carrinho ao fazer logout e login novamente
+     * */
 
 }

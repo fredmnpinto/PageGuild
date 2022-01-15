@@ -87,6 +87,23 @@ class OrderController extends Controller
     }
 
     /**
+     * Checa se o carrinho contem o item especificado
+     *
+     * @param Item $item
+     * @return bool
+     */
+    public static function cartContains(Item $item) {
+        $item_id = $item->id;
+
+        /* Items com o id do item especificado, devolve uma Collection com 1 ou 0 itens */
+        $cartItems = Cart::instance('shopping')->search(function ($cartItem, $rowId) use ($item_id) {
+            return $cartItem->id == $item_id;
+        });
+
+        return $cartItems->count() > 0;
+    }
+
+    /**
      * Retorna a view com o carrinho de compras
      *
      */
