@@ -41,8 +41,12 @@ footer {
     width:100%;
 }
 
+.rounded {
+    border-radius: 10px;
+}
+
 table {
-    background: ghostwhite;
+    background: #dedeea;
     max-height: 50vh;
     overflow: auto;
 }
@@ -52,17 +56,17 @@ form {
     color: black;
 }
 
-tr.purchase-total-amount td:first-child {
+tr.row-highlight td:first-child {
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
 }
 
-tr.purchase-total-amount td:last-child {
+tr.row-highlight td:last-child {
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
 }
 
-.card form {
+.card-form {
     padding: 0;
 }
 
@@ -114,4 +118,8 @@ table .book-link {
 table .book-link:hover {
     color: black;
     font-weight: bold;
+}
+
+.no-background {
+    background: none;
 }

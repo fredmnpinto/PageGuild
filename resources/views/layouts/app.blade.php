@@ -7,6 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Titulo -->
     <title>@yield('title', 'First Laravel Page')</title>
 
     <!-- Scripts -->

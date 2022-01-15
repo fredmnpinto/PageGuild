@@ -2,8 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
-use Auth;
-use Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Database\Query\Builder;
 
@@ -66,9 +66,9 @@ class UserController extends Controller
         // Vai buscar o utilizador que esta neste momento autenticado
         $user = Auth::user();
 
-        $orders = OrderController::buildSearchOrdersQuery($user->id, ['order.id', 'order_status.status', 'registration_date', 'update_date', 'coupon_id'])->get();
+        $ordersData = OrderController::getPastOrders($user);
 
-        return view('profile.userOrders', ['orders' => $orders]);
+        return view('profile.userOrders', compact('ordersData'));
     }
 
     /**
@@ -134,7 +134,7 @@ class UserController extends Controller
 
     /**
      * Faz upload de uma imagem e define-a como a nova foto de perfil do utilizador
-     * 
+     *
      * @author Gabriel
      */
     public function uploadProfileImage(Request $request) {
