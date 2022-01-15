@@ -44,7 +44,46 @@ class OrderController extends Controller
 
         Cart::instance('shopping')->add($item, 1);
 
-        return back()->with('message', __('Item was added to your cart'));
+        return back()->with('message', __('Item foi adicionad ao carrinho com sucesso'));
+    }
+
+    /**
+     * Remove o item desejado do carrinho do
+     * utilizador atual
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function removeFromCart(Request $request) {
+        $request->validate([
+            "item_id" => "required|exists:item,id"
+        ]);
+
+        $item_id = $request->get('item_id');
+
+        /* Retorna todos os artigos desse id presentes no carrinho */
+        $itemToRemove = Cart::instance('shopping')->search(function ($cartItem, $rowId) use ($item_id) {
+            return $cartItem->id == $item_id;
+        })->first();
+        /* @first() Porque ele devolve uma Collection de todos os items com esse ID,
+         mas tera sempre 1 unico item porque o ID é único */
+
+        /* Se for devolvida uma colecao vazia, o item nao estava no carrinho */
+        if ($itemToRemove == null) {
+            return back()->with('error', __("Item não encontrado no carrinho"));
+        }
+
+        $newQuantity = $itemToRemove->qty - 1;
+
+        /* Caso a quantidade se torne 0, ele automaticamente remove o item do carrinho */
+        Cart::instance('shopping')->update($itemToRemove->rowId, $newQuantity);
+
+        /* Se depois de remover o item, o carrinho estiver vazio, deve retornar a pagina inicial com um aviso */
+        if (Cart::instance('shopping')->count() == 0) {
+            return redirect(route('home'))->with('message', __("Seu carrinho agora está vazio"));
+        }
+
+        return back()->with('message', __('Item foi removido do carrinho com sucesso'));
     }
 
     /**
@@ -68,7 +107,7 @@ class OrderController extends Controller
         $shoppingCartItems = self::getShoppingCartItems(); /* Itens em forma de uma Collection do Eloquent */
         $total_amount_tax_included = self::getCartTotal(true);
         $total_amount = self::getCartTotal(false);
-        $total_qty = Cart::count();
+        $total_qty = Cart::instance('shopping')->count();
 
         return view('order.checkout', compact('shoppingCartItems', 'intent', 'total_amount', 'total_amount_tax_included', 'total_qty'));
     }

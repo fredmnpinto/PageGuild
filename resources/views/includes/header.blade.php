@@ -29,7 +29,7 @@
 
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Registar-se') }}</a>
                         </li>
                     @endif
 
@@ -69,7 +69,7 @@
 
                                     <a class="dropdown-item" style="font-weight: bold;" href="{{ route('order.checkout') }}">{{ __("Checkout") }}</a>
                                 @else
-                                    <span class="dropdown-item-text" disabled="disabled" href="#">{{ __("Empty...") }}</span>
+                                    <span class="dropdown-item-text" disabled="disabled">{{ __("Empty...") }}</span>
                                 @endif
                             </div>
                         </li>

@@ -59,14 +59,15 @@ Route::get('/search/results/orderFilter/{searchQuery}/{author_id}/{publisher_id}
  |---------------------------------------------------
  */
 
-Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout')->middleware('auth', 'verified')->middleware('cart_not_empty');
+Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout')->middleware('order')->middleware('cart_not_empty');
 
-Route::post('/order/purchase', [OrderController::class, 'purchase'])->name('order.purchase')->middleware('auth', 'verified')->middleware('cart_not_empty');
+Route::post('/order/purchase', [OrderController::class, 'purchase'])->name('order.purchase')->middleware('order')->middleware('cart_not_empty');
 
-Route::get('/order/shopping_cart', [OrderController::class, 'shoppingCart'])->name('order.shopping_cart')->middleware('auth', 'verified');
+Route::get('/order/shopping_cart', [OrderController::class, 'shoppingCart'])->name('order.shopping_cart')->middleware('order');
 
-Route::post('/order/add_to_cart', [OrderController::class, 'addToCart'])->name('order.add_to_cart')->middleware('auth', 'verified');
+Route::post('/order/add_to_cart', [OrderController::class, 'addToCart'])->name('order.add_to_cart')->middleware('order');
 
+Route::post('/order/remove_from_cart', [OrderController::class, 'removeFromCart'])->name('order.remove_from_cart')->middleware('order')->middleware('cart_not_empty');
 
 /*
  |---------------------------------------------------

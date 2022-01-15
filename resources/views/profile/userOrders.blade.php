@@ -12,7 +12,7 @@
                     <th>{{ __('Estado da encomenda') }}</th>
                 </tr>
             </thead>
-            @foreach($ordersData as $details)
+            @forelse($ordersData as $details)
             <tr>
                 <td>#{{ $details['order']->id }}</td>
                 <td>
@@ -32,7 +32,9 @@
                 <td>{{ $details['order']->registration_date }}</td>
                 <td>{{ $details['status'] }}</td>
             </tr>
-            @endforeach
+            @empty
+                <h5>{{ __("Ainda não realizaste nenhuma compra...") }}</h5>
+            @endforelse
         </table>
     </div>
 @endsection
