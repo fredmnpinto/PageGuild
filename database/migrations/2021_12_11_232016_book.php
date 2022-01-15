@@ -15,7 +15,7 @@ class Book extends Migration
     {
         Schema::create('book', function (Blueprint $table) {
             $table->integer('item_id');
-            $table->text('title')->unique();
+            $table->text('title');
             $table->text('subtitle')->nullable();
             $table->text('synopsis');
             $table->integer('publication_year');
