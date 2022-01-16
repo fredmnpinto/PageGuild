@@ -72,6 +72,10 @@ class ItemController extends Controller
      * Funcao chamada pela rota /search/results
      */
     public function defaultSearch(Request $request) {
+        if($request->search == null) {
+            // Se a pesquisa não tiver nada, ele pesquisa por todos os livros
+            return ItemController::searchItems('');
+        }
         return ItemController::searchItems($request->search);
     }
 
@@ -80,6 +84,10 @@ class ItemController extends Controller
      * Funcao chamada pela rota /search/results/orderFilter/
      */
     public function orderFilterSearch(string $searchQuery, int $author_id, int $publisher_id, int $genre_id, int $publication_year, string $order_by, string $order_direction) {
+        if($searchQuery == null || $searchQuery == 0) {
+            // Se a pesquisa não tiver nada, ele pesquisa por todos os livros
+            return ItemController::searchItems('', author_id: $author_id, publisher_id: $publisher_id, genre_id: $genre_id,year: $publication_year, order_by: $order_by, order_direction: $order_direction);
+        }
         return ItemController::searchItems($searchQuery, author_id: $author_id, publisher_id: $publisher_id, genre_id: $genre_id,year: $publication_year, order_by: $order_by, order_direction: $order_direction);
     }
 
@@ -129,7 +137,7 @@ class ItemController extends Controller
          *
          */
         $url = [
-            "searchQuery" => $searchQuery,
+            "searchQuery" => $searchQuery == '' ? : 0,
             "filters" => [
                 'author' => $author_id ? : 0,
                 'publisher' => $publisher_id ? : 0,
@@ -150,10 +158,10 @@ class ItemController extends Controller
      * Esta função serve para popular o accordion dos diversos filtros (autores, editores, etc...)
      *
      */
-    private function getFilterOptions(string $searchQuery, array $filterColumns, int $author_id = null,
+    public static function getFilterOptions(string $searchQuery, array $filterColumns, int $author_id = null,
                                       int $publisher_id = null, int $genre_id = null, int $year = null): \Illuminate\Support\Collection
     {
-        $query = BookController::buildSearchBooksQuery($searchQuery, [$filterColumns[0], $filterColumns[1]],
+        $query = BookController::buildSearchBooksQuery($searchQuery, $filterColumns,
             author_id: $author_id, genre_id: $genre_id, publisher_id: $publisher_id, year: $year);
 
         return $query

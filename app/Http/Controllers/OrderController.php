@@ -192,7 +192,7 @@ class OrderController extends Controller
      * @param int|null $coupon_id
      * @return Order
      */
-    private static function createOrder($items, User $user, int $coupon_id = null) : Order {
+    public static function createOrder($items, User $user, int $coupon_id = null) : Order {
         $now = new DateTime;
         $now = $now->format('Y-m-d h:i:s');
 
@@ -206,6 +206,7 @@ class OrderController extends Controller
             ]);
 
         $orderItems = [];
+        
         foreach($items as $item) {
             $orderItem = [
                 'order_id' => $order_id,

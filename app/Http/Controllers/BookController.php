@@ -125,6 +125,13 @@ class BookController extends Controller
         return $genres;
     }
 
+    /**
+     * Retorna um array(paginado) de todos os livros que não foram eliminados
+     * 
+     * @param int $numberOfBooks    Numero de livros por pagina
+     * 
+     * @author Gabriel
+     */
     public static function getBooks($numberOfBooks) {
         $books = Book::join('item', 'item.id', '=', 'book.item_id')
                     ->where('item.flag_delete', '=', false)

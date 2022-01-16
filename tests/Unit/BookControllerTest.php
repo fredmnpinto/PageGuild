@@ -61,4 +61,20 @@ class BookControllerTest extends TestCase
                             BookController::buildSearchBooksQuery($book_title,["title"], $book_first_author, $book_first_genre, $book->publisher_id, $book->publication_year)->first()->title,
                             "A função BookController::buildSearchBooksQuery não está a funcionar corretamente!");
     }
+
+
+    /**
+     * Teste a função BookController::getBooks()
+     * 
+     * Se retornar um array com y livros, sendo y o numero de livros especificado por parametro, o teste funcionou
+     * 
+     * @author Gabriel
+     */
+    public function testGetBooks() {
+        $numberOfBooks = 6;
+
+        $books = BookController::getBooks($numberOfBooks);
+
+        $this->assertCount($numberOfBooks, $books, "O numero de livros escolhido e diferente do tamanho de array");
+    }
 }

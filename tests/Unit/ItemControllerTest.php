@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\AuthorBook;
 use App\Models\GenreBook;
 use App\Models\User;
+use App\Models\Author;
 
 use App\Http\Controllers\ItemController;
 
@@ -61,5 +62,25 @@ class ItemControllerTest extends TestCase
 
         // Testa se ele ve o titulo do livro escolhido na view
         //$response->assertSee($book->title, $escaped = false);
+    }
+
+    /**
+     * Testa a função ItemController::getFilterOptions
+     * 
+     * Pesquisa por um autor, se os resultados do conteudo de filtro de autor não possuirem esse autor, então o teste falha
+     * 
+     * @author Gabriel 
+     */
+    public function testGetFilterOptions() {
+        // Para ter a certeza que buscamos um autor que tem pelo menos um livro escrito
+        $author_id = AuthorBook::first()->author_id;
+        $author = Author::find($author_id);
+
+        $searchQuery = $author->name;
+        $filterColumns =  ["author.id","author.name"];
+
+        $results = ItemController::getFilterOptions($searchQuery, $filterColumns);
+
+        $this->assertEquals($author->name, $results->first()->name);
     }
 }
