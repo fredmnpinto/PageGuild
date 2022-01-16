@@ -83,7 +83,7 @@ class OrderControllerTest extends TestCase
         $this->assertNull(OrderController::buildSearchOrdersQuery($user->id, ["order.id"])->get()->first());
 
         // Vai buscar um item
-        $items = Item::where('flag_delete','=','false');
+        $items = Item::where('flag_delete','=','false')->limit(2);
         
         OrderController::createOrder($items, $user);
 
@@ -105,7 +105,7 @@ class OrderControllerTest extends TestCase
         $this->assertEmpty(OrderController::getPastOrders($user));
 
         // Vai buscar um item
-        $items = Item::where('flag_delete','=','false');
+        $items = Item::where('flag_delete','=','false')->limit(2);
         
         OrderController::createOrder($items, $user);
 
