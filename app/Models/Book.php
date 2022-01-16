@@ -30,10 +30,10 @@ class Book extends Model
      * @var array
      */
     protected $fillable = [
-        "title", "subtitle", "sinopsys",
-        "publishing_year", "isbn",
+        "title", "subtitle", "synopsis",
+        "isbn", "publication_year",
         "language_id", "num_pages", "width", "length", "height",
-        "bookbinding"
+        "bookbinding", 'item_id'
     ];
 
     public $timestamps = false;
