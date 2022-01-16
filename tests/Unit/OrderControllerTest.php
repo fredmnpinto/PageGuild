@@ -69,17 +69,47 @@ class OrderControllerTest extends TestCase
     }
 
     /**
-     * @todo
+     * Testa a função OrderController::buildSearchOrdersQuery()
+     * 
+     * Se o utilizador novo na retorna nada na pesquisa das suas orders, e depois de adicionada uma order
+     * ele passa a apresentar, então o teste passa.
+     * 
+     * @author Gabriel
      */
     public function testBuildSearchOrdersQuery() {
-        $this->assertTrue(true);
+        // Criamos um utilizador novo para ter a certeza que não possui orders
+        $user = User::factory()->create();
+
+        $this->assertNull(OrderController::buildSearchOrdersQuery($user->id, ["order.id"])->get()->first());
+
+        // Vai buscar um item
+        $items = Item::where('flag_delete','=','false');
+        
+        OrderController::createOrder($items, $user);
+
+        $this->assertNotNull(OrderController::buildSearchOrdersQuery($user->id, ["order.id"])->get()->first());
     }
 
     /**
-     * @todo
+     * Testa a função OrderController::getPastOrders()
+     * 
+     * Se o utilizador novo na retorna nada na pesquisa das suas orders, e depois de adicionada uma order
+     * ele passa a apresentar, então o teste passa.
+     * 
+     * @author Gabriel
      */
     public function testGetPastOrders() {
-        $this->assertTrue(true);
+        // Criamos um utilizador novo para ter a certeza que não possui orders
+        $user = User::factory()->create();
+
+        $this->assertEmpty(OrderController::getPastOrders($user));
+
+        // Vai buscar um item
+        $items = Item::where('flag_delete','=','false');
+        
+        OrderController::createOrder($items, $user);
+
+        $this->assertNotEmpty(OrderController::getPastOrders($user));
     }
 
 }
