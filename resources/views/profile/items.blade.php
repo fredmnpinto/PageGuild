@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
 @section('title')
-PageGuild | Home
+PageGuild | Seus Itens
 @endsection
 
 @section('content')
     <div class="container">
+        <div class="header">
+            <h2>{{ __("Seus Itens") }}</h2>
+        </div>
         <div class="row m-3">
             <a class="btn-lg btn-primary text-center" href="{{ route('book.create') }}">{{ __("Vender novo livro") }}</a>
         </div>
