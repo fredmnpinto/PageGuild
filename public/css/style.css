@@ -123,3 +123,7 @@ table .book-link:hover {
 .no-background {
     background: none;
 }
+
+textarea {
+    max-height: 15vh;
+}

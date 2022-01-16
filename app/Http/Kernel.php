@@ -47,7 +47,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'order' => [
+        'full-auth' => [
             \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
             \App\Http\Middleware\Authenticate::class,
         ]

@@ -50,7 +50,7 @@ class ItemController extends Controller
                 // Vai buscar o idioma
                 $language = Language::find($book->language_id);
 
-                return view('bookDetails', ['item' => $item,
+                return view('book.bookDetails', ['item' => $item,
                                             'itemType' => $itemType,
                                             'book' => $book,
                                             'authors' => $authors,
@@ -90,10 +90,10 @@ class ItemController extends Controller
      * @param $searchQuery
      * @param $filter - Array com o tipo de filtro, e id do filtro(id do autor, id do editor, etc...) que esta a ser aplicado aos resultados. Por default e null ou 0 para ignorar a filtragem
      */
-    private function searchItems(string $searchQuery,
+    public static function searchItems(string $searchQuery,
                                  int $author_id = null, int $publisher_id = null,
                                  int $genre_id = null, int $year = null,
-                                 string $order_by = null, string $order_direction = 'asc')
+                                 string $order_by = null, string $order_direction = 'asc', int $user_id = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         /**
          * Procura por todas as referencias relacionadas aos livros

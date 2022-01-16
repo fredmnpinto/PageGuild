@@ -43,6 +43,17 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 /*
  |---------------------------------------------------
+ | Rotas relativas a Livros
+ |---------------------------------------------------
+ */
+
+Route::get('/book/create', [\App\Http\Controllers\BookController::class, 'createBook'])->name('book.create')->middleware('full-auth');
+
+Route::post('/book/create', [\App\Http\Controllers\BookController::class, 'store'])->name('book.create')->middleware('full-auth');
+
+
+/*
+ |---------------------------------------------------
  | Rotas relativas a pesquisa de items
  |---------------------------------------------------
  */
@@ -59,15 +70,15 @@ Route::get('/search/results/orderFilter/{searchQuery}/{author_id}/{publisher_id}
  |---------------------------------------------------
  */
 
-Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout')->middleware('order')->middleware('cart_not_empty');
+Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout')->middleware('full-auth')->middleware('cart_not_empty');
 
-Route::post('/order/purchase', [OrderController::class, 'purchase'])->name('order.purchase')->middleware('order')->middleware('cart_not_empty');
+Route::post('/order/purchase', [OrderController::class, 'purchase'])->name('order.purchase')->middleware('full-auth')->middleware('cart_not_empty');
 
-Route::get('/order/shopping_cart', [OrderController::class, 'shoppingCart'])->name('order.shopping_cart')->middleware('order');
+Route::get('/order/shopping_cart', [OrderController::class, 'shoppingCart'])->name('order.shopping_cart')->middleware('full-auth');
 
-Route::post('/order/add_to_cart', [OrderController::class, 'addToCart'])->name('order.add_to_cart')->middleware('order');
+Route::post('/order/add_to_cart', [OrderController::class, 'addToCart'])->name('order.add_to_cart')->middleware('full-auth');
 
-Route::post('/order/remove_from_cart', [OrderController::class, 'removeFromCart'])->name('order.remove_from_cart')->middleware('order')->middleware('cart_not_empty');
+Route::post('/order/remove_from_cart', [OrderController::class, 'removeFromCart'])->name('order.remove_from_cart')->middleware('full-auth')->middleware('cart_not_empty');
 
 /*
  |---------------------------------------------------
@@ -75,26 +86,27 @@ Route::post('/order/remove_from_cart', [OrderController::class, 'removeFromCart'
  |---------------------------------------------------
  */
 
-Route::get('profile', [UserController::class, 'index'])->name('profile')->middleware('auth', 'verified');
+Route::get('profile', [UserController::class, 'index'])->name('profile')->middleware('full-auth');
 
-Route::get('profile/userInformation', [UserController::class, 'showUserInfo'])->name('userInfo')->middleware('auth', 'verified');
+Route::get('profile/userInformation', [UserController::class, 'showUserInfo'])->name('userInfo')->middleware('full-auth');
 
-Route::post('/profile/userInformation/update', [UserController::class, 'updateUserInfo'])->name('updateInfo')->middleware('auth', 'verified');
+Route::post('/profile/userInformation/update', [UserController::class, 'updateUserInfo'])->name('updateInfo')->middleware('full-auth');
 
-Route::get('/profile/userAddress', [UserController::class, 'showUserAddress'])->name('userAddress')->middleware('auth', 'verified');
+Route::get('/profile/userAddress', [UserController::class, 'showUserAddress'])->name('userAddress')->middleware('full-auth');
 
 Route::get('/profile/userAddress/desactivate{address_id}', [AddressController::class, 'deactivateAddress'])->name('deactivateAddress');
 
-Route::get('/profile/userAddress/activate{address_id}', [AddressController::class, 'activateAddress'])->name('activateAddress')->middleware('auth', 'verified');
+Route::get('/profile/userAddress/activate{address_id}', [AddressController::class, 'activateAddress'])->name('activateAddress')->middleware('full-auth');
 
-Route::get('/profile/userAddress/delete{address_id}', [AddressController::class, 'deleteAddress'])->name('deleteAddress')->middleware('auth', 'verified');
+Route::get('/profile/userAddress/delete{address_id}', [AddressController::class, 'deleteAddress'])->name('deleteAddress')->middleware('full-auth');
 
-Route::post('/profile/userAddress/createAddress', [AddressController::class, 'createAddress'])->name('createAddress')->middleware('auth', 'verified');
+Route::post('/profile/userAddress/createAddress', [AddressController::class, 'createAddress'])->name('createAddress')->middleware('full-auth');
 
-Route::get('/profile/userOrders', [UserController::class, 'showUserOrders'])->name('userOrders')->middleware('auth', 'verified');
+Route::get('/profile/userOrders', [UserController::class, 'showUserOrders'])->name('userOrders')->middleware('full-auth');
 
-Route::post('/profile/userInformation/updateAva', [UserController::class, 'uploadProfileImage'])->name('updateProfileImage')->middleware('auth', 'verified');
+Route::post('/profile/userInformation/updateAva', [UserController::class, 'uploadProfileImage'])->name('updateProfileImage')->middleware('full-auth');
 
+Route::get('/profile/items', [UserController::class, 'showUserItems'])->name('user.items')->middleware('full-auth');
 
 /*
  |---------------------------------------------------

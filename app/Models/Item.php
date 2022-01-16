@@ -45,7 +45,7 @@ class Item extends Model implements Buyable
      * @var array
      */
     protected $fillable = [
-        "name", "price"
+        "name", "price", 'item_type_id'
     ];
 
     public function order() {

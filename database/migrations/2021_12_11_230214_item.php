@@ -15,7 +15,7 @@ class Item extends Migration
     {
         Schema::create('item', function (Blueprint $table) {
             $table->id();
-            $table->text('name')->unique();
+            $table->text('name');
             $table->decimal('price', $precision = 5, $scale = 2);
             $table->timestamp('registration_date');
             $table->timestamp('update_date')->nullable();

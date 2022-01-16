@@ -121,15 +121,37 @@ class UserController extends Controller
         return redirect()->route('userInfo');
     }
 
-    public function itemsInShoppingCart() {
+    /**
+     * Retorna todos os itens que o usuario vende
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getUserItems() {
+
+        $items = $this->getUserItemsQuery();
+
+        return $items->get();
+    }
+
+    /**
+     * Retorna a query que pesquisa por todos os itens ativos do usuario
+     *
+     * @return Builder
+     */
+    private function getUserItemsQuery() {
         $user = Auth::user();
+        return BookController::buildSearchBooksQuery('', ['item.*'], user_id: $user->id);
+    }
 
-        $query = DB::table('item', 'i')
-            ->join('shopping_cart sc', 'sc.user_id', '=', "{$user->id}")
-            ->where('i.flag_delete', 'is not', 'true')
-            ->where('sc.flag_delete', 'is not', 'true');
+    /**
+     * É a função responsável pela view de itens do usuário
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function showUserItems() {
+        $items = $this->getUserItemsQuery()->paginate(columns: ['item.*']);
 
-        return $query->get('i.id');
+        return view('profile.items', compact('items'));
     }
 
     /**
